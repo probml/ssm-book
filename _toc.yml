@@ -1,0 +1,61 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: root
+chapters:
+- file: chapters/scratch
+- file: chapters/ssm/ssm_index
+  sections:
+  - file: chapters/ssm/hmm
+  - file: chapters/ssm/hsmm
+  - file: chapters/ssm/lgssm
+  - file: chapters/ssm/nonlin
+  - file: chapters/ssm/nongauss
+  - file: chapters/ssm/switching
+  - file: chapters/ssm/deep
+  - file: chapters/ssm/rnn
+- file: chapters/hmm/hmm_index
+  sections:
+  - file: chapters/hmm/hmm_filter
+  - file: chapters/hmm/hmm_smoother
+  - file: chapters/hmm/hmm_viterbi
+  - file: chapters/hmm/hmm_parallel
+  - file: chapters/hmm/hmm_sampling
+ # - file: chapters/hmm/hmm_discrete_numpy
+- file: chapters/lgssm/lgssm_index
+  sections:
+  - file: chapters/lgssm/kalman_filter
+  - file: chapters/lgssm/kalman_smoother
+  - file: chapters/lgssm/kalman_parallel
+  - file: chapters/lgssm/kalman_sampling
+- file: chapters/extended/extended_index
+  sections:
+  - file: chapters/extended/extended_filter
+  - file: chapters/extended/extended_smoother
+  - file: chapters/extended/extended_parallel
+- file: chapters/unscented/unscented_index
+  sections:
+  - file: chapters/unscented/unscented_filter
+  - file: chapters/unscented/unscented_smoother
+- file: chapters/quadrature/quadrature_index
+- file: chapters/postlin/postlin_index
+- file: chapters/adf/adf_index
+- file: chapters/vi/vi_index
+- file: chapters/pf/pf_index
+- file: chapters/smc/smc_index
+- file: chapters/learning/learning_index
+  sections:
+  - file: chapters/learning/em
+  - file: chapters/learning/sgd
+  - file: chapters/learning/vb
+  - file: chapters/learning/mcmc
+- file: chapters/tracking/tracking_index  
+- file: chapters/ensemble/ensemble_index
+- file: chapters/bnp/bnp_index
+- file: chapters/changepoint/changepoint_index
+- file: chapters/timeseries/timeseries_index
+- file: chapters/gp/gp_index
+- file: chapters/ode/ode_index
+- file: chapters/control/control_index
+- file: bib
