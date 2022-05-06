@@ -5,24 +5,19 @@ format: jb-book
 root: root
 chapters:
 - file: chapters/scratch
-- file: chapters/ssm/ssm_index
-  sections:
-  - file: chapters/ssm/hmm
-  - file: chapters/ssm/hsmm
-  - file: chapters/ssm/lgssm
-  - file: chapters/ssm/nonlin
-  - file: chapters/ssm/nongauss
-  - file: chapters/ssm/switching
-  - file: chapters/ssm/deep
-  - file: chapters/ssm/rnn
+
+- file: chapters/ssm/ssm
+
 - file: chapters/hmm/hmm_index
   sections:
+  - file: chapters/hmm/hmm
+  - file: chapters/hmm/hmm_discrete_numpy
   - file: chapters/hmm/hmm_filter
   - file: chapters/hmm/hmm_smoother
   - file: chapters/hmm/hmm_viterbi
   - file: chapters/hmm/hmm_parallel
   - file: chapters/hmm/hmm_sampling
- # - file: chapters/hmm/hmm_discrete_numpy
+
 - file: chapters/lgssm/lgssm_index
   sections:
   - file: chapters/lgssm/kalman_filter
