@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hidden Semi-Markov Models &#8212; State Space Models: A Modern Approach</title>
+    <title>What are State Space Models? &#8212; State Space Models: A Modern Approach</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -51,10 +51,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Linear Gaussian SSMs" href="lgssm.html" />
-    <link rel="prev" title="Hidden Markov Models" href="hmm.html" />
+    <link rel="next" title="Inference in discrete SSMs" href="../hmm/hmm_index.html" />
+    <link rel="prev" title="Scratchpad" href="../scratch.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -99,68 +101,26 @@ const thebe_selector_output = ".output, .cell_output"
    Scratchpad
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="ssm_index.html">
-   Introduction
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   What are State Space Models?
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="hmm.html">
-     Hidden Markov Models
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Hidden Semi-Markov Models
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lgssm.html">
-     Linear Gaussian SSMs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nonlin.html">
-     Non-Linear Gaussian SSMs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nongauss.html">
-     Non-Gaussian SSMs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="switching.html">
-     Switching SSMs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="deep.html">
-     Deep SSMs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="rnn.html">
-     Recurrent Neural Networks
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../hmm/hmm_index.html">
    Inference in discrete SSMs
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm.html">
+     Hidden Markov Models
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../hmm/hmm_filter.html">
      HMM filtering (forwards algorithm)
@@ -192,8 +152,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../lgssm/lgssm_index.html">
    Inference in linear-Gaussian SSMs
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -224,8 +184,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../extended/extended_index.html">
    Extended (linearized) methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -251,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../unscented/unscented_index.html">
    Unscented methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -303,8 +263,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -417,7 +377,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/chapters/ssm/hsmm.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/chapters/ssm/ssm.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -437,7 +397,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/ssm-jax/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ssm/hsmm.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/ssm-jax/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ssm/ssm.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -458,7 +418,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/ssm-jax/ssm-book/main?urlpath=tree/chapters/ssm/hsmm.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/ssm-jax/ssm-book/main?urlpath=tree/chapters/ssm/ssm.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -466,7 +426,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/ssm-jax/ssm-book/blob/main/chapters/ssm/hsmm.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/ssm-jax/ssm-book/blob/main/chapters/ssm/ssm.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -480,6 +440,19 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-casino-hmm">
+   Example: Casino HMM
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -487,19 +460,159 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Hidden Semi-Markov Models</h1>
+                <h1>What are State Space Models?</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-casino-hmm">
+   Example: Casino HMM
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="hidden-semi-markov-models">
-<h1>Hidden Semi-Markov Models<a class="headerlink" href="#hidden-semi-markov-models" title="Permalink to this headline">¶</a></h1>
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;hide-cell&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">### Install necessary libraries</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jax</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
+    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
+    <span class="kn">import</span> <span class="nn">jax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jsl</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
+    <span class="kn">import</span> <span class="nn">jsl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">rich</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install rich
+    <span class="kn">import</span> <span class="nn">rich</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;hide-cell&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1">### Import standard libraries</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">jit</span><span class="p">,</span> <span class="n">grad</span>
+<span class="kn">from</span> <span class="nn">jax.scipy.special</span> <span class="kn">import</span> <span class="n">logit</span>
+<span class="kn">from</span> <span class="nn">jax.nn</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
+
+<span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="what-are-state-space-models">
+<span id="sec-ssm-intro"></span><h1>What are State Space Models?<a class="headerlink" href="#what-are-state-space-models" title="Permalink to this headline">¶</a></h1>
+<p>A state space model or SSM
+is a partially observed Markov model,
+in which the hidden state,  <span class="math notranslate nohighlight">\(z_t\)</span>,
+evolves over time according to a Markov process.</p>
+<div class="figure align-default" id="ssm-ar">
+<a class="reference internal image-reference" href="../../_images/SSM-AR-inputs.png"><img alt="../../_images/SSM-AR-inputs.png" src="../../_images/SSM-AR-inputs.png" style="width: 152.0px; height: 165.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of an SSM as a graphical model.</span><a class="headerlink" href="#ssm-ar" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="ssm-simplifed">
+<a class="reference internal image-reference" href="../../_images/SSM-simplified.png"><img alt="../../_images/SSM-simplified.png" src="../../_images/SSM-simplified.png" style="width: 136.0px; height: 98.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of a simplified SSM.</span><a class="headerlink" href="#ssm-simplifed" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="example-casino-hmm">
+<span id="sec-casino-ex"></span><h2>Example: Casino HMM<a class="headerlink" href="#example-casino-hmm" title="Permalink to this headline">¶</a></h2>
+<p>We first create the “Ocassionally dishonest casino” model from <span id="id1">[<a class="reference internal" href="../../bib.html#id3" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.</p>
+<p>There are 2 hidden states, each of which emit 6 possible observations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># state transition matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># observation matrix</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">],</span> <span class="c1"># fair die</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># loaded die</span>
+<span class="p">])</span>
+
+<span class="n">pi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="n">nstates</span><span class="p">,</span> <span class="n">nobs</span><span class="p">)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">f308bef5393</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> 
+<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">pi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> 
+
+<span class="ne">NameError</span>: name &#39;normalize&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -527,17 +640,17 @@ const thebe_selector_output = ".output, .cell_output"
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="hmm.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../scratch.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Hidden Markov Models</p>
+            <p class="prev-next-title">Scratchpad</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="lgssm.html" title="next page">
+    <a class='right-next' id="next-link" href="../hmm/hmm_index.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Linear Gaussian SSMs</p>
+        <p class="prev-next-title">Inference in discrete SSMs</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

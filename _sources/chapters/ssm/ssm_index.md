@@ -1,7 +1,0 @@
-
-
-(ch:ssm)=
-# Introduction 
-
-```{tableofcontents}
-```
