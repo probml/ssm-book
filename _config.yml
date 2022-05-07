@@ -1,9 +1,12 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
+# Based on 
+# https://github.com/code-first-ml/book1/blob/main/_config.yml
+
 title: "State Space Models: A Modern Approach"
 author: Kevin Murphy, Scott Linderman, et al.
-logo: logo.png
+#logo: logo.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -21,7 +24,7 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/ssm-jax/ssm-book
+  url: https://github.com/probml/ssm-book
   branch: main
 
 launch_buttons:
@@ -34,6 +37,15 @@ html:
   use_repository_button: true
 
 # https://jupyterbook.org/en/stable/content/math.html
-sphinx:
-  config:
-    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+#sphinx:
+#  config:
+#    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify 
+    - substitution

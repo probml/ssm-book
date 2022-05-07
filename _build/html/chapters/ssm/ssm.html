@@ -393,11 +393,11 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/ssm-jax/ssm-book"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/probml/ssm-book"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/ssm-jax/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ssm/ssm.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/probml/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ssm/ssm.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -418,7 +418,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/ssm-jax/ssm-book/main?urlpath=tree/chapters/ssm/ssm.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/probml/ssm-book/main?urlpath=tree/chapters/ssm/ssm.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -426,7 +426,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/ssm-jax/ssm-book/blob/main/chapters/ssm/ssm.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/probml/ssm-book/blob/main/chapters/ssm/ssm.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -445,10 +445,22 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-casino-hmm">
-   Example: Casino HMM
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   What are State Space Models?
   </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hidden-markov-models">
+   Hidden Markov Models
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-casino-hmm">
+     Example: Casino HMM
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -470,10 +482,22 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-casino-hmm">
-   Example: Casino HMM
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   What are State Space Models?
   </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hidden-markov-models">
+   Hidden Markov Models
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-casino-hmm">
+     Example: Casino HMM
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -486,11 +510,15 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
+<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
+
+<span class="p">{</span>
     <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;hide-cell&quot;</span>
     <span class="p">]</span>
 <span class="p">}</span>
+
 
 <span class="c1">### Install necessary libraries</span>
 
@@ -548,6 +576,8 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+<span class="kn">import</span> <span class="nn">rich</span>
+
 <span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
 <span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
 
@@ -557,24 +587,239 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
+\newcommand{\vzero}{\boldsymbol{0}}
+\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
+\newcommand{\valpha}{\boldsymbol{\alpha}}
+\newcommand{\vbeta}{\boldsymbol{\beta}}
+\newcommand{\vchi}{\boldsymbol{\chi}}
+\newcommand{\vdelta}{\boldsymbol{\delta}}
+\newcommand{\vDelta}{\boldsymbol{\Delta}}
+\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\vzeta}{\boldsymbol{\zeta}}
+\newcommand{\vXi}{\boldsymbol{\Xi}}
+\newcommand{\vell}{\boldsymbol{\ell}}
+\newcommand{\veta}{\boldsymbol{\eta}}
+%\newcommand{\vEta}{\boldsymbol{\Eta}}
+\newcommand{\vgamma}{\boldsymbol{\gamma}}
+\newcommand{\vGamma}{\boldsymbol{\Gamma}}
+\newcommand{\vmu}{\boldsymbol{\mu}}
+\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
+\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vkappa}{\boldsymbol{\kappa}}
+\newcommand{\vlambda}{\boldsymbol{\lambda}}
+\newcommand{\vLambda}{\boldsymbol{\Lambda}}
+\newcommand{\vLambdaBar}{\overline{\vLambda}}
+%\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vomega}{\boldsymbol{\omega}}
+\newcommand{\vOmega}{\boldsymbol{\Omega}}
+\newcommand{\vphi}{\boldsymbol{\phi}}
+\newcommand{\vvarphi}{\boldsymbol{\varphi}}
+\newcommand{\vPhi}{\boldsymbol{\Phi}}
+\newcommand{\vpi}{\boldsymbol{\pi}}
+\newcommand{\vPi}{\boldsymbol{\Pi}}
+\newcommand{\vpsi}{\boldsymbol{\psi}}
+\newcommand{\vPsi}{\boldsymbol{\Psi}}
+\newcommand{\vrho}{\boldsymbol{\rho}}
+\newcommand{\vtheta}{\boldsymbol{\theta}}
+\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
+\newcommand{\vTheta}{\boldsymbol{\Theta}}
+\newcommand{\vsigma}{\boldsymbol{\sigma}}
+\newcommand{\vSigma}{\boldsymbol{\Sigma}}
+\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
+\newcommand{\vsigmoid}{\vsigma}
+\newcommand{\vtau}{\boldsymbol{\tau}}
+\newcommand{\vxi}{\boldsymbol{\xi}}\\
+% Lower Roman (Vectors)
+\newcommand{\va}{\mathbf{a}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vBt}{\mathbf{\tilde{B}}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\vct}{\mathbf{\tilde{c}}}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\ve}{\mathbf{e}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vg}{\mathbf{g}}
+\newcommand{\vh}{\mathbf{h}}
+%\newcommand{\myvh}{\mathbf{h}}
+\newcommand{\vi}{\mathbf{i}}
+\newcommand{\vj}{\mathbf{j}}
+\newcommand{\vk}{\mathbf{k}}
+\newcommand{\vl}{\mathbf{l}}
+\newcommand{\vm}{\mathbf{m}}
+\newcommand{\vn}{\mathbf{n}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vq}{\mathbf{q}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vt}{\mathbf{t}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vw}{\mathbf{w}}
+\newcommand{\vws}{\vw_s}
+\newcommand{\vwt}{\mathbf{\tilde{w}}}
+\newcommand{\vWt}{\mathbf{\tilde{W}}}
+\newcommand{\vwh}{\hat{\vw}}
+\newcommand{\vx}{\mathbf{x}}
+%\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vxt}{\mathbf{\tilde{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\vyt}{\mathbf{\tilde{y}}}
+\newcommand{\vz}{\mathbf{z}}
+%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+% Upper Roman (Matrices)
+\newcommand{\vA}{\mathbf{A}}
+\newcommand{\vB}{\mathbf{B}}
+\newcommand{\vC}{\mathbf{C}}
+\newcommand{\vD}{\mathbf{D}}
+\newcommand{\vE}{\mathbf{E}}
+\newcommand{\vF}{\mathbf{F}}
+\newcommand{\vG}{\mathbf{G}}
+\newcommand{\vH}{\mathbf{H}}
+\newcommand{\vI}{\mathbf{I}}
+\newcommand{\vJ}{\mathbf{J}}
+\newcommand{\vK}{\mathbf{K}}
+\newcommand{\vL}{\mathbf{L}}
+\newcommand{\vM}{\mathbf{M}}
+\newcommand{\vMt}{\mathbf{\tilde{M}}}
+\newcommand{\vN}{\mathbf{N}}
+\newcommand{\vO}{\mathbf{O}}
+\newcommand{\vP}{\mathbf{P}}
+\newcommand{\vQ}{\mathbf{Q}}
+\newcommand{\vR}{\mathbf{R}}
+\newcommand{\vS}{\mathbf{S}}
+\newcommand{\vT}{\mathbf{T}}
+\newcommand{\vU}{\mathbf{U}}
+\newcommand{\vV}{\mathbf{V}}
+\newcommand{\vW}{\mathbf{W}}
+\newcommand{\vX}{\mathbf{X}}
+%\newcommand{\vXs}{\vX_{\vs}}
+\newcommand{\vXs}{\vX_{s}}
+\newcommand{\vXt}{\mathbf{\tilde{X}}}
+\newcommand{\vY}{\mathbf{Y}}
+\newcommand{\vZ}{\mathbf{Z}}
+\newcommand{\vZt}{\mathbf{\tilde{Z}}}
+\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+%%%%
+\newcommand{\hidden}{\vz}
+\newcommand{\obs}{\vy}
+\newcommand{\inputs}{\vu}
+\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
+\newcommand{\hmmObs}{\vB}
+\newcommand{\hmmInit}{\vpi}
+\newcommand{\hmmhid}{\hidden}
+\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
+\newcommand{\ldsObs}{\vC}
+\newcommand{\ldsDynIn}{\vB}
+\newcommand{\ldsObsIn}{\vD}
+\newcommand{\ldsDynNoise}{\vQ}
+\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDyn}{f}
+\newcommand{\ssmObs}{h}\end{aligned}\end{align} \]</div>
 <div class="tex2jax_ignore mathjax_ignore section" id="what-are-state-space-models">
 <span id="sec-ssm-intro"></span><h1>What are State Space Models?<a class="headerlink" href="#what-are-state-space-models" title="Permalink to this headline">¶</a></h1>
 <p>A state space model or SSM
 is a partially observed Markov model,
-in which the hidden state,  <span class="math notranslate nohighlight">\(z_t\)</span>,
-evolves over time according to a Markov process.</p>
+in which the hidden state,  <span class="math notranslate nohighlight">\(\hidden_t\)</span>,
+evolves over time according to a Markov process,
+possibly conditional on external inputs or controls <span class="math notranslate nohighlight">\(\input_t\)</span>,
+and each hidden state generates some
+observations <span class="math notranslate nohighlight">\(\obs_t\)</span> at each time step.
+(In this book, we mostly focus on discrete time systems,
+although  we consider the continuous-time case in  XXX.)
+We get to see the observations, but not the hidden state.
+Our main goal is to infer the hidden state given the observations.
+However, we can also use the model to predict future observations,
+by first predicting future hidden states, and then predicting
+what observations they might generate.
+By using  a hidden state <span class="math notranslate nohighlight">\(\hidden_t\)</span>
+to represent the past observations, <span class="math notranslate nohighlight">\(\obs_{1:t-1}\)</span>,
+the  model can have ``infinite’’ memory,
+unlike a standard Markov model.</p>
+<p>Formally we can define an SSM
+as the following joint distribution:</p>
+<div class="math notranslate nohighlight" id="equation-ssmfull">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ssmfull" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T}|\inputs_{1:T})
+ = \left[ p(\hmmhid_1|\inputs_1) \prod_{t=2}^{T}
+ p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) \right]
+ \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t, \inputs_t, \hmmobs_{t-1}) \right]\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmhid_{t-1},\inputs_t)\)</span> is the
+transition model,
+<span class="math notranslate nohighlight">\(p(\hmmobs_t|\hmmhid_t, \inputs_t, \hmmobs_{t-1})\)</span> is the
+observation model,
+and <span class="math notranslate nohighlight">\(\inputs_{t}\)</span> is an optional input or action.
+See <a class="reference internal" href="#ssm-ar"><span class="std std-numref">Figure 3</span></a>
+for an illustration of the corresponding graphical model.</p>
 <div class="figure align-default" id="ssm-ar">
 <a class="reference internal image-reference" href="../../_images/SSM-AR-inputs.png"><img alt="../../_images/SSM-AR-inputs.png" src="../../_images/SSM-AR-inputs.png" style="width: 152.0px; height: 165.0px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of an SSM as a graphical model.</span><a class="headerlink" href="#ssm-ar" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="ssm-simplifed">
+<p>We often consider a simpler setting in which there
+are no external inputs,
+and the observations are conditionally independent of each other
+(rather than having Markovian dependencies) given the hidden state.
+In this case the joint simplifies to</p>
+<div class="math notranslate nohighlight" id="equation-ssmsimplified">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ssmsimplified" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T})
+ = \left[ p(\hmmhid_1) \prod_{t=2}^{T}
+ p(\hmmhid_t|\hmmhid_{t-1}) \right]
+ \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t \right]\]</div>
+<p>See <a class="reference internal" href="#ssm-simplified"><span class="std std-numref">Figure 4</span></a>
+for an illustration of the corresponding graphical model.
+Compare <a class="reference internal" href="#equation-ssmfull">(2)</a> and <a class="reference internal" href="#equation-ssmsimplified">(3)</a>.</p>
+<div class="figure align-default" id="ssm-simplified">
 <a class="reference internal image-reference" href="../../_images/SSM-simplified.png"><img alt="../../_images/SSM-simplified.png" src="../../_images/SSM-simplified.png" style="width: 136.0px; height: 98.0px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of a simplified SSM.</span><a class="headerlink" href="#ssm-simplifed" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of a simplified SSM.</span><a class="headerlink" href="#ssm-simplified" title="Permalink to this image">¶</a></p>
 </div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="hidden-markov-models">
+<span id="sec-hmm-intro"></span><h1>Hidden Markov Models<a class="headerlink" href="#hidden-markov-models" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we discuss the
+hidden Markov model or HMM,
+which is a state space model in which the hidden states
+are discrete, so <span class="math notranslate nohighlight">\(\hmmhid_t \in \{1,\ldots, K\}\)</span>.
+The observations may be discrete,
+<span class="math notranslate nohighlight">\(\hmmobs_t \in \{1,\ldots, C\}\)</span>,
+or continuous,
+<span class="math notranslate nohighlight">\(\hmmobs_t \in \real^D\)</span>,
+or some combination,
+as we illustrate below.
+More details can be found in e.g.,
+<span id="id1">[<a class="reference internal" href="../../bib.html#id34" title="O. Cappe, E. Moulines, and T. Ryden. Inference in Hidden Markov Models. Springer, 2005.">CMR05</a>, <a class="reference internal" href="../../bib.html#id33" title="A. Fraser. Hidden Markov Models and Dynamical Systems. SIAM Press, 2008.">Fra08</a>, <a class="reference internal" href="../../bib.html#id32" title="L. R. Rabiner. A tutorial on Hidden Markov Models and selected applications in speech recognition. Proc. of the IEEE, 77(2):257–286, 1989.">Rab89</a>]</span>.
+For an interactive introduction,
+see <a class="reference external" href="https://nipunbatra.github.io/hmm/">https://nipunbatra.github.io/hmm/</a>.</p>
 <div class="section" id="example-casino-hmm">
-<span id="sec-casino-ex"></span><h2>Example: Casino HMM<a class="headerlink" href="#example-casino-hmm" title="Permalink to this headline">¶</a></h2>
-<p>We first create the “Ocassionally dishonest casino” model from <span id="id1">[<a class="reference internal" href="../../bib.html#id3" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.</p>
-<p>There are 2 hidden states, each of which emit 6 possible observations.</p>
+<h2>Example: Casino HMM<a class="headerlink" href="#example-casino-hmm" title="Permalink to this headline">¶</a></h2>
+<p>To illustrate HMMs with categorical observation model,
+we consider the “Ocassionally dishonest casino” model from <span id="id2">[<a class="reference internal" href="../../bib.html#id3" title="R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids. Cambridge University Press, 1998.">DEKM98</a>]</span>.
+There are 2 hidden states, representing whether the dice being used in the casino is fair or loaded.
+Each state defines a distribution over the 6 possible observations.</p>
+<p>The transition model is denoted by</p>
+<div class="math notranslate nohighlight">
+\[p(z_t=j|z_{t-1}=i) = \hmmTrans_{ij}\]</div>
+<p>Here the <span class="math notranslate nohighlight">\(i\)</span>’th row of <span class="math notranslate nohighlight">\(\vA\)</span> corresponds to the outgoing distribution from state <span class="math notranslate nohighlight">\(i\)</span>.
+This is  a row stochastic matrix,
+meaning each row sums to one.
+We can visualize
+the non-zero entries in the transition matrix by creating a state transition diagram,
+as shown in <a class="reference internal" href="#casino-fig"><span class="std std-ref">Illustration of the casino HMM.</span></a>.</p>
+<div class="figure align-default" id="casino-fig">
+<a class="reference internal image-reference" href="../../_images/casino.png"><img alt="../../_images/casino.png" src="../../_images/casino.png" style="width: 208.5px; height: 142.5px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#casino-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>The  observation model
+<span class="math notranslate nohighlight">\(p(\obs_t|\hiddden_t=j)\)</span> has the form</p>
+<div class="math notranslate nohighlight">
+\[p(\obs_t=k|\hidden_t=j) = \hmmObs_{jk} \]</div>
+<p>This is represented by the histograms associated with each
+state in <a class="reference internal" href="#casino-fig"><span class="std std-ref">Illustration of the casino HMM.</span></a>.</p>
+<p>Finally,
+the initial state distribution is denoted by</p>
+<div class="math notranslate nohighlight">
+\[p(z_1=j) = \hmmInit_j\]</div>
+<p>Collectively we denote all the parameters by <span class="math notranslate nohighlight">\(\vtheta=(\hmmTrans, \hmmObs, \hmmInit)\)</span>.</p>
+<p>Now let us implement this model code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># state transition matrix</span>
@@ -589,25 +834,9 @@ evolves over time according to a Markov process.</p>
     <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># loaded die</span>
 <span class="p">])</span>
 
-<span class="n">pi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-<span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
-
+<span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 
 <span class="p">(</span><span class="n">nstates</span><span class="p">,</span> <span class="n">nobs</span><span class="p">)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">f308bef5393</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> 
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">pi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> 
-
-<span class="ne">NameError</span>: name &#39;normalize&#39; is not defined
 </pre></div>
 </div>
 </div>
