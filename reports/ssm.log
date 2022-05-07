@@ -17,35 +17,23 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# state transition matrix
-A = np.array([
-    [0.95, 0.05],
-    [0.10, 0.90]
-])
-
-# observation matrix
-B = np.array([
-    [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], # fair die
-    [1/10, 1/10, 1/10, 1/10, 1/10, 5/10] # loaded die
-])
-
-pi, _ = normalize(np.array([1, 1]))
-pi = np.array(pi)
-
-
-(nstates, nobs) = np.shape(B)
+# MAP estimation
+fig, ax = plt.subplots()
+plot_inference(z_map, z_hist, ax, map_estimate=True)
+ax.set_ylabel("MAP state")
+ax.set_title("Viterbi")
 
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-3-2f308bef5393>[0m in [0;36m<module>[0;34m[0m
-[1;32m     11[0m ])
-[1;32m     12[0m [0;34m[0m[0m
-[0;32m---> 13[0;31m [0mpi[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mnormalize[0m[0;34m([0m[0mnp[0m[0;34m.[0m[0marray[0m[0;34m([0m[0;34m[[0m[0;36m1[0m[0;34m,[0m [0;36m1[0m[0;34m][0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     14[0m [0mpi[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0marray[0m[0;34m([0m[0mpi[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     15[0m [0;34m[0m[0m
+[0;32m<ipython-input-12-d20416120056>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# MAP estimation[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      2[0m [0mfig[0m[0;34m,[0m [0max[0m [0;34m=[0m [0mplt[0m[0;34m.[0m[0msubplots[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0mplot_inference[0m[0;34m([0m[0mz_map[0m[0;34m,[0m [0mz_hist[0m[0;34m,[0m [0max[0m[0;34m,[0m [0mmap_estimate[0m[0;34m=[0m[0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      4[0m [0max[0m[0;34m.[0m[0mset_ylabel[0m[0;34m([0m[0;34m"MAP state"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0max[0m[0;34m.[0m[0mset_title[0m[0;34m([0m[0;34m"Viterbi"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'normalize' is not defined
-NameError: name 'normalize' is not defined
+[0;31mNameError[0m: name 'z_map' is not defined
+NameError: name 'z_map' is not defined
 
