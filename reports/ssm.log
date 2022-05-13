@@ -17,23 +17,53 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# MAP estimation
+ # Filtering
 fig, ax = plt.subplots()
-plot_inference(z_map, z_hist, ax, map_estimate=True)
-ax.set_ylabel("MAP state")
-ax.set_title("Viterbi")
+plot_inference(filtered_dist, z_hist, ax)
+ax.set_ylabel("p(loaded)")
+ax.set_title("Filtered")
+ 
 
+  
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-12-d20416120056>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0;31m# MAP estimation[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+[0;32m<ipython-input-17-a3a9c11b46bd>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# Filtering[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      2[0m [0mfig[0m[0;34m,[0m [0max[0m [0;34m=[0m [0mplt[0m[0;34m.[0m[0msubplots[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 3[0;31m [0mplot_inference[0m[0;34m([0m[0mz_map[0m[0;34m,[0m [0mz_hist[0m[0;34m,[0m [0max[0m[0;34m,[0m [0mmap_estimate[0m[0;34m=[0m[0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      4[0m [0max[0m[0;34m.[0m[0mset_ylabel[0m[0;34m([0m[0;34m"MAP state"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m [0max[0m[0;34m.[0m[0mset_title[0m[0;34m([0m[0;34m"Viterbi"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0mplot_inference[0m[0;34m([0m[0mfiltered_dist[0m[0;34m,[0m [0mz_hist[0m[0;34m,[0m [0max[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      4[0m [0max[0m[0;34m.[0m[0mset_ylabel[0m[0;34m([0m[0;34m"p(loaded)"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0max[0m[0;34m.[0m[0mset_title[0m[0;34m([0m[0;34m"Filtered"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'z_map' is not defined
-NameError: name 'z_map' is not defined
+[0;32m<ipython-input-16-9c8ddad3f57c>[0m in [0;36mplot_inference[0;34m(inference_values, z_hist, ax, state, map_estimate)[0m
+[1;32m      3[0m     [0mn_samples[0m [0;34m=[0m [0mlen[0m[0;34m([0m[0minference_values[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m     [0mxspan[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0marange[0m[0;34m([0m[0;36m1[0m[0;34m,[0m [0mn_samples[0m [0;34m+[0m [0;36m1[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 5[0;31m     [0mspans[0m [0;34m=[0m [0mfind_dishonest_intervals[0m[0;34m([0m[0mz_hist[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      6[0m     [0;32mif[0m [0mmap_estimate[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m         [0max[0m[0;34m.[0m[0mstep[0m[0;34m([0m[0mxspan[0m[0;34m,[0m [0minference_values[0m[0;34m,[0m [0mwhere[0m[0;34m=[0m[0;34m"post"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m<ipython-input-15-4606c615e17a>[0m in [0;36mfind_dishonest_intervals[0;34m(z_hist)[0m
+[1;32m      4[0m     [0mx_init[0m [0;34m=[0m [0;36m0[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m     [0;32mfor[0m [0mt[0m[0;34m,[0m [0m_[0m [0;32min[0m [0menumerate[0m[0;34m([0m[0mz_hist[0m[0;34m[[0m[0;34m:[0m[0;34m-[0m[0;36m1[0m[0;34m][0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 6[0;31m         [0;32mif[0m [0mz_hist[0m[0;34m[[0m[0mt[0m [0;34m+[0m [0;36m1[0m[0;34m][0m [0;34m==[0m [0;36m0[0m [0;32mand[0m [0mz_hist[0m[0;34m[[0m[0mt[0m[0;34m][0m [0;34m==[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      7[0m             [0mx_end[0m [0;34m=[0m [0mt[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      8[0m             [0mspans[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0;34m([0m[0mx_init[0m[0;34m,[0m [0mx_end[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/functools.py[0m in [0;36m_method[0;34m(cls_or_self, *args, **keywords)[0m
+[1;32m    397[0m         [0;32mdef[0m [0m_method[0m[0;34m([0m[0mcls_or_self[0m[0;34m,[0m [0;34m/[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkeywords[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    398[0m             [0mkeywords[0m [0;34m=[0m [0;34m{[0m[0;34m**[0m[0mself[0m[0;34m.[0m[0mkeywords[0m[0;34m,[0m [0;34m**[0m[0mkeywords[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 399[0;31m             [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mfunc[0m[0;34m([0m[0mcls_or_self[0m[0;34m,[0m [0;34m*[0m[0mself[0m[0;34m.[0m[0margs[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkeywords[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    400[0m         [0m_method[0m[0;34m.[0m[0m__isabstractmethod__[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m__isabstractmethod__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    401[0m         [0m_method[0m[0;34m.[0m[0m_partialmethod[0m [0;34m=[0m [0mself[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/jax/_src/device_array.py[0m in [0;36m_forward_method[0;34m(attrname, self, fun, *args)[0m
+[1;32m     39[0m [0;34m[0m[0m
+[1;32m     40[0m [0;32mdef[0m [0m_forward_method[0m[0;34m([0m[0mattrname[0m[0;34m,[0m [0mself[0m[0;34m,[0m [0mfun[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 41[0;31m   [0;32mreturn[0m [0mfun[0m[0;34m([0m[0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mattrname[0m[0;34m)[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     42[0m [0m_forward_to_value[0m [0;34m=[0m [0mpartial[0m[0;34m([0m[0m_forward_method[0m[0;34m,[0m [0;34m"_value"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     43[0m [0;34m[0m[0m
+
+[0;31mValueError[0m: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
 
