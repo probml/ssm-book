@@ -51,12 +51,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="HMM smoothing (forwards-backwards algorithm)" href="hmm_smoother.html" />
-    <link rel="prev" title="Hidden Markov Models" href="hmm.html" />
+    <link rel="prev" title="Hidden Markov Models" href="hmm_index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -101,26 +101,53 @@ const thebe_selector_output = ".output, .cell_output"
    Scratchpad
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ssm/ssm.html">
-   What are State Space Models?
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ssm/ssm_index.html">
+   State Space Models
   </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="hmm_index.html">
-   Inference in discrete SSMs
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="hmm.html">
+    <a class="reference internal" href="../ssm/ssm_intro.html">
+     What are State Space Models?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/hmm.html">
      Hidden Markov Models
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/lds.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/nlds.html">
+     Nonlinear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/inference.html">
+     Inferential goals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="hmm_index.html">
+   Hidden Markov Models
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      HMM filtering (forwards algorithm)
@@ -150,10 +177,10 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -184,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../extended/extended_index.html">
    Extended (linearized) methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -211,8 +238,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../unscented/unscented_index.html">
    Unscented methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -259,37 +286,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../tracking/tracking_index.html">
@@ -458,21 +458,377 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="hmm-filtering-forwards-algorithm">
-<h1>HMM filtering (forwards algorithm)<a class="headerlink" href="#hmm-filtering-forwards-algorithm" title="Permalink to this headline">¶</a></h1>
-<div class="math notranslate nohighlight">
-\[\newcommand\floor[1]{\lfloor#1\rfloor}\]</div>
+  <div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\newcommand{\defeq}{\triangleq}
+\newcommand{\trans}{{\mkern-1.5mu\mathsf{T}}}
+\newcommand{\transpose}[1]{{#1}^{\trans}}\\\newcommand{\inv}[1]{{#1}^{-1}}
+\DeclareMathOperator{\dotstar}{\odot}\\
+\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
+\newcommand{\vzero}{\boldsymbol{0}}
+\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
+\newcommand{\valpha}{\boldsymbol{\alpha}}
+\newcommand{\vbeta}{\boldsymbol{\beta}}
+\newcommand{\vchi}{\boldsymbol{\chi}}
+\newcommand{\vdelta}{\boldsymbol{\delta}}
+\newcommand{\vDelta}{\boldsymbol{\Delta}}
+\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\vzeta}{\boldsymbol{\zeta}}
+\newcommand{\vXi}{\boldsymbol{\Xi}}
+\newcommand{\vell}{\boldsymbol{\ell}}
+\newcommand{\veta}{\boldsymbol{\eta}}
+%\newcommand{\vEta}{\boldsymbol{\Eta}}
+\newcommand{\vgamma}{\boldsymbol{\gamma}}
+\newcommand{\vGamma}{\boldsymbol{\Gamma}}
+\newcommand{\vmu}{\boldsymbol{\mu}}
+\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
+\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vkappa}{\boldsymbol{\kappa}}
+\newcommand{\vlambda}{\boldsymbol{\lambda}}
+\newcommand{\vLambda}{\boldsymbol{\Lambda}}
+\newcommand{\vLambdaBar}{\overline{\vLambda}}
+%\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vomega}{\boldsymbol{\omega}}
+\newcommand{\vOmega}{\boldsymbol{\Omega}}
+\newcommand{\vphi}{\boldsymbol{\phi}}
+\newcommand{\vvarphi}{\boldsymbol{\varphi}}
+\newcommand{\vPhi}{\boldsymbol{\Phi}}
+\newcommand{\vpi}{\boldsymbol{\pi}}
+\newcommand{\vPi}{\boldsymbol{\Pi}}
+\newcommand{\vpsi}{\boldsymbol{\psi}}
+\newcommand{\vPsi}{\boldsymbol{\Psi}}
+\newcommand{\vrho}{\boldsymbol{\rho}}
+\newcommand{\vtheta}{\boldsymbol{\theta}}
+\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
+\newcommand{\vTheta}{\boldsymbol{\Theta}}
+\newcommand{\vsigma}{\boldsymbol{\sigma}}
+\newcommand{\vSigma}{\boldsymbol{\Sigma}}
+\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
+\newcommand{\vsigmoid}{\vsigma}
+\newcommand{\vtau}{\boldsymbol{\tau}}
+\newcommand{\vxi}{\boldsymbol{\xi}}\\
+% Lower Roman (Vectors)
+\newcommand{\va}{\mathbf{a}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vBt}{\mathbf{\tilde{B}}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\vct}{\mathbf{\tilde{c}}}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\ve}{\mathbf{e}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vg}{\mathbf{g}}
+\newcommand{\vh}{\mathbf{h}}
+%\newcommand{\myvh}{\mathbf{h}}
+\newcommand{\vi}{\mathbf{i}}
+\newcommand{\vj}{\mathbf{j}}
+\newcommand{\vk}{\mathbf{k}}
+\newcommand{\vl}{\mathbf{l}}
+\newcommand{\vm}{\mathbf{m}}
+\newcommand{\vn}{\mathbf{n}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vq}{\mathbf{q}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vt}{\mathbf{t}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vw}{\mathbf{w}}
+\newcommand{\vws}{\vw_s}
+\newcommand{\vwt}{\mathbf{\tilde{w}}}
+\newcommand{\vWt}{\mathbf{\tilde{W}}}
+\newcommand{\vwh}{\hat{\vw}}
+\newcommand{\vx}{\mathbf{x}}
+%\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vxt}{\mathbf{\tilde{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\vyt}{\mathbf{\tilde{y}}}
+\newcommand{\vz}{\mathbf{z}}
+%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+% Upper Roman (Matrices)
+\newcommand{\vA}{\mathbf{A}}
+\newcommand{\vB}{\mathbf{B}}
+\newcommand{\vC}{\mathbf{C}}
+\newcommand{\vD}{\mathbf{D}}
+\newcommand{\vE}{\mathbf{E}}
+\newcommand{\vF}{\mathbf{F}}
+\newcommand{\vG}{\mathbf{G}}
+\newcommand{\vH}{\mathbf{H}}
+\newcommand{\vI}{\mathbf{I}}
+\newcommand{\vJ}{\mathbf{J}}
+\newcommand{\vK}{\mathbf{K}}
+\newcommand{\vL}{\mathbf{L}}
+\newcommand{\vM}{\mathbf{M}}
+\newcommand{\vMt}{\mathbf{\tilde{M}}}
+\newcommand{\vN}{\mathbf{N}}
+\newcommand{\vO}{\mathbf{O}}
+\newcommand{\vP}{\mathbf{P}}
+\newcommand{\vQ}{\mathbf{Q}}
+\newcommand{\vR}{\mathbf{R}}
+\newcommand{\vS}{\mathbf{S}}
+\newcommand{\vT}{\mathbf{T}}
+\newcommand{\vU}{\mathbf{U}}
+\newcommand{\vV}{\mathbf{V}}
+\newcommand{\vW}{\mathbf{W}}
+\newcommand{\vX}{\mathbf{X}}
+%\newcommand{\vXs}{\vX_{\vs}}
+\newcommand{\vXs}{\vX_{s}}
+\newcommand{\vXt}{\mathbf{\tilde{X}}}
+\newcommand{\vY}{\mathbf{Y}}
+\newcommand{\vZ}{\mathbf{Z}}
+\newcommand{\vZt}{\mathbf{\tilde{Z}}}
+\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+%%%%
+\newcommand{\hidden}{\vz}
+\newcommand{\hid}{\hidden}
+\newcommand{\observed}{\vy}
+\newcommand{\obs}{\observed}
+\newcommand{\inputs}{\vu}
+\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
+\newcommand{\hmmObs}{\vB}
+\newcommand{\hmmInit}{\vpi}\\
+\newcommand{\ldsDyn}{\vA}
+\newcommand{\ldsObs}{\vC}
+\newcommand{\ldsDynIn}{\vB}
+\newcommand{\ldsObsIn}{\vD}
+\newcommand{\ldsDynNoise}{\vQ}
+\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
+\newcommand{\ssmObsFn}{h}\\
+%%%
+\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
+<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
+
+<span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;hide-cell&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1">### Install necessary libraries</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jax</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
+    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
+    <span class="kn">import</span> <span class="nn">jax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">distrax</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install --upgrade  distrax
+    <span class="kn">import</span> <span class="nn">distrax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jsl</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
+    <span class="kn">import</span> <span class="nn">jsl</span>
+
+<span class="c1">#try:</span>
+<span class="c1">#    import ssm_jax</span>
+<span class="c1">##except:</span>
+<span class="c1">#    %pip install git+https://github.com/probml/ssm-jax</span>
+<span class="c1">#    import ssm_jax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">rich</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install rich
+    <span class="kn">import</span> <span class="nn">rich</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;hide-cell&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1">### Import standard libraries</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">jit</span><span class="p">,</span> <span class="n">grad</span>
+<span class="kn">from</span> <span class="nn">jax.scipy.special</span> <span class="kn">import</span> <span class="n">logit</span>
+<span class="kn">from</span> <span class="nn">jax.nn</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+<span class="kn">import</span> <span class="nn">rich</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
+
+<span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="hmm-filtering-forwards-algorithm">
+<span id="sec-forwards"></span><h1>HMM filtering (forwards algorithm)<a class="headerlink" href="#hmm-filtering-forwards-algorithm" title="Permalink to this headline">¶</a></h1>
+<p>The  <strong>Bayes filter</strong> is an algorithm for recursively computing
+the belief state
+<span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:t})\)</span> given
+the prior belief from the previous step,
+<span class="math notranslate nohighlight">\(p(\hidden_{t-1}|\obs_{1:t-1})\)</span>,
+the new observation <span class="math notranslate nohighlight">\(\obs_t\)</span>,
+and the model.
+This can be done using <strong>sequential Bayesian updating</strong>.
+For a dynamical model, this reduces to the
+<strong>predict-update</strong> cycle described below.</p>
+<p>The <strong>prediction step</strong> is just the <strong>Chapman-Kolmogorov equation</strong>:</p>
+<div class="math notranslate nohighlight">
+\[p(\hidden_t|\obs_{1:t-1})
+= \int p(\hidden_t|\hidden_{t-1}) p(\hidden_{t-1}|\obs_{1:t-1}) d\hidden_{t-1}\]</div>
+<p>The prediction step computes
+the one-step-ahead predictive distribution
+for the latent state, which updates
+the posterior from the previous time step into the prior
+for the current step.</p>
+<p>The <strong>update step</strong>
+is just Bayes rule:</p>
+<div class="math notranslate nohighlight">
+\[p(\hidden_t|\obs_{1:t}) = \frac{1}{Z_t}
+p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1})\]</div>
+<p>where the normalization constant is</p>
+<div class="math notranslate nohighlight">
+\[Z_t = \int p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1}) d\hidden_{t}
+= p(\obs_t|\obs_{1:t-1})\]</div>
+<p>When the latent states <span class="math notranslate nohighlight">\(\hidden_t\)</span> are discrete, as in HMM,
+the above integrals become sums.
+In particular, suppose we define
+the belief state as <span class="math notranslate nohighlight">\(\alpha_t(j) \defeq p(\hidden_t=j|\obs_{1:t})\)</span>,
+the local evidence as <span class="math notranslate nohighlight">\(\lambda_t(j) \defeq p(\obs_t|\hidden_t=j)\)</span>,
+and the transition matrix
+<span class="math notranslate nohighlight">\(A(i,j)  = p(\hidden_t=j|\hidden_{t-1}=i)\)</span>.
+Then the predict step becomes</p>
+<div class="math notranslate nohighlight" id="equation-eqn-predictivehmm">
+<span class="eqno">(19)<a class="headerlink" href="#equation-eqn-predictivehmm" title="Permalink to this equation">¶</a></span>\[\alpha_{t|t-1}(j) \defeq p(\hidden_t=j|\obs_{1:t-1})
+ = \sum_i \alpha_{t-1}(i) A(i,j)\]</div>
+<p>and the update step becomes</p>
+<div class="math notranslate nohighlight" id="equation-eqn-fwdseqn">
+<span class="eqno">(20)<a class="headerlink" href="#equation-eqn-fwdseqn" title="Permalink to this equation">¶</a></span>\[\alpha_t(j)
+= \frac{1}{Z_t} \lambda_t(j) \alpha_{t|t-1}(j)
+= \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) A(i,j)  \right]\]</div>
+<p>where
+the  normalization constant for each time step is given by</p>
+<div class="math notranslate nohighlight" id="equation-eqn-hmmz">
+<span class="eqno">(21)<a class="headerlink" href="#equation-eqn-hmmz" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
+Z_t \defeq p(\obs_t|\obs_{1:t-1})
+&amp;=  \sum_{j=1}^K p(\obs_t|\hidden_t=j)  p(\hidden_t=j|\obs_{1:t-1}) \\
+&amp;=  \sum_{j=1}^K \lambda_t(j) \alpha_{t|t-1}(j)
+\end{align}\end{split}\]</div>
+<p>Since all the quantities are finite length vectors and matrices,
+we can write the update equation
+in matrix-vector notation as follows:</p>
+<div class="math notranslate nohighlight">
+\[\valpha_t =\text{normalize}\left(
+\vlambda_t \dotstar  (\vA^{\trans} \valpha_{t-1}) \right)
+\label{eqn:fwdsAlgoMatrixForm}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\dotstar\)</span> represents
+elementwise vector multiplication,
+and the <span class="math notranslate nohighlight">\(\text{normalize}\)</span> function just ensures its argument sums to one.</p>
+<p>In {ref}(sec:casino-inference)
+we illustrate
+filtering for the casino HMM,
+applied to a random sequence <span class="math notranslate nohighlight">\(\obs_{1:T}\)</span> of length <span class="math notranslate nohighlight">\(T=300\)</span>.
+In blue, we plot the probability that the dice is in the loaded (vs fair) state,
+based on the evidence seen so far.
+The gray bars indicate time intervals during which the generative
+process actually switched to the loaded dice.
+We see that the probability generally increases in the right places.</p>
+<p>Here is a JAX implementation of the forwards algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jsl.hmm.hmm_lib</span> <span class="k">as</span> <span class="nn">hmm_lib</span>
+<span class="n">print_source</span><span class="p">(</span><span class="n">hmm_lib</span><span class="o">.</span><span class="n">hmm_forwards_jax</span><span class="p">)</span>
+<span class="c1">#https://github.com/probml/JSL/blob/main/jsl/hmm/hmm_lib.py#L189</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">@jit
+def hmm_forwards_jax<span style="font-weight: bold">(</span>params, obs_seq, <span style="color: #808000; text-decoration-color: #808000">length</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">)</span>:
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
+    Calculates a belief state
+
+    Parameters
+    ----------
+    params : HMMJax
+        Hidden Markov Model
+
+    obs_seq: array<span style="font-weight: bold">(</span>seq_len<span style="font-weight: bold">)</span>
+        History of observable events
+
+    Returns
+    -------
+    * float
+        The loglikelihood giving log<span style="font-weight: bold">(</span>p<span style="font-weight: bold">(</span>x|model<span style="font-weight: bold">))</span>
+
+    * array<span style="font-weight: bold">(</span>seq_len, n_hidden<span style="font-weight: bold">)</span> :
+        All alpha values found for each sample
+    <span style="color: #008000; text-decoration-color: #008000">''</span>'
+    seq_len = len<span style="font-weight: bold">(</span>obs_seq<span style="font-weight: bold">)</span>
+
+    if length is <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>:
+        length = seq_len
+
+    trans_mat, obs_mat, init_dist = params.trans_mat, params.obs_mat, params.init_dist
+
+    trans_mat = jnp.array<span style="font-weight: bold">(</span>trans_mat<span style="font-weight: bold">)</span>
+    obs_mat = jnp.array<span style="font-weight: bold">(</span>obs_mat<span style="font-weight: bold">)</span>
+    init_dist = jnp.array<span style="font-weight: bold">(</span>init_dist<span style="font-weight: bold">)</span>
+
+    n_states, n_obs = obs_mat.shape
+
+    def scan_fn<span style="font-weight: bold">(</span>carry, t<span style="font-weight: bold">)</span>:
+        <span style="font-weight: bold">(</span>alpha_prev, log_ll_prev<span style="font-weight: bold">)</span> = carry
+        alpha_n = jnp.where<span style="font-weight: bold">(</span>t &lt; length,
+                            obs_mat<span style="font-weight: bold">[</span>:, obs_seq<span style="font-weight: bold">]</span> * <span style="font-weight: bold">(</span>alpha_prev<span style="font-weight: bold">[</span>:, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span> * 
+trans_mat<span style="font-weight: bold">)</span>.sum<span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">axis</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span><span style="font-weight: bold">)</span>,
+                            jnp.zeros_like<span style="font-weight: bold">(</span>alpha_prev<span style="font-weight: bold">))</span>
+
+        alpha_n, cn = normalize<span style="font-weight: bold">(</span>alpha_n<span style="font-weight: bold">)</span>
+        carry = <span style="font-weight: bold">(</span>alpha_n, jnp.log<span style="font-weight: bold">(</span>cn<span style="font-weight: bold">)</span> + log_ll_prev<span style="font-weight: bold">)</span>
+
+        return carry, alpha_n
+
+    # initial belief state
+    alpha_0, c0 = normalize<span style="font-weight: bold">(</span>init_dist * obs_mat<span style="font-weight: bold">[</span>:, obs_seq<span style="font-weight: bold">[</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span><span style="font-weight: bold">]])</span>
+
+    # setup scan loop
+    init_state = <span style="font-weight: bold">(</span>alpha_0, jnp.log<span style="font-weight: bold">(</span>c0<span style="font-weight: bold">))</span>
+    ts = jnp.arange<span style="font-weight: bold">(</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>, seq_len<span style="font-weight: bold">)</span>
+    carry, alpha_hist = lax.scan<span style="font-weight: bold">(</span>scan_fn, init_state, ts<span style="font-weight: bold">)</span>
+
+    # post-process
+    alpha_hist = jnp.vstack<span style="font-weight: bold">()</span>
+    <span style="font-weight: bold">(</span>alpha_final, log_ll<span style="font-weight: bold">)</span> = carry
+    return log_ll, alpha_hist
+
+</pre>
+</div></div>
 </div>
 </div>
 
@@ -501,7 +857,7 @@ const thebe_selector_output = ".output, .cell_output"
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="hmm.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="hmm_index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
