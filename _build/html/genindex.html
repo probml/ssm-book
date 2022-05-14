@@ -97,14 +97,9 @@ const thebe_selector_output = ".output, .cell_output"
    Scratchpad
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="chapters/ssm/ssm.html">
-   What are State Space Models?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="chapters/hmm/hmm_index.html">
-   Inference in discrete SSMs
+  <a class="reference internal" href="chapters/ssm/ssm_index.html">
+   State Space Models
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -113,10 +108,42 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="chapters/hmm/hmm.html">
+    <a class="reference internal" href="chapters/ssm/ssm_intro.html">
+     What are State Space Models?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/hmm.html">
      Hidden Markov Models
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/lds.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/nlds.html">
+     Nonlinear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/inference.html">
+     Inferential goals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="chapters/hmm/hmm_index.html">
+   Hidden Markov Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="chapters/hmm/hmm_filter.html">
      HMM filtering (forwards algorithm)
@@ -146,10 +173,10 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="chapters/lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -180,8 +207,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="chapters/extended/extended_index.html">
    Extended (linearized) methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -207,8 +234,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="chapters/unscented/unscented_index.html">
    Unscented methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -255,37 +282,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="chapters/learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapters/tracking/tracking_index.html">

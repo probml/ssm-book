@@ -1,10 +1,10 @@
 (ch:hmm)=
-# Inference in discrete SSMs 
+# Hidden Markov Models 
 
-This chapter covers inference in HMMs.
+This chapter discusses Hidden Markov Models (HMMs), which are state space models
+in which the latent state $z_t \in \{1,\ldots,K\}$ is discrete.
 
 
 ```{tableofcontents}
 ```
 
-See (sec:casino-ex).

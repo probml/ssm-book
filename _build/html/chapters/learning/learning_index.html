@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Expectation Maximization (EM)" href="em.html" />
+    <link rel="next" title="Multi-target tracking" href="../tracking/tracking_index.html" />
     <link rel="prev" title="Sequential Monte Carlo" href="../smc/smc_index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -99,14 +99,9 @@ const thebe_selector_output = ".output, .cell_output"
    Scratchpad
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ssm/ssm.html">
-   What are State Space Models?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../hmm/hmm_index.html">
-   Inference in discrete SSMs
+  <a class="reference internal" href="../ssm/ssm_index.html">
+   State Space Models
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -115,10 +110,42 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../hmm/hmm.html">
+    <a class="reference internal" href="../ssm/ssm_intro.html">
+     What are State Space Models?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/hmm.html">
      Hidden Markov Models
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/lds.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/nlds.html">
+     Nonlinear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/inference.html">
+     Inferential goals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../hmm/hmm_index.html">
+   Hidden Markov Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../hmm/hmm_filter.html">
      HMM filtering (forwards algorithm)
@@ -148,10 +175,10 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -182,8 +209,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../extended/extended_index.html">
    Extended (linearized) methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -209,8 +236,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../unscented/unscented_index.html">
    Unscented methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -257,37 +284,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Offline parameter estimation (learning)
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../tracking/tracking_index.html">
@@ -436,14 +436,6 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="offline-parameter-estimation-learning">
 <span id="ch-learning"></span><h1>Offline parameter estimation (learning)<a class="headerlink" href="#offline-parameter-estimation-learning" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="em.html">Expectation Maximization (EM)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sgd.html">Stochastic Gradient Descent (SGD)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vb.html">Variational Bayes (VB)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcmc.html">Markov Chain Monte Carlo (MCMC)</a></li>
-</ul>
-</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -478,10 +470,10 @@ const thebe_selector_output = ".output, .cell_output"
             <p class="prev-next-title">Sequential Monte Carlo</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="em.html" title="next page">
+    <a class='right-next' id="next-link" href="../tracking/tracking_index.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Expectation Maximization (EM)</p>
+        <p class="prev-next-title">Multi-target tracking</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

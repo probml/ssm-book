@@ -6,11 +6,16 @@ root: root
 chapters:
 - file: chapters/scratch
 
-- file: chapters/ssm/ssm
+- file: chapters/ssm/ssm_index
+  sections:
+  - file: chapters/ssm/ssm_intro
+  - file: chapters/ssm/hmm
+  - file: chapters/ssm/lds
+  - file: chapters/ssm/nlds
+  - file: chapters/ssm/inference
 
 - file: chapters/hmm/hmm_index
   sections:
-  - file: chapters/hmm/hmm
   - file: chapters/hmm/hmm_filter
   - file: chapters/hmm/hmm_smoother
   - file: chapters/hmm/hmm_viterbi
@@ -41,14 +46,7 @@ chapters:
 - file: chapters/vi/vi_index
 - file: chapters/pf/pf_index
 - file: chapters/smc/smc_index
-
 - file: chapters/learning/learning_index
-  sections:
-  - file: chapters/learning/em
-  - file: chapters/learning/sgd
-  - file: chapters/learning/vb
-  - file: chapters/learning/mcmc
-
 - file: chapters/tracking/tracking_index  
 - file: chapters/ensemble/ensemble_index
 - file: chapters/bnp/bnp_index

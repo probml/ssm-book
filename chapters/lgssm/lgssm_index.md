@@ -1,7 +1,7 @@
 
 
 (ch:lgssm)=
-# Inference in linear-Gaussian SSMs
+# Linear-Gaussian SSMs
 
 ```{tableofcontents}
 ```

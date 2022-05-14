@@ -86,17 +86,23 @@ A photo of a cat and a dog.
 ```
 
 ```{figure} /figures/cat_dog.jpg
-:scale: 50%
+:height: 300px
 :name: cat_dog2
 
 Another photo of a cat and a dog.
 ```
 
-In {numref}`Figure %s <cat_dog>` we show catdog.
+In {numref}`cat_dog` 
+we show catdog.
 In {numref}`Figure %s <cat_dog2>` we show catdog2, its twin.
 
+```{note}
+I am a useful note!
+```
 
 ## Math
+
+Here is $\N=10$ and blah. $\floor{42.3}= 42$.
 
 We have $E= mc^2$, and also
 

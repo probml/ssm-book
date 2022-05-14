@@ -1,0 +1,744 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What are State Space Models? &#8212; State Space Models: A Modern Approach</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Hidden Markov Models" href="hmm.html" />
+    <link rel="prev" title="State Space Models" href="ssm_index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">State Space Models: A Modern Approach</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../root.html">
+   State Space Models: A Modern Approach
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../scratch.html">
+   Scratchpad
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="ssm_index.html">
+   State Space Models
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     What are State Space Models?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm.html">
+     Hidden Markov Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lds.html">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nlds.html">
+     Nonlinear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="inference.html">
+     Inferential goals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../hmm/hmm_index.html">
+   Hidden Markov Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_filter.html">
+     HMM filtering (forwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_smoother.html">
+     HMM smoothing (forwards-backwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_viterbi.html">
+     Viterbi algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_parallel.html">
+     Parallel HMM  smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_sampling.html">
+     Forwards-filtering backwards-sampling algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lgssm/lgssm_index.html">
+   Inference in linear-Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_smoother.html">
+     Kalman (RTS) smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_parallel.html">
+     Parallel Kalman Smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_sampling.html">
+     Forwards-filtering backwards sampling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../extended/extended_index.html">
+   Extended (linearized) methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../extended/extended_filter.html">
+     Extended Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../extended/extended_smoother.html">
+     Extended Kalman smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../extended/extended_parallel.html">
+     Parallel extended Kalman smoothing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unscented/unscented_index.html">
+   Unscented methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unscented/unscented_filter.html">
+     Unscented filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unscented/unscented_smoother.html">
+     Unscented smoothing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../quadrature/quadrature_index.html">
+   Quadrature and cubature methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../postlin/postlin_index.html">
+   Posterior linearization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../adf/adf_index.html">
+   Assumed Density Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vi/vi_index.html">
+   Variational inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pf/pf_index.html">
+   Particle filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../smc/smc_index.html">
+   Sequential Monte Carlo
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../learning/learning_index.html">
+   Offline parameter estimation (learning)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../learning/em.html">
+     Expectation Maximization (EM)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../learning/sgd.html">
+     Stochastic Gradient Descent (SGD)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../learning/vb.html">
+     Variational Bayes (VB)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../learning/mcmc.html">
+     Markov Chain Monte Carlo (MCMC)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tracking/tracking_index.html">
+   Multi-target tracking
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ensemble/ensemble_index.html">
+   Data assimilation using Ensemble Kalman filter
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bnp/bnp_index.html">
+   Bayesian non-parametric SSMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../changepoint/changepoint_index.html">
+   Changepoint detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../timeseries/timeseries_index.html">
+   Timeseries forecasting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gp/gp_index.html">
+   Markovian Gaussian processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ode/ode_index.html">
+   Differential equations and SSMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../control/control_index.html">
+   Optimal control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../bib.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/chapters/ssm/ssm_intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/probml/ssm-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/probml/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ssm/ssm_intro.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/probml/ssm-book/main?urlpath=tree/chapters/ssm/ssm_intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/probml/ssm-book/blob/main/chapters/ssm/ssm_intro.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>What are State Space Models?</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
+\newcommand{\vzero}{\boldsymbol{0}}
+\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
+\newcommand{\valpha}{\boldsymbol{\alpha}}
+\newcommand{\vbeta}{\boldsymbol{\beta}}
+\newcommand{\vchi}{\boldsymbol{\chi}}
+\newcommand{\vdelta}{\boldsymbol{\delta}}
+\newcommand{\vDelta}{\boldsymbol{\Delta}}
+\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\vzeta}{\boldsymbol{\zeta}}
+\newcommand{\vXi}{\boldsymbol{\Xi}}
+\newcommand{\vell}{\boldsymbol{\ell}}
+\newcommand{\veta}{\boldsymbol{\eta}}
+%\newcommand{\vEta}{\boldsymbol{\Eta}}
+\newcommand{\vgamma}{\boldsymbol{\gamma}}
+\newcommand{\vGamma}{\boldsymbol{\Gamma}}
+\newcommand{\vmu}{\boldsymbol{\mu}}
+\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
+\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vkappa}{\boldsymbol{\kappa}}
+\newcommand{\vlambda}{\boldsymbol{\lambda}}
+\newcommand{\vLambda}{\boldsymbol{\Lambda}}
+\newcommand{\vLambdaBar}{\overline{\vLambda}}
+%\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vomega}{\boldsymbol{\omega}}
+\newcommand{\vOmega}{\boldsymbol{\Omega}}
+\newcommand{\vphi}{\boldsymbol{\phi}}
+\newcommand{\vvarphi}{\boldsymbol{\varphi}}
+\newcommand{\vPhi}{\boldsymbol{\Phi}}
+\newcommand{\vpi}{\boldsymbol{\pi}}
+\newcommand{\vPi}{\boldsymbol{\Pi}}
+\newcommand{\vpsi}{\boldsymbol{\psi}}
+\newcommand{\vPsi}{\boldsymbol{\Psi}}
+\newcommand{\vrho}{\boldsymbol{\rho}}
+\newcommand{\vtheta}{\boldsymbol{\theta}}
+\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
+\newcommand{\vTheta}{\boldsymbol{\Theta}}
+\newcommand{\vsigma}{\boldsymbol{\sigma}}
+\newcommand{\vSigma}{\boldsymbol{\Sigma}}
+\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
+\newcommand{\vsigmoid}{\vsigma}
+\newcommand{\vtau}{\boldsymbol{\tau}}
+\newcommand{\vxi}{\boldsymbol{\xi}}\\
+% Lower Roman (Vectors)
+\newcommand{\va}{\mathbf{a}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vBt}{\mathbf{\tilde{B}}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\vct}{\mathbf{\tilde{c}}}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\ve}{\mathbf{e}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vg}{\mathbf{g}}
+\newcommand{\vh}{\mathbf{h}}
+%\newcommand{\myvh}{\mathbf{h}}
+\newcommand{\vi}{\mathbf{i}}
+\newcommand{\vj}{\mathbf{j}}
+\newcommand{\vk}{\mathbf{k}}
+\newcommand{\vl}{\mathbf{l}}
+\newcommand{\vm}{\mathbf{m}}
+\newcommand{\vn}{\mathbf{n}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vq}{\mathbf{q}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vt}{\mathbf{t}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vw}{\mathbf{w}}
+\newcommand{\vws}{\vw_s}
+\newcommand{\vwt}{\mathbf{\tilde{w}}}
+\newcommand{\vWt}{\mathbf{\tilde{W}}}
+\newcommand{\vwh}{\hat{\vw}}
+\newcommand{\vx}{\mathbf{x}}
+%\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vxt}{\mathbf{\tilde{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\vyt}{\mathbf{\tilde{y}}}
+\newcommand{\vz}{\mathbf{z}}
+%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+% Upper Roman (Matrices)
+\newcommand{\vA}{\mathbf{A}}
+\newcommand{\vB}{\mathbf{B}}
+\newcommand{\vC}{\mathbf{C}}
+\newcommand{\vD}{\mathbf{D}}
+\newcommand{\vE}{\mathbf{E}}
+\newcommand{\vF}{\mathbf{F}}
+\newcommand{\vG}{\mathbf{G}}
+\newcommand{\vH}{\mathbf{H}}
+\newcommand{\vI}{\mathbf{I}}
+\newcommand{\vJ}{\mathbf{J}}
+\newcommand{\vK}{\mathbf{K}}
+\newcommand{\vL}{\mathbf{L}}
+\newcommand{\vM}{\mathbf{M}}
+\newcommand{\vMt}{\mathbf{\tilde{M}}}
+\newcommand{\vN}{\mathbf{N}}
+\newcommand{\vO}{\mathbf{O}}
+\newcommand{\vP}{\mathbf{P}}
+\newcommand{\vQ}{\mathbf{Q}}
+\newcommand{\vR}{\mathbf{R}}
+\newcommand{\vS}{\mathbf{S}}
+\newcommand{\vT}{\mathbf{T}}
+\newcommand{\vU}{\mathbf{U}}
+\newcommand{\vV}{\mathbf{V}}
+\newcommand{\vW}{\mathbf{W}}
+\newcommand{\vX}{\mathbf{X}}
+%\newcommand{\vXs}{\vX_{\vs}}
+\newcommand{\vXs}{\vX_{s}}
+\newcommand{\vXt}{\mathbf{\tilde{X}}}
+\newcommand{\vY}{\mathbf{Y}}
+\newcommand{\vZ}{\mathbf{Z}}
+\newcommand{\vZt}{\mathbf{\tilde{Z}}}
+\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+%%%%
+\newcommand{\hidden}{\vz}
+\newcommand{\hid}{\hidden}
+\newcommand{\observed}{\vy}
+\newcommand{\obs}{\observed}
+\newcommand{\inputs}{\vu}
+\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
+\newcommand{\hmmObs}{\vB}
+\newcommand{\hmmInit}{\vpi}
+\newcommand{\hmmhid}{\hidden}
+\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
+\newcommand{\ldsObs}{\vC}
+\newcommand{\ldsDynIn}{\vB}
+\newcommand{\ldsObsIn}{\vD}
+\newcommand{\ldsDynNoise}{\vQ}
+\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
+\newcommand{\ssmObsFn}{h}\\
+%%%
+\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="what-are-state-space-models">
+<span id="sec-ssm-intro"></span><h1>What are State Space Models?<a class="headerlink" href="#what-are-state-space-models" title="Permalink to this headline">¶</a></h1>
+<p>A state space model or SSM
+is a partially observed Markov model,
+in which the hidden state,  <span class="math notranslate nohighlight">\(\hidden_t\)</span>,
+evolves over time according to a Markov process,
+possibly conditional on external inputs or controls <span class="math notranslate nohighlight">\(\input_t\)</span>,
+and each hidden state generates some
+observations <span class="math notranslate nohighlight">\(\obs_t\)</span> at each time step.
+(In this book, we mostly focus on discrete time systems,
+although  we consider the continuous-time case in  XXX.)
+We get to see the observations, but not the hidden state.
+Our main goal is to infer the hidden state given the observations.
+However, we can also use the model to predict future observations,
+by first predicting future hidden states, and then predicting
+what observations they might generate.
+By using  a hidden state <span class="math notranslate nohighlight">\(\hidden_t\)</span>
+to represent the past observations, <span class="math notranslate nohighlight">\(\obs_{1:t-1}\)</span>,
+the  model can have ``infinite’’ memory,
+unlike a standard Markov model.</p>
+<div class="figure align-default" id="fig-ssm-ar">
+<a class="reference internal image-reference" href="../../_images/SSM-AR-inputs.png"><img alt="../../_images/SSM-AR-inputs.png" src="../../_images/SSM-AR-inputs.png" style="height: 300px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of an SSM as a graphical model.</span><a class="headerlink" href="#fig-ssm-ar" title="Permalink to this image">¶</a></p>
+</div>
+<p>Formally we can define an SSM
+as the following joint distribution:</p>
+<div class="math notranslate nohighlight" id="equation-eq-ssm-ar">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-ssm-ar" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T}|\inputs_{1:T})
+ = \left[ p(\hmmhid_1|\inputs_1) \prod_{t=2}^{T}
+ p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) \right]
+ \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t, \inputs_t, \hmmobs_{t-1}) \right]\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmhid_{t-1},\inputs_t)\)</span> is the
+transition model,
+<span class="math notranslate nohighlight">\(p(\hmmobs_t|\hmmhid_t, \inputs_t, \hmmobs_{t-1})\)</span> is the
+observation model,
+and <span class="math notranslate nohighlight">\(\inputs_{t}\)</span> is an optional input or action.
+See <a class="reference internal" href="#fig-ssm-ar"><span class="std std-numref">Fig. 3</span></a>
+for an illustration of the corresponding graphical model.</p>
+<p>We often consider a simpler setting in which the
+observations are conditionally independent of each other
+(rather than having Markovian dependencies) given the hidden state.
+In this case the joint simplifies to</p>
+<div class="math notranslate nohighlight" id="equation-eq-ssm-input">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-ssm-input" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T}|\inputs_{1:T})
+ = \left[ p(\hmmhid_1|\inputs_1) \prod_{t=2}^{T}
+ p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) \right]
+ \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t, \inputs_t) \right]\]</div>
+<p>Sometimes there are no external inputs, so the model further
+simplifies to the following unconditional generative model:</p>
+<div class="math notranslate nohighlight" id="equation-eq-ssm-no-input">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-ssm-no-input" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T})
+ = \left[ p(\hmmhid_1) \prod_{t=2}^{T}
+ p(\hmmhid_t|\hmmhid_{t-1}) \right]
+ \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t) \right]\]</div>
+<p>See <a class="reference internal" href="#ssm-simplified"><span class="std std-numref">Fig. 4</span></a>
+for an illustration of the corresponding graphical model.</p>
+<div class="figure align-default" id="ssm-simplified">
+<a class="reference internal image-reference" href="../../_images/SSM-simplified.png"><img alt="../../_images/SSM-simplified.png" src="../../_images/SSM-simplified.png" style="width: 136.0px; height: 98.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of a simplified SSM.</span><a class="headerlink" href="#ssm-simplified" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters/ssm"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="ssm_index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">State Space Models</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="hmm.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Hidden Markov Models</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Kevin Murphy, Scott Linderman, et al.<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

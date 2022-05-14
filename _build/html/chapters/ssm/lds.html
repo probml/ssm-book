@@ -1,0 +1,985 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linear Gaussian SSMs &#8212; State Space Models: A Modern Approach</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Nonlinear Gaussian SSMs" href="nlds.html" />
+    <link rel="prev" title="Hidden Markov Models" href="hmm.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">State Space Models: A Modern Approach</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../root.html">
+   State Space Models: A Modern Approach
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../scratch.html">
+   Scratchpad
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="ssm_index.html">
+   State Space Models
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="ssm_intro.html">
+     What are State Space Models?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hmm.html">
+     Hidden Markov Models
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Linear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nlds.html">
+     Nonlinear Gaussian SSMs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="inference.html">
+     Inferential goals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../hmm/hmm_index.html">
+   Hidden Markov Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_filter.html">
+     HMM filtering (forwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_smoother.html">
+     HMM smoothing (forwards-backwards algorithm)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_viterbi.html">
+     Viterbi algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_parallel.html">
+     Parallel HMM  smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../hmm/hmm_sampling.html">
+     Forwards-filtering backwards-sampling algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lgssm/lgssm_index.html">
+   Linear-Gaussian SSMs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_filter.html">
+     Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_smoother.html">
+     Kalman (RTS) smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_parallel.html">
+     Parallel Kalman Smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lgssm/kalman_sampling.html">
+     Forwards-filtering backwards sampling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../extended/extended_index.html">
+   Extended (linearized) methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../extended/extended_filter.html">
+     Extended Kalman filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../extended/extended_smoother.html">
+     Extended Kalman smoother
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../extended/extended_parallel.html">
+     Parallel extended Kalman smoothing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unscented/unscented_index.html">
+   Unscented methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unscented/unscented_filter.html">
+     Unscented filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unscented/unscented_smoother.html">
+     Unscented smoothing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../quadrature/quadrature_index.html">
+   Quadrature and cubature methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../postlin/postlin_index.html">
+   Posterior linearization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../adf/adf_index.html">
+   Assumed Density Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vi/vi_index.html">
+   Variational inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pf/pf_index.html">
+   Particle filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../smc/smc_index.html">
+   Sequential Monte Carlo
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../learning/learning_index.html">
+   Offline parameter estimation (learning)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tracking/tracking_index.html">
+   Multi-target tracking
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ensemble/ensemble_index.html">
+   Data assimilation using Ensemble Kalman filter
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bnp/bnp_index.html">
+   Bayesian non-parametric SSMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../changepoint/changepoint_index.html">
+   Changepoint detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../timeseries/timeseries_index.html">
+   Timeseries forecasting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gp/gp_index.html">
+   Markovian Gaussian processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ode/ode_index.html">
+   Differential equations and SSMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../control/control_index.html">
+   Optimal control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../bib.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/chapters/ssm/lds.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/probml/ssm-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/probml/ssm-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ssm/lds.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/probml/ssm-book/main?urlpath=tree/chapters/ssm/lds.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/probml/ssm-book/blob/main/chapters/ssm/lds.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-tracking-a-2d-point">
+   Example: tracking a 2d point
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Linear Gaussian SSMs</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-tracking-a-2d-point">
+   Example: tracking a 2d point
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
+<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
+
+<span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;hide-cell&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1">### Install necessary libraries</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jax</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
+    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
+    <span class="kn">import</span> <span class="nn">jax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">distrax</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install --upgrade  distrax
+    <span class="kn">import</span> <span class="nn">distrax</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">jsl</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
+    <span class="kn">import</span> <span class="nn">jsl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">rich</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install rich
+    <span class="kn">import</span> <span class="nn">rich</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;hide-cell&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1">### Import standard libraries</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">jit</span><span class="p">,</span> <span class="n">grad</span>
+<span class="kn">from</span> <span class="nn">jax.scipy.special</span> <span class="kn">import</span> <span class="n">logit</span>
+<span class="kn">from</span> <span class="nn">jax.nn</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
+<span class="kn">import</span> <span class="nn">rich</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
+
+<span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
+\newcommand{\vzero}{\boldsymbol{0}}
+\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
+\newcommand{\valpha}{\boldsymbol{\alpha}}
+\newcommand{\vbeta}{\boldsymbol{\beta}}
+\newcommand{\vchi}{\boldsymbol{\chi}}
+\newcommand{\vdelta}{\boldsymbol{\delta}}
+\newcommand{\vDelta}{\boldsymbol{\Delta}}
+\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\vzeta}{\boldsymbol{\zeta}}
+\newcommand{\vXi}{\boldsymbol{\Xi}}
+\newcommand{\vell}{\boldsymbol{\ell}}
+\newcommand{\veta}{\boldsymbol{\eta}}
+%\newcommand{\vEta}{\boldsymbol{\Eta}}
+\newcommand{\vgamma}{\boldsymbol{\gamma}}
+\newcommand{\vGamma}{\boldsymbol{\Gamma}}
+\newcommand{\vmu}{\boldsymbol{\mu}}
+\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
+\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vkappa}{\boldsymbol{\kappa}}
+\newcommand{\vlambda}{\boldsymbol{\lambda}}
+\newcommand{\vLambda}{\boldsymbol{\Lambda}}
+\newcommand{\vLambdaBar}{\overline{\vLambda}}
+%\newcommand{\vnu}{\boldsymbol{\nu}}
+\newcommand{\vomega}{\boldsymbol{\omega}}
+\newcommand{\vOmega}{\boldsymbol{\Omega}}
+\newcommand{\vphi}{\boldsymbol{\phi}}
+\newcommand{\vvarphi}{\boldsymbol{\varphi}}
+\newcommand{\vPhi}{\boldsymbol{\Phi}}
+\newcommand{\vpi}{\boldsymbol{\pi}}
+\newcommand{\vPi}{\boldsymbol{\Pi}}
+\newcommand{\vpsi}{\boldsymbol{\psi}}
+\newcommand{\vPsi}{\boldsymbol{\Psi}}
+\newcommand{\vrho}{\boldsymbol{\rho}}
+\newcommand{\vtheta}{\boldsymbol{\theta}}
+\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
+\newcommand{\vTheta}{\boldsymbol{\Theta}}
+\newcommand{\vsigma}{\boldsymbol{\sigma}}
+\newcommand{\vSigma}{\boldsymbol{\Sigma}}
+\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
+\newcommand{\vsigmoid}{\vsigma}
+\newcommand{\vtau}{\boldsymbol{\tau}}
+\newcommand{\vxi}{\boldsymbol{\xi}}\\
+% Lower Roman (Vectors)
+\newcommand{\va}{\mathbf{a}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vBt}{\mathbf{\tilde{B}}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\vct}{\mathbf{\tilde{c}}}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\ve}{\mathbf{e}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vg}{\mathbf{g}}
+\newcommand{\vh}{\mathbf{h}}
+%\newcommand{\myvh}{\mathbf{h}}
+\newcommand{\vi}{\mathbf{i}}
+\newcommand{\vj}{\mathbf{j}}
+\newcommand{\vk}{\mathbf{k}}
+\newcommand{\vl}{\mathbf{l}}
+\newcommand{\vm}{\mathbf{m}}
+\newcommand{\vn}{\mathbf{n}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vq}{\mathbf{q}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vt}{\mathbf{t}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vw}{\mathbf{w}}
+\newcommand{\vws}{\vw_s}
+\newcommand{\vwt}{\mathbf{\tilde{w}}}
+\newcommand{\vWt}{\mathbf{\tilde{W}}}
+\newcommand{\vwh}{\hat{\vw}}
+\newcommand{\vx}{\mathbf{x}}
+%\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vxt}{\mathbf{\tilde{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\vyt}{\mathbf{\tilde{y}}}
+\newcommand{\vz}{\mathbf{z}}
+%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+% Upper Roman (Matrices)
+\newcommand{\vA}{\mathbf{A}}
+\newcommand{\vB}{\mathbf{B}}
+\newcommand{\vC}{\mathbf{C}}
+\newcommand{\vD}{\mathbf{D}}
+\newcommand{\vE}{\mathbf{E}}
+\newcommand{\vF}{\mathbf{F}}
+\newcommand{\vG}{\mathbf{G}}
+\newcommand{\vH}{\mathbf{H}}
+\newcommand{\vI}{\mathbf{I}}
+\newcommand{\vJ}{\mathbf{J}}
+\newcommand{\vK}{\mathbf{K}}
+\newcommand{\vL}{\mathbf{L}}
+\newcommand{\vM}{\mathbf{M}}
+\newcommand{\vMt}{\mathbf{\tilde{M}}}
+\newcommand{\vN}{\mathbf{N}}
+\newcommand{\vO}{\mathbf{O}}
+\newcommand{\vP}{\mathbf{P}}
+\newcommand{\vQ}{\mathbf{Q}}
+\newcommand{\vR}{\mathbf{R}}
+\newcommand{\vS}{\mathbf{S}}
+\newcommand{\vT}{\mathbf{T}}
+\newcommand{\vU}{\mathbf{U}}
+\newcommand{\vV}{\mathbf{V}}
+\newcommand{\vW}{\mathbf{W}}
+\newcommand{\vX}{\mathbf{X}}
+%\newcommand{\vXs}{\vX_{\vs}}
+\newcommand{\vXs}{\vX_{s}}
+\newcommand{\vXt}{\mathbf{\tilde{X}}}
+\newcommand{\vY}{\mathbf{Y}}
+\newcommand{\vZ}{\mathbf{Z}}
+\newcommand{\vZt}{\mathbf{\tilde{Z}}}
+\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
+%%%%
+\newcommand{\hidden}{\vz}
+\newcommand{\hid}{\hidden}
+\newcommand{\observed}{\vy}
+\newcommand{\obs}{\observed}
+\newcommand{\inputs}{\vu}
+\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
+\newcommand{\hmmObs}{\vB}
+\newcommand{\hmmInit}{\vpi}
+\newcommand{\hmmhid}{\hidden}
+\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
+\newcommand{\ldsObs}{\vC}
+\newcommand{\ldsDynIn}{\vB}
+\newcommand{\ldsObsIn}{\vD}
+\newcommand{\ldsDynNoise}{\vQ}
+\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
+\newcommand{\ssmObsFn}{h}\\
+%%%
+\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="linear-gaussian-ssms">
+<span id="sec-lds-intro"></span><h1>Linear Gaussian SSMs<a class="headerlink" href="#linear-gaussian-ssms" title="Permalink to this headline">¶</a></h1>
+<p>Consider the state space model in
+<a class="reference internal" href="ssm_intro.html#equation-eq-ssm-ar">(2)</a>
+where we assume the observations are conditionally iid given the
+hidden states and inputs (i.e. there are no auto-regressive dependencies
+between the observables).
+We can rewrite this model as
+a stochastic nonlinear dynamical system (NLDS)
+by defining the distribution of the next hidden state
+as a deterministic function of the past state
+plus random process noise <span class="math notranslate nohighlight">\(\vepsilon_t\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-e31147c5-366d-4025-ad02-0d0886a1dffa">
+<span class="eqno">(5)<a class="headerlink" href="#equation-e31147c5-366d-4025-ad02-0d0886a1dffa" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\hmmhid_t &amp;= \ssmDynFn(\hmmhid_{t-1}, \inputs_t, \vepsilon_t)  
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vepsilon_t\)</span> is drawn from the distribution such
+that the induced distribution
+on <span class="math notranslate nohighlight">\(\hmmhid_t\)</span> matches <span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmhid_{t-1}, \inputs_t)\)</span>.
+Similarly we can rewrite the observation distributions
+as a deterministic function of the hidden state
+plus observation noise <span class="math notranslate nohighlight">\(\veta_t\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f582ebd3-bbc8-4436-8a13-41e99905dfbd">
+<span class="eqno">(6)<a class="headerlink" href="#equation-f582ebd3-bbc8-4436-8a13-41e99905dfbd" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\hmmobs_t &amp;= \ssmObsFn(\hmmhid_{t}, \inputs_t, \veta_t)
+\end{align}\]</div>
+<p>If we assume additive Gaussian noise,
+the model becomes</p>
+<div class="amsmath math notranslate nohighlight" id="equation-09c96fd9-5478-4aa7-ac38-43504373febc">
+<span class="eqno">(7)<a class="headerlink" href="#equation-09c96fd9-5478-4aa7-ac38-43504373febc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\hmmhid_t &amp;= \ssmDynFn(\hmmhid_{t-1}, \inputs_t) +  \vepsilon_t  \\
+\hmmobs_t &amp;= \ssmObsFn(\hmmhid_{t}, \inputs_t) + \veta_t
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vepsilon_t \sim \gauss(\vzero,\vQ_t)\)</span>
+and <span class="math notranslate nohighlight">\(\veta_t \sim \gauss(\vzero,\vR_t)\)</span>.
+We will call these Gaussian SSMs.</p>
+<p>If we additionally assume
+the transition function <span class="math notranslate nohighlight">\(\ssmDynFn\)</span>
+and the observation function <span class="math notranslate nohighlight">\(\ssmObsFn\)</span> are both linear,
+then we can rewrite the model as follows:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-44914eac-1d98-497d-87e7-1d6b5346a8f2">
+<span class="eqno">(8)<a class="headerlink" href="#equation-44914eac-1d98-497d-87e7-1d6b5346a8f2" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) &amp;= \gauss(\hmmhid_t|\ldsDyn_t \hmmhid_{t-1}
++ \ldsDynIn_t \inputs_t, \vQ_t)
+\\
+p(\hmmobs_t|\hmmhid_t,\inputs_t) &amp;= \gauss(\hmmobs_t|\ldsObs_t \hmmhid_{t}
++ \ldsObsIn_t \inputs_t, \vR_t)
+\end{align}\]</div>
+<p>This is called a
+linear-Gaussian state space model
+(LG-SSM),
+or a
+linear dynamical system (LDS).
+We usually assume the parameters are independent of time, in which case
+the model is said to be time-invariant or homogeneous.</p>
+<div class="section" id="example-tracking-a-2d-point">
+<span id="sec-kalman-tracking"></span><span id="sec-tracking-lds"></span><h2>Example: tracking a 2d point<a class="headerlink" href="#example-tracking-a-2d-point" title="Permalink to this headline">¶</a></h2>
+<p>Consider an object moving in <span class="math notranslate nohighlight">\(\real^2\)</span>.
+Let the state be
+the position and velocity of the object,
+<span class="math notranslate nohighlight">\(\vz_t =\begin{pmatrix} u_t &amp; \dot{u}_t &amp; v_t &amp; \dot{v}_t \end{pmatrix}\)</span>.
+(We use <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> for the two coordinates,
+to avoid confusion with the state and observation variables.)
+If we use Euler discretization,
+the dynamics become</p>
+<div class="amsmath math notranslate nohighlight" id="equation-56d91323-8e7f-4b13-8792-ca0ca145de95">
+<span class="eqno">(9)<a class="headerlink" href="#equation-56d91323-8e7f-4b13-8792-ca0ca145de95" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\underbrace{\begin{pmatrix} u_t\\ \dot{u}_t \\ v_t \\ \dot{v}_t \end{pmatrix}}_{\vz_t}
+  = 
+\underbrace{
+\begin{pmatrix}
+1 &amp; 0 &amp; \Delta &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; \Delta\\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+}_{\ldsDyn}
+\
+\underbrace{\begin{pmatrix} u_{t-1} \\ \dot{u}_{t-1} \\ v_{t-1} \\ \dot{v}_{t-1} \end{pmatrix}}_{\vz_{t-1}}
++ \vepsilon_t
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vepsilon_t \sim \gauss(\vzero,\vQ)\)</span> is
+the process noise.</p>
+<p>Let us assume
+that the process noise is
+a white noise process added to the velocity components
+of the state, but not to the location.
+(This is known as a random accelerations model.)
+We can approximate the resulting process in discrete time by assuming
+<span class="math notranslate nohighlight">\(\vQ = \diag(0, q, 0, q)\)</span>.
+(See  <span id="id1">[<a class="reference internal" href="../../bib.html#id18" title="Simo Sarkka. Bayesian Filtering and Smoothing. Cambridge University Press, 2013. URL: https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf.">Sar13</a>]</span> p60 for a more accurate way
+to convert the continuous time process to discrete time.)</p>
+<p>Now suppose that at each discrete time point we
+observe the location,
+corrupted by  Gaussian noise.
+Thus the observation model becomes</p>
+<div class="amsmath math notranslate nohighlight" id="equation-54905b1b-79c0-47fc-b0cc-f790a1e50550">
+<span class="eqno">(10)<a class="headerlink" href="#equation-54905b1b-79c0-47fc-b0cc-f790a1e50550" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\underbrace{\begin{pmatrix}  y_{1,t} \\  y_{2,t} \end{pmatrix}}_{\vy_t}
+  &amp;=
+    \underbrace{
+    \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0
+    \end{pmatrix}
+    }_{\ldsObs}
+    \
+\underbrace{\begin{pmatrix} u_t\\ \dot{u}_t \\ v_t \\ \dot{v}_t \end{pmatrix}}_{\vz_t}    
+ + \veta_t
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\veta_t \sim \gauss(\vzero,\vR)\)</span> is the \keywordDef{observation noise}.
+We see that the observation matrix <span class="math notranslate nohighlight">\(\ldsObs\)</span> simply ``extracts’’ the
+relevant parts  of the state vector.</p>
+<p>Suppose we sample a trajectory and corresponding set
+of noisy observations from this model,
+<span class="math notranslate nohighlight">\((\vz_{1:T}, \vy_{1:T}) \sim p(\vz,\vy|\vtheta)\)</span>.
+(We use diagonal observation noise,
+<span class="math notranslate nohighlight">\(\vR = \diag(\sigma_1^2, \sigma_2^2)\)</span>.)
+The results are shown below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">314</span><span class="p">)</span>
+<span class="n">timesteps</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">state_size</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">observation_size</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">observation_size</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span>
+<span class="c1"># Prior parameter distribution</span>
+<span class="n">mu0</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">Sigma0</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_size</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span>
+
+<span class="kn">from</span> <span class="nn">jsl.lds.kalman_filter</span> <span class="kn">import</span> <span class="n">LDS</span><span class="p">,</span> <span class="n">smooth</span><span class="p">,</span> <span class="nb">filter</span>
+
+<span class="n">lds</span> <span class="o">=</span> <span class="n">LDS</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">Sigma0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LDS(A=DeviceArray([[1., 0., 1., 0.],
+             [0., 1., 0., 1.],
+             [0., 0., 1., 0.],
+             [0., 0., 0., 1.]], dtype=float32), C=DeviceArray([[1, 0, 0, 0],
+             [0, 1, 0, 0]], dtype=int32), Q=DeviceArray([[0.001, 0.   , 0.   , 0.   ],
+             [0.   , 0.001, 0.   , 0.   ],
+             [0.   , 0.   , 0.001, 0.   ],
+             [0.   , 0.   , 0.   , 0.001]], dtype=float32), R=DeviceArray([[1., 0.],
+             [0., 1.]], dtype=float32), mu=DeviceArray([ 8., 10.,  1.,  0.], dtype=float32), Sigma=DeviceArray([[1., 0., 0., 0.],
+             [0., 1., 0., 0.],
+             [0., 0., 1., 0.],
+             [0., 0., 0., 1.]], dtype=float32), state_offset=None, obs_offset=None, nstates=4, nobs=2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsl.demos.plot_utils</span> <span class="kn">import</span> <span class="n">plot_ellipse</span>
+
+<span class="k">def</span> <span class="nf">plot_tracking_values</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">filtered</span><span class="p">,</span> <span class="n">cov_hist</span><span class="p">,</span> <span class="n">signal_label</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">timesteps</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">observed</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">observed</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;observed&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">filtered</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">signal_label</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">covn</span> <span class="o">=</span> <span class="n">cov_hist</span><span class="p">[</span><span class="n">t</span><span class="p">][:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">plot_ellipse</span><span class="p">(</span><span class="n">covn</span><span class="p">,</span> <span class="n">filtered</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">ax</span><span class="p">,</span> <span class="n">n_std</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">plot_center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_hist</span><span class="p">,</span> <span class="n">x_hist</span> <span class="o">=</span> <span class="n">lds</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">)</span>
+
+<span class="n">fig_truth</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_hist</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x_hist</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;observed&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_hist</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">z_hist</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;truth&quot;</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7.24486608505249, 23.857812213897706, 8.042076778411865, 11.636079120635987)
+</pre></div>
+</div>
+<img alt="../../_images/lds_7_1.png" src="../../_images/lds_7_1.png" />
+</div>
+</div>
+<p>The main task is to infer the hidden states given the noisy
+observations, i.e., <span class="math notranslate nohighlight">\(p(\vz|\vy,\vtheta)\)</span>. We discuss the topic of inference in <a class="reference internal" href="inference.html#sec-inference"><span class="std std-ref">Inferential goals</span></a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters/ssm"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="hmm.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Hidden Markov Models</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="nlds.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Nonlinear Gaussian SSMs</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Kevin Murphy, Scott Linderman, et al.<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
