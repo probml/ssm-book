@@ -51,7 +51,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"covMat": "\\boldsymbol{\\Sigma}", "data": "\\mathcal{D}", "defeq": "\\triangleq", "diag": "\\mathrm{diag}", "discreteState": "s", "dotstar": "\\odot", "dynamicsFn": "\\mathbf{f}", "floor": ["\\lfloor#1\\rfloor", 1], "gainMatrix": "\\mathbf{K}", "gainMatrixReverse": "\\mathbf{G}", "gauss": "\\mathcal{N}", "gaussInfo": "\\mathcal{N}_{\\text{info}}", "hidden": "\\mathbf{x}", "hiddenScalar": "x", "hmmInit": "\\boldsymbol{\\pi}", "hmmInitScalar": "\\pi", "hmmObs": "\\mathbf{B}", "hmmObsScalar": "B", "hmmTrans": "\\mathbf{A}", "hmmTransScalar": "A", "infoMat": "\\precMat", "input": "\\mathbf{u}", "inputs": "\\input", "inv": ["{#1}^{-1}", 1], "keyword": ["\\textbf{#1}", 1], "ldsDyn": "\\mathbf{F}", "ldsDynIn": "\\mathbf{B}", "initMean": "\\boldsymbol{\\mean}_0", "initCov": "\\boldsymbol{\\covMat}_0", "ldsObs": "\\mathbf{H}", "ldsObsIn": "\\mathbf{D}", "ldsTrans": "\\ldsDyn", "ldsTransIn": "\\ldsDynIn", "obsCov": "\\mathbf{R}", "obsNoise": "\\boldsymbol{r}", "map": "\\mathrm{map}", "measurementFn": "\\mathbf{h}", "mean": "\\boldsymbol{\\mu}", "mle": "\\mathrm{mle}", "nlatents": "n_x", "nhidden": "\\nlatents", "ninputs": "n_u", "nobs": "n_y", "nsymbols": "n_y", "nstates": "n_s", "obs": "\\mathbf{y}", "obsScalar": "y", "observed": "\\obs", "obsFn": "\\measurementFn", "params": "\\boldsymbol{\\theta}", "precMean": "\\boldsymbol{\\eta}", "precMat": "\\boldsymbol{\\Lambda}", "real": "\\mathbb{R}", "sigmoid": "\\sigma", "softmax": "\\boldsymbol{\\sigma}", "trans": "\\mathsf{T}", "transpose": ["{#1}^{\\trans}", 1], "transCov": "\\mathbf{Q}", "transNoise": "\\mathbf{q}", "valpha": "\\boldsymbol{\\alpha}", "vbeta": "\\boldsymbol{\\beta}", "vdelta": "\\boldsymbol{\\delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vlambda": "\\boldsymbol{\\lambda}", "vLambda": "\\boldsymbol{\\Lambda}", "vmu": "\\boldsymbol{\\mu}", "vpi": "\\boldsymbol{\\pi}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vone": "\\boldsymbol{1}", "vzero": "\\boldsymbol{0}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -96,11 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../ssm/ssm_index.html">
    State Space Models
@@ -133,7 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ssm/inference.html">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ssm/learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -440,6 +440,39 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example">
+   Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#normalization-constants">
+   Normalization constants
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-implementation">
+   Naive implementation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numerically-stable-implementation">
+   Numerically stable implementation
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -452,304 +485,157 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example">
+   Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#normalization-constants">
+   Normalization constants
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-implementation">
+   Naive implementation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numerically-stable-implementation">
+   Numerically stable implementation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\newcommand{\defeq}{\triangleq}
-\newcommand{\trans}{{\mkern-1.5mu\mathsf{T}}}
-\newcommand{\transpose}[1]{{#1}^{\trans}}\\\newcommand{\inv}[1]{{#1}^{-1}}
-\DeclareMathOperator{\dotstar}{\odot}\\
-\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
-\newcommand{\vzero}{\boldsymbol{0}}
-\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-\newcommand{\valpha}{\boldsymbol{\alpha}}
-\newcommand{\vbeta}{\boldsymbol{\beta}}
-\newcommand{\vchi}{\boldsymbol{\chi}}
-\newcommand{\vdelta}{\boldsymbol{\delta}}
-\newcommand{\vDelta}{\boldsymbol{\Delta}}
-\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-\newcommand{\vzeta}{\boldsymbol{\zeta}}
-\newcommand{\vXi}{\boldsymbol{\Xi}}
-\newcommand{\vell}{\boldsymbol{\ell}}
-\newcommand{\veta}{\boldsymbol{\eta}}
-%\newcommand{\vEta}{\boldsymbol{\Eta}}
-\newcommand{\vgamma}{\boldsymbol{\gamma}}
-\newcommand{\vGamma}{\boldsymbol{\Gamma}}
-\newcommand{\vmu}{\boldsymbol{\mu}}
-\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vkappa}{\boldsymbol{\kappa}}
-\newcommand{\vlambda}{\boldsymbol{\lambda}}
-\newcommand{\vLambda}{\boldsymbol{\Lambda}}
-\newcommand{\vLambdaBar}{\overline{\vLambda}}
-%\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vomega}{\boldsymbol{\omega}}
-\newcommand{\vOmega}{\boldsymbol{\Omega}}
-\newcommand{\vphi}{\boldsymbol{\phi}}
-\newcommand{\vvarphi}{\boldsymbol{\varphi}}
-\newcommand{\vPhi}{\boldsymbol{\Phi}}
-\newcommand{\vpi}{\boldsymbol{\pi}}
-\newcommand{\vPi}{\boldsymbol{\Pi}}
-\newcommand{\vpsi}{\boldsymbol{\psi}}
-\newcommand{\vPsi}{\boldsymbol{\Psi}}
-\newcommand{\vrho}{\boldsymbol{\rho}}
-\newcommand{\vtheta}{\boldsymbol{\theta}}
-\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-\newcommand{\vTheta}{\boldsymbol{\Theta}}
-\newcommand{\vsigma}{\boldsymbol{\sigma}}
-\newcommand{\vSigma}{\boldsymbol{\Sigma}}
-\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-\newcommand{\vsigmoid}{\vsigma}
-\newcommand{\vtau}{\boldsymbol{\tau}}
-\newcommand{\vxi}{\boldsymbol{\xi}}\\
-% Lower Roman (Vectors)
-\newcommand{\va}{\mathbf{a}}
-\newcommand{\vb}{\mathbf{b}}
-\newcommand{\vBt}{\mathbf{\tilde{B}}}
-\newcommand{\vc}{\mathbf{c}}
-\newcommand{\vct}{\mathbf{\tilde{c}}}
-\newcommand{\vd}{\mathbf{d}}
-\newcommand{\ve}{\mathbf{e}}
-\newcommand{\vf}{\mathbf{f}}
-\newcommand{\vg}{\mathbf{g}}
-\newcommand{\vh}{\mathbf{h}}
-%\newcommand{\myvh}{\mathbf{h}}
-\newcommand{\vi}{\mathbf{i}}
-\newcommand{\vj}{\mathbf{j}}
-\newcommand{\vk}{\mathbf{k}}
-\newcommand{\vl}{\mathbf{l}}
-\newcommand{\vm}{\mathbf{m}}
-\newcommand{\vn}{\mathbf{n}}
-\newcommand{\vo}{\mathbf{o}}
-\newcommand{\vp}{\mathbf{p}}
-\newcommand{\vq}{\mathbf{q}}
-\newcommand{\vr}{\mathbf{r}}
-\newcommand{\vs}{\mathbf{s}}
-\newcommand{\vt}{\mathbf{t}}
-\newcommand{\vu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
-\newcommand{\vw}{\mathbf{w}}
-\newcommand{\vws}{\vw_s}
-\newcommand{\vwt}{\mathbf{\tilde{w}}}
-\newcommand{\vWt}{\mathbf{\tilde{W}}}
-\newcommand{\vwh}{\hat{\vw}}
-\newcommand{\vx}{\mathbf{x}}
-%\newcommand{\vx}{\mathbf{x}}
-\newcommand{\vxt}{\mathbf{\tilde{x}}}
-\newcommand{\vy}{\mathbf{y}}
-\newcommand{\vyt}{\mathbf{\tilde{y}}}
-\newcommand{\vz}{\mathbf{z}}
-%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-% Upper Roman (Matrices)
-\newcommand{\vA}{\mathbf{A}}
-\newcommand{\vB}{\mathbf{B}}
-\newcommand{\vC}{\mathbf{C}}
-\newcommand{\vD}{\mathbf{D}}
-\newcommand{\vE}{\mathbf{E}}
-\newcommand{\vF}{\mathbf{F}}
-\newcommand{\vG}{\mathbf{G}}
-\newcommand{\vH}{\mathbf{H}}
-\newcommand{\vI}{\mathbf{I}}
-\newcommand{\vJ}{\mathbf{J}}
-\newcommand{\vK}{\mathbf{K}}
-\newcommand{\vL}{\mathbf{L}}
-\newcommand{\vM}{\mathbf{M}}
-\newcommand{\vMt}{\mathbf{\tilde{M}}}
-\newcommand{\vN}{\mathbf{N}}
-\newcommand{\vO}{\mathbf{O}}
-\newcommand{\vP}{\mathbf{P}}
-\newcommand{\vQ}{\mathbf{Q}}
-\newcommand{\vR}{\mathbf{R}}
-\newcommand{\vS}{\mathbf{S}}
-\newcommand{\vT}{\mathbf{T}}
-\newcommand{\vU}{\mathbf{U}}
-\newcommand{\vV}{\mathbf{V}}
-\newcommand{\vW}{\mathbf{W}}
-\newcommand{\vX}{\mathbf{X}}
-%\newcommand{\vXs}{\vX_{\vs}}
-\newcommand{\vXs}{\vX_{s}}
-\newcommand{\vXt}{\mathbf{\tilde{X}}}
-\newcommand{\vY}{\mathbf{Y}}
-\newcommand{\vZ}{\mathbf{Z}}
-\newcommand{\vZt}{\mathbf{\tilde{Z}}}
-\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-%%%%
-\newcommand{\hidden}{\vz}
-\newcommand{\hid}{\hidden}
-\newcommand{\observed}{\vy}
-\newcommand{\obs}{\observed}
-\newcommand{\inputs}{\vu}
-\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
-\newcommand{\hmmObs}{\vB}
-\newcommand{\hmmInit}{\vpi}\\
-\newcommand{\ldsDyn}{\vA}
-\newcommand{\ldsObs}{\vC}
-\newcommand{\ldsDynIn}{\vB}
-\newcommand{\ldsObsIn}{\vD}
-\newcommand{\ldsDynNoise}{\vQ}
-\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
-\newcommand{\ssmObsFn}{h}\\
-%%%
-\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="hmm-filtering-forwards-algorithm">
+<span id="sec-forwards"></span><h1>HMM filtering (forwards algorithm)<a class="headerlink" href="#hmm-filtering-forwards-algorithm" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
-<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
-
-<span class="p">{</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;hide-cell&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="c1">### Install necessary libraries</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
-    <span class="kn">import</span> <span class="nn">jax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">distrax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade  distrax
-    <span class="kn">import</span> <span class="nn">distrax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jsl</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
-    <span class="kn">import</span> <span class="nn">jsl</span>
-
-<span class="c1">#try:</span>
-<span class="c1">#    import ssm_jax</span>
-<span class="c1">##except:</span>
-<span class="c1">#    %pip install git+https://github.com/probml/ssm-jax</span>
-<span class="c1">#    import ssm_jax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">rich</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install rich
-    <span class="kn">import</span> <span class="nn">rich</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;hide-cell&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="c1">### Import standard libraries</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Import standard libraries</span>
 
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
-
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
-
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">jit</span><span class="p">,</span> <span class="n">grad</span>
-<span class="kn">from</span> <span class="nn">jax.scipy.special</span> <span class="kn">import</span> <span class="n">logit</span>
-<span class="kn">from</span> <span class="nn">jax.nn</span> <span class="kn">import</span> <span class="n">softmax</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
+<span class="c1">#from jax.scipy.special import logit</span>
+<span class="c1">#from jax.nn import softmax</span>
+<span class="kn">import</span> <span class="nn">jax.random</span> <span class="k">as</span> <span class="nn">jr</span>
 
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
-<span class="kn">import</span> <span class="nn">rich</span>
-<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
-<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
 
-<span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">distrax</span>
+<span class="kn">import</span> <span class="nn">optax</span>
+
+<span class="kn">import</span> <span class="nn">jsl</span>
+<span class="kn">import</span> <span class="nn">ssm_jax</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="hmm-filtering-forwards-algorithm">
-<span id="sec-forwards"></span><h1>HMM filtering (forwards algorithm)<a class="headerlink" href="#hmm-filtering-forwards-algorithm" title="Permalink to this headline">¶</a></h1>
-<p>The  <strong>Bayes filter</strong> is an algorithm for recursively computing
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The  <span class="math notranslate nohighlight">\(\keyword{Bayes filter}\)</span> is an algorithm for recursively computing
 the belief state
 <span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:t})\)</span> given
 the prior belief from the previous step,
 <span class="math notranslate nohighlight">\(p(\hidden_{t-1}|\obs_{1:t-1})\)</span>,
 the new observation <span class="math notranslate nohighlight">\(\obs_t\)</span>,
 and the model.
-This can be done using <strong>sequential Bayesian updating</strong>.
+This can be done using <span class="math notranslate nohighlight">\(\keyword{sequential Bayesian updating}\)</span>.
 For a dynamical model, this reduces to the
-<strong>predict-update</strong> cycle described below.</p>
-<p>The <strong>prediction step</strong> is just the <strong>Chapman-Kolmogorov equation</strong>:</p>
-<div class="math notranslate nohighlight">
-\[p(\hidden_t|\obs_{1:t-1})
-= \int p(\hidden_t|\hidden_{t-1}) p(\hidden_{t-1}|\obs_{1:t-1}) d\hidden_{t-1}\]</div>
+<span class="math notranslate nohighlight">\(\keyword{predict-update}\)</span> cycle described below.</p>
+<p>The <span class="math notranslate nohighlight">\(\keyword{prediction step}\)</span> is just the <span class="math notranslate nohighlight">\(\keyword{Chapman-Kolmogorov equation}\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-02a2ec0d-8c24-4270-a3c5-b68a6d04b9be">
+<span class="eqno">(21)<a class="headerlink" href="#equation-02a2ec0d-8c24-4270-a3c5-b68a6d04b9be" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hidden_t|\obs_{1:t-1})
+= \int p(\hidden_t|\hidden_{t-1}) p(\hidden_{t-1}|\obs_{1:t-1}) d\hidden_{t-1}
+\end{align}\]</div>
 <p>The prediction step computes
-the one-step-ahead predictive distribution
-for the latent state, which updates
-the posterior from the previous time step into the prior
+the <span class="math notranslate nohighlight">\(\keyword{one-step-ahead predictive distribution}\)</span>
+for the latent state, which converts
+the posterior from the previous time step to become the prior
 for the current step.</p>
-<p>The <strong>update step</strong>
+<p>The <span class="math notranslate nohighlight">\(\keyword{update step}\)</span>
 is just Bayes rule:</p>
-<div class="math notranslate nohighlight">
-\[p(\hidden_t|\obs_{1:t}) = \frac{1}{Z_t}
-p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1})\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-be8910aa-7596-460f-9268-280f22fdce5e">
+<span class="eqno">(22)<a class="headerlink" href="#equation-be8910aa-7596-460f-9268-280f22fdce5e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hidden_t|\obs_{1:t}) = \frac{1}{Z_t}
+p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1})
+\end{align}\]</div>
 <p>where the normalization constant is</p>
-<div class="math notranslate nohighlight">
-\[Z_t = \int p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1}) d\hidden_{t}
-= p(\obs_t|\obs_{1:t-1})\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-18e83263-589e-4859-84ea-9721705c1f4e">
+<span class="eqno">(23)<a class="headerlink" href="#equation-18e83263-589e-4859-84ea-9721705c1f4e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+Z_t = \int p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1}) d\hidden_{t}
+= p(\obs_t|\obs_{1:t-1})
+\end{align}\]</div>
+<p>Note that we can derive the log marginal likelihood from these normalization constants
+as follows:</p>
+<div class="math notranslate nohighlight" id="equation-eqn-logz">
+<span class="eqno">(24)<a class="headerlink" href="#equation-eqn-logz" title="Permalink to this equation">¶</a></span>\[\log p(\obs_{1:T})
+= \sum_{t=1}^{T} \log p(\obs_t|\obs_{1:t-1})
+= \sum_{t=1}^{T} \log Z_t\]</div>
 <p>When the latent states <span class="math notranslate nohighlight">\(\hidden_t\)</span> are discrete, as in HMM,
 the above integrals become sums.
 In particular, suppose we define
-the belief state as <span class="math notranslate nohighlight">\(\alpha_t(j) \defeq p(\hidden_t=j|\obs_{1:t})\)</span>,
-the local evidence as <span class="math notranslate nohighlight">\(\lambda_t(j) \defeq p(\obs_t|\hidden_t=j)\)</span>,
-and the transition matrix
-<span class="math notranslate nohighlight">\(A(i,j)  = p(\hidden_t=j|\hidden_{t-1}=i)\)</span>.
+the <span class="math notranslate nohighlight">\(\keyword{belief state}\)</span> as <span class="math notranslate nohighlight">\(\alpha_t(j) \defeq p(\hidden_t=j|\obs_{1:t})\)</span>,
+the  <span class="math notranslate nohighlight">\(\keyword{local evidence}\)</span> (or <span class="math notranslate nohighlight">\(\keyword{local likelihood}\)</span>)
+as <span class="math notranslate nohighlight">\(\lambda_t(j) \defeq p(\obs_t|\hidden_t=j)\)</span>,
+and the transition matrix as
+<span class="math notranslate nohighlight">\(\hmmTrans(i,j)  = p(\hidden_t=j|\hidden_{t-1}=i)\)</span>.
 Then the predict step becomes</p>
 <div class="math notranslate nohighlight" id="equation-eqn-predictivehmm">
-<span class="eqno">(19)<a class="headerlink" href="#equation-eqn-predictivehmm" title="Permalink to this equation">¶</a></span>\[\alpha_{t|t-1}(j) \defeq p(\hidden_t=j|\obs_{1:t-1})
+<span class="eqno">(25)<a class="headerlink" href="#equation-eqn-predictivehmm" title="Permalink to this equation">¶</a></span>\[\alpha_{t|t-1}(j) \defeq p(\hidden_t=j|\obs_{1:t-1})
  = \sum_i \alpha_{t-1}(i) A(i,j)\]</div>
 <p>and the update step becomes</p>
 <div class="math notranslate nohighlight" id="equation-eqn-fwdseqn">
-<span class="eqno">(20)<a class="headerlink" href="#equation-eqn-fwdseqn" title="Permalink to this equation">¶</a></span>\[\alpha_t(j)
+<span class="eqno">(26)<a class="headerlink" href="#equation-eqn-fwdseqn" title="Permalink to this equation">¶</a></span>\[\alpha_t(j)
 = \frac{1}{Z_t} \lambda_t(j) \alpha_{t|t-1}(j)
-= \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) A(i,j)  \right]\]</div>
+= \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) \hmmTrans(i,j)  \right]\]</div>
 <p>where
 the  normalization constant for each time step is given by</p>
 <div class="math notranslate nohighlight" id="equation-eqn-hmmz">
-<span class="eqno">(21)<a class="headerlink" href="#equation-eqn-hmmz" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(27)<a class="headerlink" href="#equation-eqn-hmmz" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
 Z_t \defeq p(\obs_t|\obs_{1:t-1})
 &amp;=  \sum_{j=1}^K p(\obs_t|\hidden_t=j)  p(\hidden_t=j|\obs_{1:t-1}) \\
 &amp;=  \sum_{j=1}^K \lambda_t(j) \alpha_{t|t-1}(j)
 \end{align}\end{split}\]</div>
 <p>Since all the quantities are finite length vectors and matrices,
-we can write the update equation
-in matrix-vector notation as follows:</p>
-<div class="math notranslate nohighlight">
-\[\valpha_t =\text{normalize}\left(
-\vlambda_t \dotstar  (\vA^{\trans} \valpha_{t-1}) \right)
-\label{eqn:fwdsAlgoMatrixForm}\]</div>
+we can implement the whole procedure using matrix vector multoplication:</p>
+<div class="math notranslate nohighlight" id="equation-eqn-fwdsalgomatrixform">
+<span class="eqno">(28)<a class="headerlink" href="#equation-eqn-fwdsalgomatrixform" title="Permalink to this equation">¶</a></span>\[\valpha_t =\text{normalize}\left(
+\vlambda_t \dotstar  (\hmmTrans^{\trans} \valpha_{t-1}) \right)\]</div>
 <p>where <span class="math notranslate nohighlight">\(\dotstar\)</span> represents
 elementwise vector multiplication,
 and the <span class="math notranslate nohighlight">\(\text{normalize}\)</span> function just ensures its argument sums to one.</p>
-<p>In {ref}(sec:casino-inference)
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="../ssm/inference.html#sec-casino-inference"><span class="std std-ref">Example: inference in the casino HMM</span></a>
 we illustrate
 filtering for the casino HMM,
 applied to a random sequence <span class="math notranslate nohighlight">\(\obs_{1:T}\)</span> of length <span class="math notranslate nohighlight">\(T=300\)</span>.
@@ -758,77 +644,163 @@ based on the evidence seen so far.
 The gray bars indicate time intervals during which the generative
 process actually switched to the loaded dice.
 We see that the probability generally increases in the right places.</p>
-<p>Here is a JAX implementation of the forwards algorithm.</p>
+</div>
+<div class="section" id="normalization-constants">
+<h2>Normalization constants<a class="headerlink" href="#normalization-constants" title="Permalink to this headline">¶</a></h2>
+<p>In most publications on HMMs,
+such as <span id="id1">[<a class="reference internal" href="../../bib.html#id32" title="L. R. Rabiner. A tutorial on Hidden Markov Models and selected applications in speech recognition. Proc. of the IEEE, 77(2):257–286, 1989.">Rab89</a>]</span>,
+the forwards message is defined
+as the following unnormalized joint probability:</p>
+<div class="math notranslate nohighlight">
+\[\alpha'_t(j) = p(\hidden_t=j,\obs_{1:t}) 
+= \lambda_t(j) \left[\sum_i \alpha'_{t-1}(i) A(i,j)  \right]\]</div>
+<p>In this book we define the forwards message   as the normalized
+conditional probability</p>
+<div class="math notranslate nohighlight">
+\[\alpha_t(j) = p(\hidden_t=j|\obs_{1:t}) 
+= \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) A(i,j)  \right]\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z_t = p(\obs_t|\obs_{1:t-1})\)</span>.</p>
+<p>The “traditional” unnormalized form has several problems.
+First, it rapidly suffers from numerical underflow,
+since the probability of
+the joint event that <span class="math notranslate nohighlight">\((\hidden_t=j,\obs_{1:t})\)</span>
+is vanishingly small.
+To see why, suppose the observations are independent of the states.
+In this case, the unnormalized joint has the form</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2f9dfff7-1a23-4760-98f4-68f254fa0022">
+<span class="eqno">(29)<a class="headerlink" href="#equation-2f9dfff7-1a23-4760-98f4-68f254fa0022" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hidden_t=j,\obs_{1:t}) = p(\hidden_t=j)\prod_{i=1}^t p(\obs_i)
+\end{align}\]</div>
+<p>which becomes exponentially small with <span class="math notranslate nohighlight">\(t\)</span>, because we multiply
+many probabilities which are less than one.
+Second, the unnormalized probability is less interpretable,
+since it is a joint distribution over states and observations,
+rather than a conditional probability of states given observations.
+Third, the unnormalized joint form is harder to approximate
+than the normalized form.
+Of course,
+the two definitions only differ by a
+multiplicative constant
+<span id="id2">[<a class="reference internal" href="../../bib.html#id35" title="Pierre A Devijver. Baum's forward-backward algorithm revisited. Pattern Recognition Letters, 3(6):369–373, 1985.">Dev85</a>]</span>,
+so the algorithmic difference is just
+one line of code (namely the presence or absence of a call to the <code class="docutils literal notranslate"><span class="pre">normalize</span></code> function).</p>
+</div>
+<div class="section" id="naive-implementation">
+<h2>Naive implementation<a class="headerlink" href="#naive-implementation" title="Permalink to this headline">¶</a></h2>
+<p>Below we give a simple numpy implementation of the forwards algorithm.
+We assume the HMM uses categorical observations, for simplicity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jsl.hmm.hmm_lib</span> <span class="k">as</span> <span class="nn">hmm_lib</span>
-<span class="n">print_source</span><span class="p">(</span><span class="n">hmm_lib</span><span class="o">.</span><span class="n">hmm_forwards_jax</span><span class="p">)</span>
-<span class="c1">#https://github.com/probml/JSL/blob/main/jsl/hmm/hmm_lib.py#L189</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalize_np</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">u</span><span class="p">))</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">u</span> <span class="o">/</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span>
+
+<span class="k">def</span> <span class="nf">hmm_forwards_np</span><span class="p">(</span><span class="n">trans_mat</span><span class="p">,</span> <span class="n">obs_mat</span><span class="p">,</span> <span class="n">init_dist</span><span class="p">,</span> <span class="n">obs_seq</span><span class="p">):</span>
+    <span class="n">n_states</span><span class="p">,</span> <span class="n">n_obs</span> <span class="o">=</span> <span class="n">obs_mat</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">seq_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs_seq</span><span class="p">)</span>
+
+    <span class="n">alpha_hist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">n_states</span><span class="p">))</span>
+    <span class="n">ll_hist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">seq_len</span><span class="p">)</span>  <span class="c1"># loglikelihood history</span>
+
+    <span class="n">alpha_n</span> <span class="o">=</span> <span class="n">init_dist</span> <span class="o">*</span> <span class="n">obs_mat</span><span class="p">[:,</span> <span class="n">obs_seq</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">alpha_n</span><span class="p">,</span> <span class="n">cn</span> <span class="o">=</span> <span class="n">normalize_np</span><span class="p">(</span><span class="n">alpha_n</span><span class="p">)</span>
+
+    <span class="n">alpha_hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha_n</span>
+    <span class="n">log_normalizer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">):</span>
+        <span class="n">alpha_n</span> <span class="o">=</span> <span class="n">obs_mat</span><span class="p">[:,</span> <span class="n">obs_seq</span><span class="p">[</span><span class="n">t</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">alpha_n</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">trans_mat</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">alpha_n</span><span class="p">,</span> <span class="n">zn</span> <span class="o">=</span> <span class="n">normalize_np</span><span class="p">(</span><span class="n">alpha_n</span><span class="p">)</span>
+
+        <span class="n">alpha_hist</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha_n</span>
+        <span class="n">log_normalizer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">zn</span><span class="p">)</span> <span class="o">+</span> <span class="n">log_normalizer</span>
+
+    <span class="k">return</span>  <span class="n">log_normalizer</span><span class="p">,</span> <span class="n">alpha_hist</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">@jit
-def hmm_forwards_jax<span style="font-weight: bold">(</span>params, obs_seq, <span style="color: #808000; text-decoration-color: #808000">length</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">)</span>:
-    <span style="color: #008000; text-decoration-color: #008000">''</span>'
-    Calculates a belief state
+</div>
+</div>
+<div class="section" id="numerically-stable-implementation">
+<h2>Numerically stable implementation<a class="headerlink" href="#numerically-stable-implementation" title="Permalink to this headline">¶</a></h2>
+<p>In practice it is more numerically stable to compute
+the log likelihoods <span class="math notranslate nohighlight">\(\ell_t(j) = \log p(\obs_t|\hidden_t=j)\)</span>,
+rather than the likelioods <span class="math notranslate nohighlight">\(\lambda_t(j) = p(\obs_t|\hidden_t=j)\)</span>.
+In this case, we can perform the posterior updating in a numerically stable way as follows.
+Define <span class="math notranslate nohighlight">\(L_t = \max_j \ell_t(j)\)</span> and</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1cf0a390-376b-4da3-873f-daf7e1489cbb">
+<span class="eqno">(30)<a class="headerlink" href="#equation-1cf0a390-376b-4da3-873f-daf7e1489cbb" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\tilde{p}(\hidden_t=j,\obs_t|\obs_{1:t-1})
+&amp;\defeq p(\hidden_t=j|\obs_{1:t-1}) p(\obs_t|\hidden_t=j) e^{-L_t} \\
+ &amp;= p(\hidden_t=j|\obs_{1:t-1}) e^{\ell_t(j) - L_t}
+\end{align}\]</div>
+<p>Then we have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-562d5a1d-b724-4093-85d2-ec62f15c5421">
+<span class="eqno">(31)<a class="headerlink" href="#equation-562d5a1d-b724-4093-85d2-ec62f15c5421" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hidden_t=j|\obs_t,\obs_{1:t-1})
+  &amp;= \frac{1}{\tilde{Z}_t} \tilde{p}(\hidden_t=j,\obs_t|\obs_{1:t-1}) \\
+\tilde{Z}_t &amp;= \sum_j \tilde{p}(\hidden_t=j,\obs_t|\obs_{1:t-1})
+= p(\obs_t|\obs_{1:t-1}) e^{-L_t} \\
+\log Z_t &amp;= \log p(\obs_t|\obs_{1:t-1}) = \log \tilde{Z}_t + L_t
+\end{align}\]</div>
+<p>Below we show some JAX code that implements this core operation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_condition_on</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">ll</span><span class="p">):</span>
+    <span class="n">ll_max</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">new_probs</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">ll</span> <span class="o">-</span> <span class="n">ll_max</span><span class="p">)</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">new_probs</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">new_probs</span> <span class="o">/=</span> <span class="n">norm</span>
+    <span class="n">log_norm</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">norm</span><span class="p">)</span> <span class="o">+</span> <span class="n">ll_max</span>
+    <span class="k">return</span> <span class="n">new_probs</span><span class="p">,</span> <span class="n">log_norm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the above function, we can implement a more numerically stable version of the forwards filter,
+that works for any likelihood function, as shown below. It takes in the prior predictive distribution,
+<span class="math notranslate nohighlight">\(\alpha_{t|t-1}\)</span>,
+stored in <code class="docutils literal notranslate"><span class="pre">predicted_probs</span></code>, and conditions them on the log-likelihood for each time step <span class="math notranslate nohighlight">\(\ell_t\)</span> to get the
+posterior, <span class="math notranslate nohighlight">\(\alpha_t\)</span>, stored in <code class="docutils literal notranslate"><span class="pre">filtered_probs</span></code>,
+which is then converted to the prediction for the next state, <span class="math notranslate nohighlight">\(\alpha_{t+1|t}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">probs</span>
 
-    Parameters
-    ----------
-    params : HMMJax
-        Hidden Markov Model
 
-    obs_seq: array<span style="font-weight: bold">(</span>seq_len<span style="font-weight: bold">)</span>
-        History of observable events
+<span class="k">def</span> <span class="nf">hmm_filter</span><span class="p">(</span><span class="n">initial_distribution</span><span class="p">,</span>
+               <span class="n">transition_matrix</span><span class="p">,</span>
+               <span class="n">log_likelihoods</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_step</span><span class="p">(</span><span class="n">carry</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">log_normalizer</span><span class="p">,</span> <span class="n">predicted_probs</span> <span class="o">=</span> <span class="n">carry</span>
 
-    Returns
-    -------
-    * float
-        The loglikelihood giving log<span style="font-weight: bold">(</span>p<span style="font-weight: bold">(</span>x|model<span style="font-weight: bold">))</span>
+        <span class="c1"># Get parameters for time t</span>
+        <span class="n">get</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">x</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">)</span>
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">log_likelihoods</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
 
-    * array<span style="font-weight: bold">(</span>seq_len, n_hidden<span style="font-weight: bold">)</span> :
-        All alpha values found for each sample
-    <span style="color: #008000; text-decoration-color: #008000">''</span>'
-    seq_len = len<span style="font-weight: bold">(</span>obs_seq<span style="font-weight: bold">)</span>
+        <span class="c1"># Condition on emissions at time t, being careful not to overflow</span>
+        <span class="n">filtered_probs</span><span class="p">,</span> <span class="n">log_norm</span> <span class="o">=</span> <span class="n">_condition_on</span><span class="p">(</span><span class="n">predicted_probs</span><span class="p">,</span> <span class="n">ll</span><span class="p">)</span>
+        <span class="c1"># Update the log normalizer</span>
+        <span class="n">log_normalizer</span> <span class="o">+=</span> <span class="n">log_norm</span>
+        <span class="c1"># Predict the next state</span>
+        <span class="n">predicted_probs</span> <span class="o">=</span> <span class="n">_predict</span><span class="p">(</span><span class="n">filtered_probs</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
 
-    if length is <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>:
-        length = seq_len
+        <span class="k">return</span> <span class="p">(</span><span class="n">log_normalizer</span><span class="p">,</span> <span class="n">predicted_probs</span><span class="p">),</span> <span class="p">(</span><span class="n">filtered_probs</span><span class="p">,</span> <span class="n">predicted_probs</span><span class="p">)</span>
 
-    trans_mat, obs_mat, init_dist = params.trans_mat, params.obs_mat, params.init_dist
-
-    trans_mat = jnp.array<span style="font-weight: bold">(</span>trans_mat<span style="font-weight: bold">)</span>
-    obs_mat = jnp.array<span style="font-weight: bold">(</span>obs_mat<span style="font-weight: bold">)</span>
-    init_dist = jnp.array<span style="font-weight: bold">(</span>init_dist<span style="font-weight: bold">)</span>
-
-    n_states, n_obs = obs_mat.shape
-
-    def scan_fn<span style="font-weight: bold">(</span>carry, t<span style="font-weight: bold">)</span>:
-        <span style="font-weight: bold">(</span>alpha_prev, log_ll_prev<span style="font-weight: bold">)</span> = carry
-        alpha_n = jnp.where<span style="font-weight: bold">(</span>t &lt; length,
-                            obs_mat<span style="font-weight: bold">[</span>:, obs_seq<span style="font-weight: bold">]</span> * <span style="font-weight: bold">(</span>alpha_prev<span style="font-weight: bold">[</span>:, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span> * 
-trans_mat<span style="font-weight: bold">)</span>.sum<span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">axis</span>=<span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span><span style="font-weight: bold">)</span>,
-                            jnp.zeros_like<span style="font-weight: bold">(</span>alpha_prev<span style="font-weight: bold">))</span>
-
-        alpha_n, cn = normalize<span style="font-weight: bold">(</span>alpha_n<span style="font-weight: bold">)</span>
-        carry = <span style="font-weight: bold">(</span>alpha_n, jnp.log<span style="font-weight: bold">(</span>cn<span style="font-weight: bold">)</span> + log_ll_prev<span style="font-weight: bold">)</span>
-
-        return carry, alpha_n
-
-    # initial belief state
-    alpha_0, c0 = normalize<span style="font-weight: bold">(</span>init_dist * obs_mat<span style="font-weight: bold">[</span>:, obs_seq<span style="font-weight: bold">[</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">0</span><span style="font-weight: bold">]])</span>
-
-    # setup scan loop
-    init_state = <span style="font-weight: bold">(</span>alpha_0, jnp.log<span style="font-weight: bold">(</span>c0<span style="font-weight: bold">))</span>
-    ts = jnp.arange<span style="font-weight: bold">(</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">1</span>, seq_len<span style="font-weight: bold">)</span>
-    carry, alpha_hist = lax.scan<span style="font-weight: bold">(</span>scan_fn, init_state, ts<span style="font-weight: bold">)</span>
-
-    # post-process
-    alpha_hist = jnp.vstack<span style="font-weight: bold">()</span>
-    <span style="font-weight: bold">(</span>alpha_final, log_ll<span style="font-weight: bold">)</span> = carry
-    return log_ll, alpha_hist
-
-</pre>
-</div></div>
+    <span class="n">num_timesteps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_likelihoods</span><span class="p">)</span>
+    <span class="n">carry</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">initial_distribution</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">log_normalizer</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="p">(</span><span class="n">filtered_probs</span><span class="p">,</span> <span class="n">predicted_probs</span><span class="p">)</span> <span class="o">=</span> <span class="n">lax</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span>
+        <span class="n">_step</span><span class="p">,</span> <span class="n">carry</span><span class="p">,</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">log_normalizer</span><span class="p">,</span> <span class="n">filtered_probs</span><span class="p">,</span> <span class="n">predicted_probs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>TODO: check equivalence of these two implementations!</p>
 </div>
 </div>
 

@@ -51,7 +51,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"covMat": "\\boldsymbol{\\Sigma}", "data": "\\mathcal{D}", "defeq": "\\triangleq", "diag": "\\mathrm{diag}", "discreteState": "s", "dotstar": "\\odot", "dynamicsFn": "\\mathbf{f}", "floor": ["\\lfloor#1\\rfloor", 1], "gainMatrix": "\\mathbf{K}", "gainMatrixReverse": "\\mathbf{G}", "gauss": "\\mathcal{N}", "gaussInfo": "\\mathcal{N}_{\\text{info}}", "hidden": "\\mathbf{x}", "hiddenScalar": "x", "hmmInit": "\\boldsymbol{\\pi}", "hmmInitScalar": "\\pi", "hmmObs": "\\mathbf{B}", "hmmObsScalar": "B", "hmmTrans": "\\mathbf{A}", "hmmTransScalar": "A", "infoMat": "\\precMat", "input": "\\mathbf{u}", "inputs": "\\input", "inv": ["{#1}^{-1}", 1], "keyword": ["\\textbf{#1}", 1], "ldsDyn": "\\mathbf{F}", "ldsDynIn": "\\mathbf{B}", "initMean": "\\boldsymbol{\\mean}_0", "initCov": "\\boldsymbol{\\covMat}_0", "ldsObs": "\\mathbf{H}", "ldsObsIn": "\\mathbf{D}", "ldsTrans": "\\ldsDyn", "ldsTransIn": "\\ldsDynIn", "obsCov": "\\mathbf{R}", "obsNoise": "\\boldsymbol{r}", "map": "\\mathrm{map}", "measurementFn": "\\mathbf{h}", "mean": "\\boldsymbol{\\mu}", "mle": "\\mathrm{mle}", "nlatents": "n_x", "nhidden": "\\nlatents", "ninputs": "n_u", "nobs": "n_y", "nsymbols": "n_y", "nstates": "n_s", "obs": "\\mathbf{y}", "obsScalar": "y", "observed": "\\obs", "obsFn": "\\measurementFn", "params": "\\boldsymbol{\\theta}", "precMean": "\\boldsymbol{\\eta}", "precMat": "\\boldsymbol{\\Lambda}", "real": "\\mathbb{R}", "sigmoid": "\\sigma", "softmax": "\\boldsymbol{\\sigma}", "trans": "\\mathsf{T}", "transpose": ["{#1}^{\\trans}", 1], "transCov": "\\mathbf{Q}", "transNoise": "\\mathbf{q}", "valpha": "\\boldsymbol{\\alpha}", "vbeta": "\\boldsymbol{\\beta}", "vdelta": "\\boldsymbol{\\delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vlambda": "\\boldsymbol{\\lambda}", "vLambda": "\\boldsymbol{\\Lambda}", "vmu": "\\boldsymbol{\\mu}", "vpi": "\\boldsymbol{\\pi}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vone": "\\boldsymbol{1}", "vzero": "\\boldsymbol{0}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -96,11 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="ssm_index.html">
    State Space Models
@@ -133,7 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="inference.html">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -486,75 +486,31 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
-<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
-
-<span class="p">{</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;hide-cell&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="c1">### Install necessary libraries</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
-    <span class="kn">import</span> <span class="nn">jax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">distrax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade  distrax
-    <span class="kn">import</span> <span class="nn">distrax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jsl</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
-    <span class="kn">import</span> <span class="nn">jsl</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">rich</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install rich
-    <span class="kn">import</span> <span class="nn">rich</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;hide-cell&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="c1">### Import standard libraries</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Import standard libraries</span>
 
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
-
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
-
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">jit</span><span class="p">,</span> <span class="n">grad</span>
-<span class="kn">from</span> <span class="nn">jax.scipy.special</span> <span class="kn">import</span> <span class="n">logit</span>
-<span class="kn">from</span> <span class="nn">jax.nn</span> <span class="kn">import</span> <span class="n">softmax</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
+<span class="c1">#from jax.scipy.special import logit</span>
+<span class="c1">#from jax.nn import softmax</span>
+<span class="kn">import</span> <span class="nn">jax.random</span> <span class="k">as</span> <span class="nn">jr</span>
+
+
+
+<span class="kn">import</span> <span class="nn">distrax</span>
+<span class="kn">import</span> <span class="nn">optax</span>
+
+<span class="kn">import</span> <span class="nn">jsl</span>
+<span class="kn">import</span> <span class="nn">ssm_jax</span>
 
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
@@ -568,193 +524,62 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
-\newcommand{\vzero}{\boldsymbol{0}}
-\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-\newcommand{\valpha}{\boldsymbol{\alpha}}
-\newcommand{\vbeta}{\boldsymbol{\beta}}
-\newcommand{\vchi}{\boldsymbol{\chi}}
-\newcommand{\vdelta}{\boldsymbol{\delta}}
-\newcommand{\vDelta}{\boldsymbol{\Delta}}
-\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-\newcommand{\vzeta}{\boldsymbol{\zeta}}
-\newcommand{\vXi}{\boldsymbol{\Xi}}
-\newcommand{\vell}{\boldsymbol{\ell}}
-\newcommand{\veta}{\boldsymbol{\eta}}
-%\newcommand{\vEta}{\boldsymbol{\Eta}}
-\newcommand{\vgamma}{\boldsymbol{\gamma}}
-\newcommand{\vGamma}{\boldsymbol{\Gamma}}
-\newcommand{\vmu}{\boldsymbol{\mu}}
-\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vkappa}{\boldsymbol{\kappa}}
-\newcommand{\vlambda}{\boldsymbol{\lambda}}
-\newcommand{\vLambda}{\boldsymbol{\Lambda}}
-\newcommand{\vLambdaBar}{\overline{\vLambda}}
-%\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vomega}{\boldsymbol{\omega}}
-\newcommand{\vOmega}{\boldsymbol{\Omega}}
-\newcommand{\vphi}{\boldsymbol{\phi}}
-\newcommand{\vvarphi}{\boldsymbol{\varphi}}
-\newcommand{\vPhi}{\boldsymbol{\Phi}}
-\newcommand{\vpi}{\boldsymbol{\pi}}
-\newcommand{\vPi}{\boldsymbol{\Pi}}
-\newcommand{\vpsi}{\boldsymbol{\psi}}
-\newcommand{\vPsi}{\boldsymbol{\Psi}}
-\newcommand{\vrho}{\boldsymbol{\rho}}
-\newcommand{\vtheta}{\boldsymbol{\theta}}
-\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-\newcommand{\vTheta}{\boldsymbol{\Theta}}
-\newcommand{\vsigma}{\boldsymbol{\sigma}}
-\newcommand{\vSigma}{\boldsymbol{\Sigma}}
-\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-\newcommand{\vsigmoid}{\vsigma}
-\newcommand{\vtau}{\boldsymbol{\tau}}
-\newcommand{\vxi}{\boldsymbol{\xi}}\\
-% Lower Roman (Vectors)
-\newcommand{\va}{\mathbf{a}}
-\newcommand{\vb}{\mathbf{b}}
-\newcommand{\vBt}{\mathbf{\tilde{B}}}
-\newcommand{\vc}{\mathbf{c}}
-\newcommand{\vct}{\mathbf{\tilde{c}}}
-\newcommand{\vd}{\mathbf{d}}
-\newcommand{\ve}{\mathbf{e}}
-\newcommand{\vf}{\mathbf{f}}
-\newcommand{\vg}{\mathbf{g}}
-\newcommand{\vh}{\mathbf{h}}
-%\newcommand{\myvh}{\mathbf{h}}
-\newcommand{\vi}{\mathbf{i}}
-\newcommand{\vj}{\mathbf{j}}
-\newcommand{\vk}{\mathbf{k}}
-\newcommand{\vl}{\mathbf{l}}
-\newcommand{\vm}{\mathbf{m}}
-\newcommand{\vn}{\mathbf{n}}
-\newcommand{\vo}{\mathbf{o}}
-\newcommand{\vp}{\mathbf{p}}
-\newcommand{\vq}{\mathbf{q}}
-\newcommand{\vr}{\mathbf{r}}
-\newcommand{\vs}{\mathbf{s}}
-\newcommand{\vt}{\mathbf{t}}
-\newcommand{\vu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
-\newcommand{\vw}{\mathbf{w}}
-\newcommand{\vws}{\vw_s}
-\newcommand{\vwt}{\mathbf{\tilde{w}}}
-\newcommand{\vWt}{\mathbf{\tilde{W}}}
-\newcommand{\vwh}{\hat{\vw}}
-\newcommand{\vx}{\mathbf{x}}
-%\newcommand{\vx}{\mathbf{x}}
-\newcommand{\vxt}{\mathbf{\tilde{x}}}
-\newcommand{\vy}{\mathbf{y}}
-\newcommand{\vyt}{\mathbf{\tilde{y}}}
-\newcommand{\vz}{\mathbf{z}}
-%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-% Upper Roman (Matrices)
-\newcommand{\vA}{\mathbf{A}}
-\newcommand{\vB}{\mathbf{B}}
-\newcommand{\vC}{\mathbf{C}}
-\newcommand{\vD}{\mathbf{D}}
-\newcommand{\vE}{\mathbf{E}}
-\newcommand{\vF}{\mathbf{F}}
-\newcommand{\vG}{\mathbf{G}}
-\newcommand{\vH}{\mathbf{H}}
-\newcommand{\vI}{\mathbf{I}}
-\newcommand{\vJ}{\mathbf{J}}
-\newcommand{\vK}{\mathbf{K}}
-\newcommand{\vL}{\mathbf{L}}
-\newcommand{\vM}{\mathbf{M}}
-\newcommand{\vMt}{\mathbf{\tilde{M}}}
-\newcommand{\vN}{\mathbf{N}}
-\newcommand{\vO}{\mathbf{O}}
-\newcommand{\vP}{\mathbf{P}}
-\newcommand{\vQ}{\mathbf{Q}}
-\newcommand{\vR}{\mathbf{R}}
-\newcommand{\vS}{\mathbf{S}}
-\newcommand{\vT}{\mathbf{T}}
-\newcommand{\vU}{\mathbf{U}}
-\newcommand{\vV}{\mathbf{V}}
-\newcommand{\vW}{\mathbf{W}}
-\newcommand{\vX}{\mathbf{X}}
-%\newcommand{\vXs}{\vX_{\vs}}
-\newcommand{\vXs}{\vX_{s}}
-\newcommand{\vXt}{\mathbf{\tilde{X}}}
-\newcommand{\vY}{\mathbf{Y}}
-\newcommand{\vZ}{\mathbf{Z}}
-\newcommand{\vZt}{\mathbf{\tilde{Z}}}
-\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-%%%%
-\newcommand{\hidden}{\vz}
-\newcommand{\hid}{\hidden}
-\newcommand{\observed}{\vy}
-\newcommand{\obs}{\observed}
-\newcommand{\inputs}{\vu}
-\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
-\newcommand{\hmmObs}{\vB}
-\newcommand{\hmmInit}{\vpi}
-\newcommand{\hmmhid}{\hidden}
-\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
-\newcommand{\ldsObs}{\vC}
-\newcommand{\ldsDynIn}{\vB}
-\newcommand{\ldsObsIn}{\vD}
-\newcommand{\ldsDynNoise}{\vQ}
-\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
-\newcommand{\ssmObsFn}{h}\\
-%%%
-\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
 <div class="tex2jax_ignore mathjax_ignore section" id="linear-gaussian-ssms">
 <span id="sec-lds-intro"></span><h1>Linear Gaussian SSMs<a class="headerlink" href="#linear-gaussian-ssms" title="Permalink to this headline">¶</a></h1>
 <p>Consider the state space model in
-<a class="reference internal" href="ssm_intro.html#equation-eq-ssm-ar">(2)</a>
+<a class="reference internal" href="ssm_intro.html#equation-eq-ssm-ar">(1)</a>
 where we assume the observations are conditionally iid given the
 hidden states and inputs (i.e. there are no auto-regressive dependencies
 between the observables).
 We can rewrite this model as
-a stochastic nonlinear dynamical system (NLDS)
+a stochastic <span class="math notranslate nohighlight">\(\keyword{nonlinear dynamical system}\)</span> or <span class="math notranslate nohighlight">\(\keyword{NLDS}\)</span>
 by defining the distribution of the next hidden state
+<span class="math notranslate nohighlight">\(\hidden_t \in \real^{\nhidden}\)</span>
 as a deterministic function of the past state
-plus random process noise <span class="math notranslate nohighlight">\(\vepsilon_t\)</span></p>
-<div class="amsmath math notranslate nohighlight" id="equation-e31147c5-366d-4025-ad02-0d0886a1dffa">
-<span class="eqno">(5)<a class="headerlink" href="#equation-e31147c5-366d-4025-ad02-0d0886a1dffa" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\hmmhid_t &amp;= \ssmDynFn(\hmmhid_{t-1}, \inputs_t, \vepsilon_t)  
+<span class="math notranslate nohighlight">\(\hidden_{t-1}\)</span>,
+the input <span class="math notranslate nohighlight">\(\inputs_t \in \real^{\ninputs}\)</span>,
+and some random <span class="math notranslate nohighlight">\(\keyword{process noise}\)</span> <span class="math notranslate nohighlight">\(\transNoise_t \in \real^{\nhidden}\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-b48061b1-1d75-4952-be1e-9145adb38f90">
+<span class="eqno">(4)<a class="headerlink" href="#equation-b48061b1-1d75-4952-be1e-9145adb38f90" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\hidden_t &amp;= \dynamicsFn(\hidden_{t-1}, \inputs_t, \transNoise_t)  
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\vepsilon_t\)</span> is drawn from the distribution such
+<p>where <span class="math notranslate nohighlight">\(\transNoise_t\)</span> is drawn from the distribution such
 that the induced distribution
-on <span class="math notranslate nohighlight">\(\hmmhid_t\)</span> matches <span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmhid_{t-1}, \inputs_t)\)</span>.
-Similarly we can rewrite the observation distributions
+on <span class="math notranslate nohighlight">\(\hidden_t\)</span> matches <span class="math notranslate nohighlight">\(p(\hidden_t|\hidden_{t-1}, \inputs_t)\)</span>.
+Similarly we can rewrite the observation distribution
 as a deterministic function of the hidden state
-plus observation noise <span class="math notranslate nohighlight">\(\veta_t\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f582ebd3-bbc8-4436-8a13-41e99905dfbd">
-<span class="eqno">(6)<a class="headerlink" href="#equation-f582ebd3-bbc8-4436-8a13-41e99905dfbd" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\hmmobs_t &amp;= \ssmObsFn(\hmmhid_{t}, \inputs_t, \veta_t)
+plus <span class="math notranslate nohighlight">\(\keyword{observation noise}\)</span> <span class="math notranslate nohighlight">\(\obsNoise_t \in \real^{\nobs}\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8503a723-5c54-4693-835d-f2ba58d0e341">
+<span class="eqno">(5)<a class="headerlink" href="#equation-8503a723-5c54-4693-835d-f2ba58d0e341" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\obs_t &amp;= \measurementFn(\hidden_{t}, \inputs_t, \obsNoise_t)
 \end{align}\]</div>
 <p>If we assume additive Gaussian noise,
 the model becomes</p>
-<div class="amsmath math notranslate nohighlight" id="equation-09c96fd9-5478-4aa7-ac38-43504373febc">
-<span class="eqno">(7)<a class="headerlink" href="#equation-09c96fd9-5478-4aa7-ac38-43504373febc" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\hmmhid_t &amp;= \ssmDynFn(\hmmhid_{t-1}, \inputs_t) +  \vepsilon_t  \\
-\hmmobs_t &amp;= \ssmObsFn(\hmmhid_{t}, \inputs_t) + \veta_t
+<div class="amsmath math notranslate nohighlight" id="equation-05b276c6-1300-4f5e-832c-6ef78b230ee5">
+<span class="eqno">(6)<a class="headerlink" href="#equation-05b276c6-1300-4f5e-832c-6ef78b230ee5" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\hidden_t &amp;= \dynamicsFn(\hidden_{t-1}, \inputs_t) +  \transNoise_t  \\
+\obs_t &amp;= \measurementFn(\hidden_{t}, \inputs_t) + \obsNoise_t
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\vepsilon_t \sim \gauss(\vzero,\vQ_t)\)</span>
-and <span class="math notranslate nohighlight">\(\veta_t \sim \gauss(\vzero,\vR_t)\)</span>.
-We will call these Gaussian SSMs.</p>
+<p>where <span class="math notranslate nohighlight">\(\transNoise_t \sim \gauss(\vzero,\transCov_t)\)</span>
+and <span class="math notranslate nohighlight">\(\obsNoise_t \sim \gauss(\vzero,\obsCov_t)\)</span>.
+We will call these <span class="math notranslate nohighlight">\(\keyword{Gaussian SSMs}\)</span>.</p>
 <p>If we additionally assume
-the transition function <span class="math notranslate nohighlight">\(\ssmDynFn\)</span>
-and the observation function <span class="math notranslate nohighlight">\(\ssmObsFn\)</span> are both linear,
+the transition function <span class="math notranslate nohighlight">\(\dynamicsFn\)</span>
+and the observation function <span class="math notranslate nohighlight">\(\measurementFn\)</span> are both linear,
 then we can rewrite the model as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-44914eac-1d98-497d-87e7-1d6b5346a8f2">
-<span class="eqno">(8)<a class="headerlink" href="#equation-44914eac-1d98-497d-87e7-1d6b5346a8f2" title="Permalink to this equation">¶</a></span>\[\begin{align}
-p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) &amp;= \gauss(\hmmhid_t|\ldsDyn_t \hmmhid_{t-1}
-+ \ldsDynIn_t \inputs_t, \vQ_t)
+<div class="amsmath math notranslate nohighlight" id="equation-48743a9b-4689-4d37-9b6e-639de4080d17">
+<span class="eqno">(7)<a class="headerlink" href="#equation-48743a9b-4689-4d37-9b6e-639de4080d17" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hidden_t|\hidden_{t-1},\inputs_t) &amp;= \gauss(\hidden_t|\ldsDyn \hidden_{t-1}
++ \ldsDynIn \inputs_t, \transCov)
 \\
-p(\hmmobs_t|\hmmhid_t,\inputs_t) &amp;= \gauss(\hmmobs_t|\ldsObs_t \hmmhid_{t}
-+ \ldsObsIn_t \inputs_t, \vR_t)
+p(\obs_t|\hidden_t,\inputs_t) &amp;= \gauss(\obs_t|\ldsObs \hidden_{t}
++ \ldsObsIn \inputs_t, \obsCov)
 \end{align}\]</div>
 <p>This is called a
-linear-Gaussian state space model
-(LG-SSM),
-or a
-linear dynamical system (LDS).
+<span class="math notranslate nohighlight">\(\keyword{linear-Gaussian state space model}\)</span>
+or <span class="math notranslate nohighlight">\(\keyword{LG-SSM}\)</span>;
+it is also called
+a <span class="math notranslate nohighlight">\(\keyword{linear dynamical system}\)</span> or <span class="math notranslate nohighlight">\(\keyword{LDS}\)</span>.
 We usually assume the parameters are independent of time, in which case
 the model is said to be time-invariant or homogeneous.</p>
 <div class="section" id="example-tracking-a-2d-point">
@@ -762,14 +587,14 @@ the model is said to be time-invariant or homogeneous.</p>
 <p>Consider an object moving in <span class="math notranslate nohighlight">\(\real^2\)</span>.
 Let the state be
 the position and velocity of the object,
-<span class="math notranslate nohighlight">\(\vz_t =\begin{pmatrix} u_t &amp; \dot{u}_t &amp; v_t &amp; \dot{v}_t \end{pmatrix}\)</span>.
+<span class="math notranslate nohighlight">\(\hidden_t =\begin{pmatrix} u_t &amp; \dot{u}_t &amp; v_t &amp; \dot{v}_t \end{pmatrix}\)</span>.
 (We use <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> for the two coordinates,
 to avoid confusion with the state and observation variables.)
 If we use Euler discretization,
 the dynamics become</p>
-<div class="amsmath math notranslate nohighlight" id="equation-56d91323-8e7f-4b13-8792-ca0ca145de95">
-<span class="eqno">(9)<a class="headerlink" href="#equation-56d91323-8e7f-4b13-8792-ca0ca145de95" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\underbrace{\begin{pmatrix} u_t\\ \dot{u}_t \\ v_t \\ \dot{v}_t \end{pmatrix}}_{\vz_t}
+<div class="amsmath math notranslate nohighlight" id="equation-91ff5c5d-8e5f-4499-aefa-5879e12171e0">
+<span class="eqno">(8)<a class="headerlink" href="#equation-91ff5c5d-8e5f-4499-aefa-5879e12171e0" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\underbrace{\begin{pmatrix} u_t\\ \dot{u}_t \\ v_t \\ \dot{v}_t \end{pmatrix}}_{\hidden_t}
   = 
 \underbrace{
 \begin{pmatrix}
@@ -779,28 +604,27 @@ the dynamics become</p>
 0 &amp; 0 &amp; 0 &amp; 1
 \end{pmatrix}
 }_{\ldsDyn}
-\
-\underbrace{\begin{pmatrix} u_{t-1} \\ \dot{u}_{t-1} \\ v_{t-1} \\ \dot{v}_{t-1} \end{pmatrix}}_{\vz_{t-1}}
-+ \vepsilon_t
+
+\underbrace{\begin{pmatrix} u_{t-1} \\ \dot{u}_{t-1} \\ v_{t-1} \\ \dot{v}_{t-1} \end{pmatrix}}_{\hidden_{t-1}}
++ \transNoise_t
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\vepsilon_t \sim \gauss(\vzero,\vQ)\)</span> is
-the process noise.</p>
-<p>Let us assume
+<p>where <span class="math notranslate nohighlight">\(\transNoise_t \sim \gauss(\vzero,\transCov)\)</span> is
+the process noise.
+We assume
 that the process noise is
 a white noise process added to the velocity components
-of the state, but not to the location.
-(This is known as a random accelerations model.)
-We can approximate the resulting process in discrete time by assuming
-<span class="math notranslate nohighlight">\(\vQ = \diag(0, q, 0, q)\)</span>.
+of the state, but not to the location,
+so <span class="math notranslate nohighlight">\(\transCov = \diag(0, q, 0, q)\)</span>.
+This is known as a random accelerations model.
 (See  <span id="id1">[<a class="reference internal" href="../../bib.html#id18" title="Simo Sarkka. Bayesian Filtering and Smoothing. Cambridge University Press, 2013. URL: https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf.">Sar13</a>]</span> p60 for a more accurate way
 to convert the continuous time process to discrete time.)</p>
 <p>Now suppose that at each discrete time point we
 observe the location,
 corrupted by  Gaussian noise.
 Thus the observation model becomes</p>
-<div class="amsmath math notranslate nohighlight" id="equation-54905b1b-79c0-47fc-b0cc-f790a1e50550">
-<span class="eqno">(10)<a class="headerlink" href="#equation-54905b1b-79c0-47fc-b0cc-f790a1e50550" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\underbrace{\begin{pmatrix}  y_{1,t} \\  y_{2,t} \end{pmatrix}}_{\vy_t}
+<div class="amsmath math notranslate nohighlight" id="equation-57a3bfcc-a07e-4569-b6ea-c293d7f66be7">
+<span class="eqno">(9)<a class="headerlink" href="#equation-57a3bfcc-a07e-4569-b6ea-c293d7f66be7" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\underbrace{\begin{pmatrix}  \obs_{1,t} \\  \obs_{2,t} \end{pmatrix}}_{\obs_t}
   &amp;=
     \underbrace{
     \begin{pmatrix}
@@ -808,18 +632,18 @@ Thus the observation model becomes</p>
 0 &amp; 0 &amp; 1 &amp; 0
     \end{pmatrix}
     }_{\ldsObs}
-    \
-\underbrace{\begin{pmatrix} u_t\\ \dot{u}_t \\ v_t \\ \dot{v}_t \end{pmatrix}}_{\vz_t}    
- + \veta_t
+    
+\underbrace{\begin{pmatrix} u_t\\ \dot{u}_t \\ v_t \\ \dot{v}_t \end{pmatrix}}_{\hidden_t}    
+ + \obsNoise_t
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\veta_t \sim \gauss(\vzero,\vR)\)</span> is the \keywordDef{observation noise}.
+<p>where <span class="math notranslate nohighlight">\(\obsNoise_t \sim \gauss(\vzero,\obsCov)\)</span> is the observation noise.
 We see that the observation matrix <span class="math notranslate nohighlight">\(\ldsObs\)</span> simply ``extracts’’ the
 relevant parts  of the state vector.</p>
 <p>Suppose we sample a trajectory and corresponding set
 of noisy observations from this model,
-<span class="math notranslate nohighlight">\((\vz_{1:T}, \vy_{1:T}) \sim p(\vz,\vy|\vtheta)\)</span>.
+<span class="math notranslate nohighlight">\((\hidden_{1:T}, \obs_{1:T}) \sim p(\hidden,\obs|\params)\)</span>.
 (We use diagonal observation noise,
-<span class="math notranslate nohighlight">\(\vR = \diag(\sigma_1^2, \sigma_2^2)\)</span>.)
+<span class="math notranslate nohighlight">\(\obsCov = \diag(\sigma_1^2, \sigma_2^2)\)</span>.)
 The results are shown below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -914,11 +738,18 @@ The results are shown below.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7.24486608505249, 23.857812213897706, 8.042076778411865, 11.636079120635987)
 </pre></div>
 </div>
-<img alt="../../_images/lds_7_1.png" src="../../_images/lds_7_1.png" />
+<img alt="../../_images/lds_5_1.png" src="../../_images/lds_5_1.png" />
 </div>
 </div>
 <p>The main task is to infer the hidden states given the noisy
-observations, i.e., <span class="math notranslate nohighlight">\(p(\vz|\vy,\vtheta)\)</span>. We discuss the topic of inference in <a class="reference internal" href="inference.html#sec-inference"><span class="std std-ref">Inferential goals</span></a>.</p>
+observations, i.e., <span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:t},\params)\)</span>
+or <span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:T}, \params)\)</span> in the offline case.
+We discuss the topic of inference in <a class="reference internal" href="inference.html#sec-inference"><span class="std std-ref">States estimation (inference)</span></a>.
+We will usually represent this belief state by a Gaussian distribution,
+<span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:s},\params) = \gauss(\hidden_t| \mean_{t|s}, \covMat_{t|s})\)</span>,
+where usually <span class="math notranslate nohighlight">\(s=t\)</span> or <span class="math notranslate nohighlight">\(s=T\)</span>.
+Sometimes we use information form,
+<span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:s},\params) = \gaussInfo(\hidden_t|\precMean_{t|s}, \precMat_{t|s})\)</span>.</p>
 </div>
 </div>
 

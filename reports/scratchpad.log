@@ -1,0 +1,102 @@
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/opt/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 1087, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/anaconda3/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/opt/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 540, in async_execute
+    await self.async_execute_cell(
+  File "/opt/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/opt/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+### Import standard libraries
+
+import abc
+from dataclasses import dataclass
+import functools
+from functools import partial
+import itertools
+import matplotlib.pyplot as plt
+import numpy as np
+from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
+
+import jax
+import jax.numpy as jnp
+from jax import lax, vmap, jit, grad
+#from jax.scipy.special import logit
+#from jax.nn import softmax
+import jax.random as jr
+
+
+
+import distrax
+import optax
+
+import jsl
+import ssm_jax
+
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+[0;32m<ipython-input-1-00ce8083638c>[0m in [0;36m<module>[0;34m[0m
+[1;32m     19[0m [0;34m[0m[0m
+[1;32m     20[0m [0;34m[0m[0m
+[0;32m---> 21[0;31m [0;32mimport[0m [0mdistrax[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     22[0m [0;32mimport[0m [0moptax[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     23[0m [0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/distrax/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     18[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m[0;34m.[0m[0mbijector[0m [0;32mimport[0m [0mBijector[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     19[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m[0;34m.[0m[0mbijector[0m [0;32mimport[0m [0mBijectorLike[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 20[0;31m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m[0;34m.[0m[0mblock[0m [0;32mimport[0m [0mBlock[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     21[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m[0;34m.[0m[0mchain[0m [0;32mimport[0m [0mChain[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     22[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m[0;34m.[0m[0mgumbel_cdf[0m [0;32mimport[0m [0mGumbelCDF[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/distrax/_src/bijectors/block.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     18[0m [0;34m[0m[0m
+[1;32m     19[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m [0;32mimport[0m [0mbijector[0m [0;32mas[0m [0mbase[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 20[0;31m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mutils[0m [0;32mimport[0m [0mconversion[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     21[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mutils[0m [0;32mimport[0m [0mmath[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     22[0m [0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/distrax/_src/utils/conversion.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     17[0m [0;32mfrom[0m [0mtyping[0m [0;32mimport[0m [0mOptional[0m[0;34m,[0m [0mUnion[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     18[0m [0;34m[0m[0m
+[0;32m---> 19[0;31m [0;32mimport[0m [0mchex[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     20[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m [0;32mimport[0m [0mbijector[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     21[0m [0;32mfrom[0m [0mdistrax[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0mbijectors[0m [0;32mimport[0m [0mbijector_from_tfp[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/chex/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     15[0m [0;34m"""Chex: Testing made fun, in JAX!"""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     16[0m [0;34m[0m[0m
+[0;32m---> 17[0;31m [0;32mfrom[0m [0mchex[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0masserts[0m [0;32mimport[0m [0massert_axis_dimension[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     18[0m [0;32mfrom[0m [0mchex[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0masserts[0m [0;32mimport[0m [0massert_axis_dimension_gt[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     19[0m [0;32mfrom[0m [0mchex[0m[0;34m.[0m[0m_src[0m[0;34m.[0m[0masserts[0m [0;32mimport[0m [0massert_devices_available[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/chex/_src/asserts.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     26[0m [0;34m[0m[0m
+[1;32m     27[0m [0;32mfrom[0m [0mchex[0m[0;34m.[0m[0m_src[0m [0;32mimport[0m [0masserts_internal[0m [0;32mas[0m [0mai[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 28[0;31m [0;32mfrom[0m [0mchex[0m[0;34m.[0m[0m_src[0m [0;32mimport[0m [0mpytypes[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     29[0m [0;32mimport[0m [0mjax[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     30[0m [0;32mimport[0m [0mjax[0m[0;34m.[0m[0mnumpy[0m [0;32mas[0m [0mjnp[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/anaconda3/lib/python3.8/site-packages/chex/_src/pytypes.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     37[0m [0mShape[0m [0;34m=[0m [0mTuple[0m[0;34m[[0m[0mint[0m[0;34m,[0m [0;34m...[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m     38[0m [0;34m[0m[0m
+[0;32m---> 39[0;31m [0mCpuDevice[0m [0;34m=[0m [0mjax[0m[0;34m.[0m[0mlib[0m[0;34m.[0m[0mxla_extension[0m[0;34m.[0m[0mCpuDevice[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     40[0m [0mGpuDevice[0m [0;34m=[0m [0mjax[0m[0;34m.[0m[0mlib[0m[0;34m.[0m[0mxla_extension[0m[0;34m.[0m[0mGpuDevice[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     41[0m [0mTpuDevice[0m [0;34m=[0m [0mjax[0m[0;34m.[0m[0mlib[0m[0;34m.[0m[0mxla_extension[0m[0;34m.[0m[0mTpuDevice[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mAttributeError[0m: module 'jaxlib.xla_extension' has no attribute 'CpuDevice'
+AttributeError: module 'jaxlib.xla_extension' has no attribute 'CpuDevice'
+

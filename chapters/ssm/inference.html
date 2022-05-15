@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inferential goals &#8212; State Space Models: A Modern Approach</title>
+    <title>States estimation (inference) &#8212; State Space Models: A Modern Approach</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -51,11 +51,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"covMat": "\\boldsymbol{\\Sigma}", "data": "\\mathcal{D}", "defeq": "\\triangleq", "diag": "\\mathrm{diag}", "discreteState": "s", "dotstar": "\\odot", "dynamicsFn": "\\mathbf{f}", "floor": ["\\lfloor#1\\rfloor", 1], "gainMatrix": "\\mathbf{K}", "gainMatrixReverse": "\\mathbf{G}", "gauss": "\\mathcal{N}", "gaussInfo": "\\mathcal{N}_{\\text{info}}", "hidden": "\\mathbf{x}", "hiddenScalar": "x", "hmmInit": "\\boldsymbol{\\pi}", "hmmInitScalar": "\\pi", "hmmObs": "\\mathbf{B}", "hmmObsScalar": "B", "hmmTrans": "\\mathbf{A}", "hmmTransScalar": "A", "infoMat": "\\precMat", "input": "\\mathbf{u}", "inputs": "\\input", "inv": ["{#1}^{-1}", 1], "keyword": ["\\textbf{#1}", 1], "ldsDyn": "\\mathbf{F}", "ldsDynIn": "\\mathbf{B}", "initMean": "\\boldsymbol{\\mean}_0", "initCov": "\\boldsymbol{\\covMat}_0", "ldsObs": "\\mathbf{H}", "ldsObsIn": "\\mathbf{D}", "ldsTrans": "\\ldsDyn", "ldsTransIn": "\\ldsDynIn", "obsCov": "\\mathbf{R}", "obsNoise": "\\boldsymbol{r}", "map": "\\mathrm{map}", "measurementFn": "\\mathbf{h}", "mean": "\\boldsymbol{\\mu}", "mle": "\\mathrm{mle}", "nlatents": "n_x", "nhidden": "\\nlatents", "ninputs": "n_u", "nobs": "n_y", "nsymbols": "n_y", "nstates": "n_s", "obs": "\\mathbf{y}", "obsScalar": "y", "observed": "\\obs", "obsFn": "\\measurementFn", "params": "\\boldsymbol{\\theta}", "precMean": "\\boldsymbol{\\eta}", "precMat": "\\boldsymbol{\\Lambda}", "real": "\\mathbb{R}", "sigmoid": "\\sigma", "softmax": "\\boldsymbol{\\sigma}", "trans": "\\mathsf{T}", "transpose": ["{#1}^{\\trans}", 1], "transCov": "\\mathbf{Q}", "transNoise": "\\mathbf{q}", "valpha": "\\boldsymbol{\\alpha}", "vbeta": "\\boldsymbol{\\beta}", "vdelta": "\\boldsymbol{\\delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vlambda": "\\boldsymbol{\\lambda}", "vLambda": "\\boldsymbol{\\Lambda}", "vmu": "\\boldsymbol{\\mu}", "vpi": "\\boldsymbol{\\pi}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vone": "\\boldsymbol{1}", "vzero": "\\boldsymbol{0}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Hidden Markov Models" href="../hmm/hmm_index.html" />
+    <link rel="next" title="Parameter estimation (learning)" href="learning.html" />
     <link rel="prev" title="Nonlinear Gaussian SSMs" href="nlds.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -96,11 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="ssm_index.html">
    State Space Models
@@ -133,7 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -465,7 +465,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Inferential goals</h1>
+                <h1>States estimation (inference)</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -496,48 +496,6 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
-<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
-
-<span class="p">{</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;hide-cell&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="c1">### Install necessary libraries</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
-    <span class="kn">import</span> <span class="nn">jax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">distrax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade  distrax
-    <span class="kn">import</span> <span class="nn">distrax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jsl</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
-    <span class="kn">import</span> <span class="nn">jsl</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">rich</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install rich
-    <span class="kn">import</span> <span class="nn">rich</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;hide-cell&quot;</span>
@@ -566,163 +524,14 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
 
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
-<span class="kn">import</span> <span class="nn">rich</span>
-<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">inspect</span> <span class="k">as</span> <span class="n">r_inspect</span>
-<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">r_print</span>
-
-<span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="n">r_print</span><span class="p">(</span><span class="n">py_inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+<span class="kn">import</span> <span class="nn">jsl</span>
+<span class="kn">import</span> <span class="nn">ssm_jax</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
-\newcommand{\vzero}{\boldsymbol{0}}
-\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-\newcommand{\valpha}{\boldsymbol{\alpha}}
-\newcommand{\vbeta}{\boldsymbol{\beta}}
-\newcommand{\vchi}{\boldsymbol{\chi}}
-\newcommand{\vdelta}{\boldsymbol{\delta}}
-\newcommand{\vDelta}{\boldsymbol{\Delta}}
-\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-\newcommand{\vzeta}{\boldsymbol{\zeta}}
-\newcommand{\vXi}{\boldsymbol{\Xi}}
-\newcommand{\vell}{\boldsymbol{\ell}}
-\newcommand{\veta}{\boldsymbol{\eta}}
-%\newcommand{\vEta}{\boldsymbol{\Eta}}
-\newcommand{\vgamma}{\boldsymbol{\gamma}}
-\newcommand{\vGamma}{\boldsymbol{\Gamma}}
-\newcommand{\vmu}{\boldsymbol{\mu}}
-\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vkappa}{\boldsymbol{\kappa}}
-\newcommand{\vlambda}{\boldsymbol{\lambda}}
-\newcommand{\vLambda}{\boldsymbol{\Lambda}}
-\newcommand{\vLambdaBar}{\overline{\vLambda}}
-%\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vomega}{\boldsymbol{\omega}}
-\newcommand{\vOmega}{\boldsymbol{\Omega}}
-\newcommand{\vphi}{\boldsymbol{\phi}}
-\newcommand{\vvarphi}{\boldsymbol{\varphi}}
-\newcommand{\vPhi}{\boldsymbol{\Phi}}
-\newcommand{\vpi}{\boldsymbol{\pi}}
-\newcommand{\vPi}{\boldsymbol{\Pi}}
-\newcommand{\vpsi}{\boldsymbol{\psi}}
-\newcommand{\vPsi}{\boldsymbol{\Psi}}
-\newcommand{\vrho}{\boldsymbol{\rho}}
-\newcommand{\vtheta}{\boldsymbol{\theta}}
-\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-\newcommand{\vTheta}{\boldsymbol{\Theta}}
-\newcommand{\vsigma}{\boldsymbol{\sigma}}
-\newcommand{\vSigma}{\boldsymbol{\Sigma}}
-\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-\newcommand{\vsigmoid}{\vsigma}
-\newcommand{\vtau}{\boldsymbol{\tau}}
-\newcommand{\vxi}{\boldsymbol{\xi}}\\
-% Lower Roman (Vectors)
-\newcommand{\va}{\mathbf{a}}
-\newcommand{\vb}{\mathbf{b}}
-\newcommand{\vBt}{\mathbf{\tilde{B}}}
-\newcommand{\vc}{\mathbf{c}}
-\newcommand{\vct}{\mathbf{\tilde{c}}}
-\newcommand{\vd}{\mathbf{d}}
-\newcommand{\ve}{\mathbf{e}}
-\newcommand{\vf}{\mathbf{f}}
-\newcommand{\vg}{\mathbf{g}}
-\newcommand{\vh}{\mathbf{h}}
-%\newcommand{\myvh}{\mathbf{h}}
-\newcommand{\vi}{\mathbf{i}}
-\newcommand{\vj}{\mathbf{j}}
-\newcommand{\vk}{\mathbf{k}}
-\newcommand{\vl}{\mathbf{l}}
-\newcommand{\vm}{\mathbf{m}}
-\newcommand{\vn}{\mathbf{n}}
-\newcommand{\vo}{\mathbf{o}}
-\newcommand{\vp}{\mathbf{p}}
-\newcommand{\vq}{\mathbf{q}}
-\newcommand{\vr}{\mathbf{r}}
-\newcommand{\vs}{\mathbf{s}}
-\newcommand{\vt}{\mathbf{t}}
-\newcommand{\vu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
-\newcommand{\vw}{\mathbf{w}}
-\newcommand{\vws}{\vw_s}
-\newcommand{\vwt}{\mathbf{\tilde{w}}}
-\newcommand{\vWt}{\mathbf{\tilde{W}}}
-\newcommand{\vwh}{\hat{\vw}}
-\newcommand{\vx}{\mathbf{x}}
-%\newcommand{\vx}{\mathbf{x}}
-\newcommand{\vxt}{\mathbf{\tilde{x}}}
-\newcommand{\vy}{\mathbf{y}}
-\newcommand{\vyt}{\mathbf{\tilde{y}}}
-\newcommand{\vz}{\mathbf{z}}
-%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-% Upper Roman (Matrices)
-\newcommand{\vA}{\mathbf{A}}
-\newcommand{\vB}{\mathbf{B}}
-\newcommand{\vC}{\mathbf{C}}
-\newcommand{\vD}{\mathbf{D}}
-\newcommand{\vE}{\mathbf{E}}
-\newcommand{\vF}{\mathbf{F}}
-\newcommand{\vG}{\mathbf{G}}
-\newcommand{\vH}{\mathbf{H}}
-\newcommand{\vI}{\mathbf{I}}
-\newcommand{\vJ}{\mathbf{J}}
-\newcommand{\vK}{\mathbf{K}}
-\newcommand{\vL}{\mathbf{L}}
-\newcommand{\vM}{\mathbf{M}}
-\newcommand{\vMt}{\mathbf{\tilde{M}}}
-\newcommand{\vN}{\mathbf{N}}
-\newcommand{\vO}{\mathbf{O}}
-\newcommand{\vP}{\mathbf{P}}
-\newcommand{\vQ}{\mathbf{Q}}
-\newcommand{\vR}{\mathbf{R}}
-\newcommand{\vS}{\mathbf{S}}
-\newcommand{\vT}{\mathbf{T}}
-\newcommand{\vU}{\mathbf{U}}
-\newcommand{\vV}{\mathbf{V}}
-\newcommand{\vW}{\mathbf{W}}
-\newcommand{\vX}{\mathbf{X}}
-%\newcommand{\vXs}{\vX_{\vs}}
-\newcommand{\vXs}{\vX_{s}}
-\newcommand{\vXt}{\mathbf{\tilde{X}}}
-\newcommand{\vY}{\mathbf{Y}}
-\newcommand{\vZ}{\mathbf{Z}}
-\newcommand{\vZt}{\mathbf{\tilde{Z}}}
-\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-%%%%
-\newcommand{\hidden}{\vz}
-\newcommand{\hid}{\hidden}
-\newcommand{\observed}{\vy}
-\newcommand{\obs}{\observed}
-\newcommand{\inputs}{\vu}
-\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
-\newcommand{\hmmObs}{\vB}
-\newcommand{\hmmInit}{\vpi}
-\newcommand{\hmmhid}{\hidden}
-\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
-\newcommand{\ldsObs}{\vC}
-\newcommand{\ldsDynIn}{\vB}
-\newcommand{\ldsObsIn}{\vD}
-\newcommand{\ldsDynNoise}{\vQ}
-\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
-\newcommand{\ssmObsFn}{h}\\
-%%%
-\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="inferential-goals">
-<span id="sec-inference"></span><h1>Inferential goals<a class="headerlink" href="#inferential-goals" title="Permalink to this headline">¶</a></h1>
-<div class="figure align-default" id="fig-dbn-inference">
-<a class="reference internal image-reference" href="../../_images/inference-problems-tikz.png"><img alt="../../_images/inference-problems-tikz.png" src="../../_images/inference-problems-tikz.png" style="width: 352.2px; height: 269.4px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Illustration of the different kinds of inference in an SSM.
-The main kinds of inference for state-space models.
-The shaded region is the interval for which we have data.
-The arrow represents the time step at which we want to perform inference.
-<span class="math notranslate nohighlight">\(t\)</span> is the current time,  <span class="math notranslate nohighlight">\(T\)</span> is the sequence length,
-<span class="math notranslate nohighlight">\(\ell\)</span> is the lag and <span class="math notranslate nohighlight">\(h\)</span> is the prediction horizon.</span><a class="headerlink" href="#fig-dbn-inference" title="Permalink to this image">¶</a></p>
-</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="states-estimation-inference">
+<span id="sec-inference"></span><h1>States estimation (inference)<a class="headerlink" href="#states-estimation-inference" title="Permalink to this headline">¶</a></h1>
 <p>Given the sequence of observations, and a known model,
 one of the main tasks with SSMs
 to perform posterior inference,
@@ -733,39 +542,50 @@ there are multiple forms of posterior we may be interested in computing,
 including the following:</p>
 <ul class="simple">
 <li><p>the filtering distribution
-<span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmobs_{1:t})\)</span></p></li>
+<span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:t})\)</span></p></li>
 <li><p>the smoothing distribution
-<span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmobs_{1:T})\)</span> (note that this conditions on future data <span class="math notranslate nohighlight">\(T&gt;t\)</span>)</p></li>
+<span class="math notranslate nohighlight">\(p(\hidden_t|\obs_{1:T})\)</span> (note that this conditions on future data <span class="math notranslate nohighlight">\(T&gt;t\)</span>)</p></li>
 <li><p>the fixed-lag smoothing distribution
-<span class="math notranslate nohighlight">\(p(\hmmhid_{t-\ell}|\hmmobs_{1:t})\)</span> (note that this
+<span class="math notranslate nohighlight">\(p(\hidden_{t-\ell}|\obs_{1:t})\)</span> (note that this
 infers <span class="math notranslate nohighlight">\(\ell\)</span> steps in the past given data up to the present).</p></li>
 </ul>
 <p>We may also want to compute the
 predictive distribution <span class="math notranslate nohighlight">\(h\)</span> steps into the future:</p>
-<div class="math notranslate nohighlight">
-\[p(\hmmobs_{t+h}|\hmmobs_{1:t})
-= \sum_{\hmmhid_{t+h}} p(\hmmobs_{t+h}|\hmmhid_{t+h}) p(\hmmhid_{t+h}|\hmmobs_{1:t})\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1f208dad-d4e8-412e-aed2-aa723b3f8bbf">
+<span class="eqno">(15)<a class="headerlink" href="#equation-1f208dad-d4e8-412e-aed2-aa723b3f8bbf" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\obs_{t+h}|\obs_{1:t})
+= \sum_{\hidden_{t+h}} p(\obs_{t+h}|\hidden_{t+h}) p(\hidden_{t+h}|\obs_{1:t})
+\end{align}\]</div>
 <p>where the hidden state predictive distribution is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-37bb812e-8d87-45c3-b352-11b694274a9e">
-<span class="eqno">(18)<a class="headerlink" href="#equation-37bb812e-8d87-45c3-b352-11b694274a9e" title="Permalink to this equation">¶</a></span>\[\begin{align}
-p(\hmmhid_{t+h}|\hmmobs_{1:t})
-&amp;= \sum_{\hmmhid_{t:t+h-1}}
- p(\hmmhid_t|\hmmobs_{1:t}) 
- p(\hmmhid_{t+1}|\hmmhid_{t})
- p(\hmmhid_{t+2}|\hmmhid_{t+1})
+<div class="amsmath math notranslate nohighlight" id="equation-aeb53008-8650-4419-932d-1f31ed6427f1">
+<span class="eqno">(16)<a class="headerlink" href="#equation-aeb53008-8650-4419-932d-1f31ed6427f1" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\hidden_{t+h}|\obs_{1:t})
+&amp;= \sum_{\hidden_{t:t+h-1}}
+ p(\hidden_t|\obs_{1:t}) 
+ p(\hidden_{t+1}|\hidden_{t})
+ p(\hidden_{t+2}|\hidden_{t+1})
 \cdots
- p(\hmmhid_{t+h}|\hmmhid_{t+h-1})
+ p(\hidden_{t+h}|\hidden_{t+h-1})
 \end{align}\]</div>
 <p>See
-<a class="reference internal" href="#fig-dbn-inference"><span class="std std-numref">Fig. 7</span></a> for a summary of these distributions.</p>
+<a class="reference internal" href="#fig-dbn-inference"><span class="std std-numref">Fig. 5</span></a> for a summary of these distributions.</p>
+<div class="figure align-default" id="fig-dbn-inference">
+<a class="reference internal image-reference" href="../../_images/inference-problems-tikz.png"><img alt="../../_images/inference-problems-tikz.png" src="../../_images/inference-problems-tikz.png" style="width: 352.2px; height: 269.4px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of the different kinds of inference in an SSM.
+The main kinds of inference for state-space models.
+The shaded region is the interval for which we have data.
+The arrow represents the time step at which we want to perform inference.
+<span class="math notranslate nohighlight">\(t\)</span> is the current time,  <span class="math notranslate nohighlight">\(T\)</span> is the sequence length,
+<span class="math notranslate nohighlight">\(\ell\)</span> is the lag and <span class="math notranslate nohighlight">\(h\)</span> is the prediction horizon.</span><a class="headerlink" href="#fig-dbn-inference" title="Permalink to this image">¶</a></p>
+</div>
 <p>In addition  to comuting posterior marginals,
 we may want to compute the most probable hidden sequence,
 i.e., the joint MAP estimate</p>
 <div class="math notranslate nohighlight">
-\[\arg \max_{\hmmhid_{1:T}} p(\hmmhid_{1:T}|\hmmobs_{1:T})\]</div>
+\[\arg \max_{\hidden_{1:T}} p(\hidden_{1:T}|\obs_{1:T})\]</div>
 <p>or sample sequences from the posterior</p>
 <div class="math notranslate nohighlight">
-\[\hmmhid_{1:T} \sim p(\hmmhid_{1:T}|\hmmobs_{1:T})\]</div>
+\[\hidden_{1:T} \sim p(\hidden_{1:T}|\obs_{1:T})\]</div>
 <p>Algorithms for all these task are discussed in the following chapters,
 since the details depend on the form of the SSM.</p>
 <div class="section" id="example-inference-in-the-casino-hmm">
@@ -821,7 +641,7 @@ to the casino HMM from <span class="xref std std-ref">sec:casino</span> and <spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.8/site-packages/jax/_src/numpy/lax_numpy.py:5154: UserWarning: Explicitly requested dtype &lt;class &#39;jax._src.numpy.lax_numpy.int64&#39;&gt; requested in astype is not available, and will be truncated to dtype int32. To enable more dtypes, set the jax_enable_x64 configuration option or the JAX_ENABLE_X64 shell environment variable. See https://github.com/google/jax#current-gotchas for more.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.8/site-packages/jax/_src/numpy/lax_numpy.py:4457: UserWarning: Explicitly requested dtype &lt;class &#39;jax.numpy.int64&#39;&gt; requested in astype is not available, and will be truncated to dtype int32. To enable more dtypes, set the jax_enable_x64 configuration option or the JAX_ENABLE_X64 shell environment variable. See https://github.com/google/jax#current-gotchas for more.
   lax_internal._check_user_dtype_supported(dtype, &quot;astype&quot;)
 </pre></div>
 </div>
@@ -883,7 +703,7 @@ to the casino HMM from <span class="xref std std-ref">sec:casino</span> and <spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Filtered&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/inference_9_1.png" src="../../_images/inference_9_1.png" />
+<img alt="../../_images/inference_7_1.png" src="../../_images/inference_7_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -903,7 +723,7 @@ to the casino HMM from <span class="xref std std-ref">sec:casino</span> and <spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Smoothed&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/inference_10_1.png" src="../../_images/inference_10_1.png" />
+<img alt="../../_images/inference_8_1.png" src="../../_images/inference_8_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -920,7 +740,7 @@ to the casino HMM from <span class="xref std std-ref">sec:casino</span> and <spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Viterbi&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/inference_11_1.png" src="../../_images/inference_11_1.png" />
+<img alt="../../_images/inference_9_1.png" src="../../_images/inference_9_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1004,7 +824,7 @@ to the 2d tracking HMM from <a class="reference internal" href="lds.html#sec-tra
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L2-filter: 3.2481
 </pre></div>
 </div>
-<img alt="../../_images/inference_16_1.png" src="../../_images/inference_16_1.png" />
+<img alt="../../_images/inference_14_1.png" src="../../_images/inference_14_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1023,7 +843,7 @@ to the 2d tracking HMM from <a class="reference internal" href="lds.html#sec-tra
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L2-smooth: 2.0450
 </pre></div>
 </div>
-<img alt="../../_images/inference_17_1.png" src="../../_images/inference_17_1.png" />
+<img alt="../../_images/inference_15_1.png" src="../../_images/inference_15_1.png" />
 </div>
 </div>
 </div>
@@ -1061,10 +881,10 @@ to the 2d tracking HMM from <a class="reference internal" href="lds.html#sec-tra
             <p class="prev-next-title">Nonlinear Gaussian SSMs</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../hmm/hmm_index.html" title="next page">
+    <a class='right-next' id="next-link" href="learning.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Hidden Markov Models</p>
+        <p class="prev-next-title">Parameter estimation (learning)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

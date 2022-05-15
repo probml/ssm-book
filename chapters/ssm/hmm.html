@@ -51,7 +51,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"covMat": "\\boldsymbol{\\Sigma}", "data": "\\mathcal{D}", "defeq": "\\triangleq", "diag": "\\mathrm{diag}", "discreteState": "s", "dotstar": "\\odot", "dynamicsFn": "\\mathbf{f}", "floor": ["\\lfloor#1\\rfloor", 1], "gainMatrix": "\\mathbf{K}", "gainMatrixReverse": "\\mathbf{G}", "gauss": "\\mathcal{N}", "gaussInfo": "\\mathcal{N}_{\\text{info}}", "hidden": "\\mathbf{x}", "hiddenScalar": "x", "hmmInit": "\\boldsymbol{\\pi}", "hmmInitScalar": "\\pi", "hmmObs": "\\mathbf{B}", "hmmObsScalar": "B", "hmmTrans": "\\mathbf{A}", "hmmTransScalar": "A", "infoMat": "\\precMat", "input": "\\mathbf{u}", "inputs": "\\input", "inv": ["{#1}^{-1}", 1], "keyword": ["\\textbf{#1}", 1], "ldsDyn": "\\mathbf{F}", "ldsDynIn": "\\mathbf{B}", "initMean": "\\boldsymbol{\\mean}_0", "initCov": "\\boldsymbol{\\covMat}_0", "ldsObs": "\\mathbf{H}", "ldsObsIn": "\\mathbf{D}", "ldsTrans": "\\ldsDyn", "ldsTransIn": "\\ldsDynIn", "obsCov": "\\mathbf{R}", "obsNoise": "\\boldsymbol{r}", "map": "\\mathrm{map}", "measurementFn": "\\mathbf{h}", "mean": "\\boldsymbol{\\mu}", "mle": "\\mathrm{mle}", "nlatents": "n_x", "nhidden": "\\nlatents", "ninputs": "n_u", "nobs": "n_y", "nsymbols": "n_y", "nstates": "n_s", "obs": "\\mathbf{y}", "obsScalar": "y", "observed": "\\obs", "obsFn": "\\measurementFn", "params": "\\boldsymbol{\\theta}", "precMean": "\\boldsymbol{\\eta}", "precMat": "\\boldsymbol{\\Lambda}", "real": "\\mathbb{R}", "sigmoid": "\\sigma", "softmax": "\\boldsymbol{\\sigma}", "trans": "\\mathsf{T}", "transpose": ["{#1}^{\\trans}", 1], "transCov": "\\mathbf{Q}", "transNoise": "\\mathbf{q}", "valpha": "\\boldsymbol{\\alpha}", "vbeta": "\\boldsymbol{\\beta}", "vdelta": "\\boldsymbol{\\delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vlambda": "\\boldsymbol{\\lambda}", "vLambda": "\\boldsymbol{\\Lambda}", "vmu": "\\boldsymbol{\\mu}", "vpi": "\\boldsymbol{\\pi}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vone": "\\boldsymbol{1}", "vzero": "\\boldsymbol{0}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -96,11 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="ssm_index.html">
    State Space Models
@@ -133,7 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="inference.html">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -177,7 +177,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,37 +286,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../tracking/tracking_index.html">
@@ -521,48 +494,22 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># meta-data does not work yet in VScode</span>
-<span class="c1"># https://github.com/microsoft/vscode-jupyter/issues/1121</span>
-
-<span class="p">{</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;hide-cell&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="c1">### Install necessary libraries</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="c1"># For cuda version, see https://github.com/google/jax#installation</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade &quot;jax[cpu]&quot; 
-    <span class="kn">import</span> <span class="nn">jax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">distrax</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install --upgrade  distrax
-    <span class="kn">import</span> <span class="nn">distrax</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">jsl</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install git+https://github.com/probml/jsl
-    <span class="kn">import</span> <span class="nn">jsl</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">rich</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">pip</span> install rich
-    <span class="kn">import</span> <span class="nn">rich</span>
-</pre></div>
-</div>
-</div>
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="hidden-markov-models">
+<span id="sec-hmm-intro"></span><h1>Hidden Markov Models<a class="headerlink" href="#hidden-markov-models" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we discuss the
+hidden Markov model or HMM,
+which is a state space model in which the hidden states
+are discrete, so <span class="math notranslate nohighlight">\(\hidden_t \in \{1,\ldots, \nstates\}\)</span>.
+The observations may be discrete,
+<span class="math notranslate nohighlight">\(\obs_t \in \{1,\ldots, \nsymbols\}\)</span>,
+or continuous,
+<span class="math notranslate nohighlight">\(\obs_t \in \real^\nstates\)</span>,
+or some combination,
+as we illustrate below.
+More details can be found in e.g.,
+<span id="id1">[<a class="reference internal" href="../../bib.html#id34" title="O. Cappe, E. Moulines, and T. Ryden. Inference in Hidden Markov Models. Springer, 2005.">CMR05</a>, <a class="reference internal" href="../../bib.html#id33" title="A. Fraser. Hidden Markov Models and Dynamical Systems. SIAM Press, 2008.">Fra08</a>, <a class="reference internal" href="../../bib.html#id32" title="L. R. Rabiner. A tutorial on Hidden Markov Models and selected applications in speech recognition. Proc. of the IEEE, 77(2):257–286, 1989.">Rab89</a>]</span>.
+For an interactive introduction,
+see <a class="reference external" href="https://nipunbatra.github.io/hmm/">https://nipunbatra.github.io/hmm/</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -577,21 +524,26 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
-
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
-
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">jit</span><span class="p">,</span> <span class="n">grad</span>
-<span class="kn">from</span> <span class="nn">jax.scipy.special</span> <span class="kn">import</span> <span class="n">logit</span>
-<span class="kn">from</span> <span class="nn">jax.nn</span> <span class="kn">import</span> <span class="n">softmax</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">jax.random</span> <span class="kn">import</span> <span class="n">PRNGKey</span><span class="p">,</span> <span class="n">split</span>
+<span class="c1">#from jax.scipy.special import logit</span>
+<span class="c1">#from jax.nn import softmax</span>
+<span class="kn">import</span> <span class="nn">jax.random</span> <span class="k">as</span> <span class="nn">jr</span>
+
+
+
+<span class="kn">import</span> <span class="nn">distrax</span>
+<span class="kn">import</span> <span class="nn">optax</span>
+
+<span class="kn">import</span> <span class="nn">jsl</span>
+<span class="kn">import</span> <span class="nn">ssm_jax</span>
 
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">py_inspect</span>
@@ -605,156 +557,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
-\newcommand{\vzero}{\boldsymbol{0}}
-\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-\newcommand{\valpha}{\boldsymbol{\alpha}}
-\newcommand{\vbeta}{\boldsymbol{\beta}}
-\newcommand{\vchi}{\boldsymbol{\chi}}
-\newcommand{\vdelta}{\boldsymbol{\delta}}
-\newcommand{\vDelta}{\boldsymbol{\Delta}}
-\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-\newcommand{\vzeta}{\boldsymbol{\zeta}}
-\newcommand{\vXi}{\boldsymbol{\Xi}}
-\newcommand{\vell}{\boldsymbol{\ell}}
-\newcommand{\veta}{\boldsymbol{\eta}}
-%\newcommand{\vEta}{\boldsymbol{\Eta}}
-\newcommand{\vgamma}{\boldsymbol{\gamma}}
-\newcommand{\vGamma}{\boldsymbol{\Gamma}}
-\newcommand{\vmu}{\boldsymbol{\mu}}
-\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vkappa}{\boldsymbol{\kappa}}
-\newcommand{\vlambda}{\boldsymbol{\lambda}}
-\newcommand{\vLambda}{\boldsymbol{\Lambda}}
-\newcommand{\vLambdaBar}{\overline{\vLambda}}
-%\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vomega}{\boldsymbol{\omega}}
-\newcommand{\vOmega}{\boldsymbol{\Omega}}
-\newcommand{\vphi}{\boldsymbol{\phi}}
-\newcommand{\vvarphi}{\boldsymbol{\varphi}}
-\newcommand{\vPhi}{\boldsymbol{\Phi}}
-\newcommand{\vpi}{\boldsymbol{\pi}}
-\newcommand{\vPi}{\boldsymbol{\Pi}}
-\newcommand{\vpsi}{\boldsymbol{\psi}}
-\newcommand{\vPsi}{\boldsymbol{\Psi}}
-\newcommand{\vrho}{\boldsymbol{\rho}}
-\newcommand{\vtheta}{\boldsymbol{\theta}}
-\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-\newcommand{\vTheta}{\boldsymbol{\Theta}}
-\newcommand{\vsigma}{\boldsymbol{\sigma}}
-\newcommand{\vSigma}{\boldsymbol{\Sigma}}
-\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-\newcommand{\vsigmoid}{\vsigma}
-\newcommand{\vtau}{\boldsymbol{\tau}}
-\newcommand{\vxi}{\boldsymbol{\xi}}\\
-% Lower Roman (Vectors)
-\newcommand{\va}{\mathbf{a}}
-\newcommand{\vb}{\mathbf{b}}
-\newcommand{\vBt}{\mathbf{\tilde{B}}}
-\newcommand{\vc}{\mathbf{c}}
-\newcommand{\vct}{\mathbf{\tilde{c}}}
-\newcommand{\vd}{\mathbf{d}}
-\newcommand{\ve}{\mathbf{e}}
-\newcommand{\vf}{\mathbf{f}}
-\newcommand{\vg}{\mathbf{g}}
-\newcommand{\vh}{\mathbf{h}}
-%\newcommand{\myvh}{\mathbf{h}}
-\newcommand{\vi}{\mathbf{i}}
-\newcommand{\vj}{\mathbf{j}}
-\newcommand{\vk}{\mathbf{k}}
-\newcommand{\vl}{\mathbf{l}}
-\newcommand{\vm}{\mathbf{m}}
-\newcommand{\vn}{\mathbf{n}}
-\newcommand{\vo}{\mathbf{o}}
-\newcommand{\vp}{\mathbf{p}}
-\newcommand{\vq}{\mathbf{q}}
-\newcommand{\vr}{\mathbf{r}}
-\newcommand{\vs}{\mathbf{s}}
-\newcommand{\vt}{\mathbf{t}}
-\newcommand{\vu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
-\newcommand{\vw}{\mathbf{w}}
-\newcommand{\vws}{\vw_s}
-\newcommand{\vwt}{\mathbf{\tilde{w}}}
-\newcommand{\vWt}{\mathbf{\tilde{W}}}
-\newcommand{\vwh}{\hat{\vw}}
-\newcommand{\vx}{\mathbf{x}}
-%\newcommand{\vx}{\mathbf{x}}
-\newcommand{\vxt}{\mathbf{\tilde{x}}}
-\newcommand{\vy}{\mathbf{y}}
-\newcommand{\vyt}{\mathbf{\tilde{y}}}
-\newcommand{\vz}{\mathbf{z}}
-%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-% Upper Roman (Matrices)
-\newcommand{\vA}{\mathbf{A}}
-\newcommand{\vB}{\mathbf{B}}
-\newcommand{\vC}{\mathbf{C}}
-\newcommand{\vD}{\mathbf{D}}
-\newcommand{\vE}{\mathbf{E}}
-\newcommand{\vF}{\mathbf{F}}
-\newcommand{\vG}{\mathbf{G}}
-\newcommand{\vH}{\mathbf{H}}
-\newcommand{\vI}{\mathbf{I}}
-\newcommand{\vJ}{\mathbf{J}}
-\newcommand{\vK}{\mathbf{K}}
-\newcommand{\vL}{\mathbf{L}}
-\newcommand{\vM}{\mathbf{M}}
-\newcommand{\vMt}{\mathbf{\tilde{M}}}
-\newcommand{\vN}{\mathbf{N}}
-\newcommand{\vO}{\mathbf{O}}
-\newcommand{\vP}{\mathbf{P}}
-\newcommand{\vQ}{\mathbf{Q}}
-\newcommand{\vR}{\mathbf{R}}
-\newcommand{\vS}{\mathbf{S}}
-\newcommand{\vT}{\mathbf{T}}
-\newcommand{\vU}{\mathbf{U}}
-\newcommand{\vV}{\mathbf{V}}
-\newcommand{\vW}{\mathbf{W}}
-\newcommand{\vX}{\mathbf{X}}
-%\newcommand{\vXs}{\vX_{\vs}}
-\newcommand{\vXs}{\vX_{s}}
-\newcommand{\vXt}{\mathbf{\tilde{X}}}
-\newcommand{\vY}{\mathbf{Y}}
-\newcommand{\vZ}{\mathbf{Z}}
-\newcommand{\vZt}{\mathbf{\tilde{Z}}}
-\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-%%%%
-\newcommand{\hidden}{\vz}
-\newcommand{\hid}{\hidden}
-\newcommand{\observed}{\vy}
-\newcommand{\obs}{\observed}
-\newcommand{\inputs}{\vu}
-\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
-\newcommand{\hmmObs}{\vB}
-\newcommand{\hmmInit}{\vpi}
-\newcommand{\hmmhid}{\hidden}
-\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
-\newcommand{\ldsObs}{\vC}
-\newcommand{\ldsDynIn}{\vB}
-\newcommand{\ldsObsIn}{\vD}
-\newcommand{\ldsDynNoise}{\vQ}
-\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
-\newcommand{\ssmObsFn}{h}\\
-%%%
-\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="hidden-markov-models">
-<span id="sec-hmm-intro"></span><h1>Hidden Markov Models<a class="headerlink" href="#hidden-markov-models" title="Permalink to this headline">¶</a></h1>
-<p>In this section, we discuss the
-hidden Markov model or HMM,
-which is a state space model in which the hidden states
-are discrete, so <span class="math notranslate nohighlight">\(\hmmhid_t \in \{1,\ldots, K\}\)</span>.
-The observations may be discrete,
-<span class="math notranslate nohighlight">\(\hmmobs_t \in \{1,\ldots, C\}\)</span>,
-or continuous,
-<span class="math notranslate nohighlight">\(\hmmobs_t \in \real^D\)</span>,
-or some combination,
-as we illustrate below.
-More details can be found in e.g.,
-<span id="id1">[<a class="reference internal" href="../../bib.html#id34" title="O. Cappe, E. Moulines, and T. Ryden. Inference in Hidden Markov Models. Springer, 2005.">CMR05</a>, <a class="reference internal" href="../../bib.html#id33" title="A. Fraser. Hidden Markov Models and Dynamical Systems. SIAM Press, 2008.">Fra08</a>, <a class="reference internal" href="../../bib.html#id32" title="L. R. Rabiner. A tutorial on Hidden Markov Models and selected applications in speech recognition. Proc. of the IEEE, 77(2):257–286, 1989.">Rab89</a>]</span>.
-For an interactive introduction,
-see <a class="reference external" href="https://nipunbatra.github.io/hmm/">https://nipunbatra.github.io/hmm/</a>.</p>
 <div class="section" id="example-casino-hmm">
 <h2>Example: Casino HMM<a class="headerlink" href="#example-casino-hmm" title="Permalink to this headline">¶</a></h2>
 <p>To illustrate HMMs with categorical observation model,
@@ -763,29 +565,29 @@ There are 2 hidden states, representing whether the dice being used in the casin
 Each state defines a distribution over the 6 possible observations.</p>
 <p>The transition model is denoted by</p>
 <div class="math notranslate nohighlight">
-\[p(z_t=j|z_{t-1}=i) = \hmmTrans_{ij}\]</div>
-<p>Here the <span class="math notranslate nohighlight">\(i\)</span>’th row of <span class="math notranslate nohighlight">\(\vA\)</span> corresponds to the outgoing distribution from state <span class="math notranslate nohighlight">\(i\)</span>.
+\[p(\hidden_t=j|\hidden_{t-1}=i) = \hmmTransScalar_{ij}\]</div>
+<p>Here the <span class="math notranslate nohighlight">\(i\)</span>’th row of <span class="math notranslate nohighlight">\(\hmmTrans\)</span> corresponds to the outgoing distribution from state <span class="math notranslate nohighlight">\(i\)</span>.
 This is  a row stochastic matrix,
 meaning each row sums to one.
 We can visualize
 the non-zero entries in the transition matrix by creating a state transition diagram,
 as shown in
-<a class="reference internal" href="#fig-casino"><span class="std std-numref">Fig. 5</span></a>.</p>
+<a class="reference internal" href="#fig-casino"><span class="std std-numref">Fig. 3</span></a>.</p>
 <div class="figure align-default" id="fig-casino">
 <a class="reference internal image-reference" href="../../_images/casino.png"><img alt="../../_images/casino.png" src="../../_images/casino.png" style="width: 208.5px; height: 142.5px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#fig-casino" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the casino HMM.</span><a class="headerlink" href="#fig-casino" title="Permalink to this image">¶</a></p>
 </div>
 <p>The  observation model
 <span class="math notranslate nohighlight">\(p(\obs_t|\hidden_t=j)\)</span> has the form</p>
 <div class="math notranslate nohighlight">
-\[p(\obs_t=k|\hidden_t=j) = \hmmObs_{jk} \]</div>
+\[p(\obs_t=k|\hidden_t=j) = \hmmObsScalar_{jk} \]</div>
 <p>This is represented by the histograms associated with each
-state in  <code class="xref std std-numref docutils literal notranslate"><span class="pre">casino-fig</span></code>.</p>
+state in  <a class="reference internal" href="#fig-casino"><span class="std std-numref">Fig. 3</span></a>.</p>
 <p>Finally,
 the initial state distribution is denoted by</p>
 <div class="math notranslate nohighlight">
-\[p(z_1=j) = \hmmInit_j\]</div>
-<p>Collectively we denote all the parameters by <span class="math notranslate nohighlight">\(\vtheta=(\hmmTrans, \hmmObs, \hmmInit)\)</span>.</p>
+\[p(\hidden_1=j) = \hmmInitScalar_j\]</div>
+<p>Collectively we denote all the parameters by <span class="math notranslate nohighlight">\(\params=(\hmmTrans, \hmmObs, \hmmInit)\)</span>.</p>
 <p>Now let us implement this model in code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -826,18 +628,18 @@ the initial state distribution is denoted by</p>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;distrax._src.utils.hmm.HMM object at 0x7f793ace6250&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;distrax._src.utils.hmm.HMM object at 0x7fbca906ad60&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s sample from the model. We will generate a sequence of latent states, <span class="math notranslate nohighlight">\(\hid_{1:T}\)</span>,
+<p>Let’s sample from the model. We will generate a sequence of latent states, <span class="math notranslate nohighlight">\(\hidden_{1:T}\)</span>,
 which we then convert to a sequence of observations, <span class="math notranslate nohighlight">\(\obs_{1:T}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">314</span>
 <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">300</span>
-<span class="n">z_hist</span><span class="p">,</span> <span class="n">x_hist</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">PRNGKey</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">seq_len</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
+<span class="n">z_hist</span><span class="p">,</span> <span class="n">x_hist</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">jr</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">seq_len</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
 
 <span class="n">z_hist_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z_hist</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))[:</span><span class="mi">60</span><span class="p">]</span>
 <span class="n">x_hist_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_hist</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))[:</span><span class="mi">60</span><span class="p">]</span>
@@ -953,10 +755,16 @@ A[i,j] transition probabilites.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[225.  92.]
- [ 92.  90.]]
-[[0.7097792  0.29022083]
- [0.50549453 0.4945055 ]]
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="n">f054683fcd82</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">rng_key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="n">seq_len</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="ne">---&gt; </span><span class="mi">32</span> <span class="n">state_seq</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">PRNGKey</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">seq_len</span><span class="o">=</span><span class="n">seq_len</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> 
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">compute_counts</span><span class="p">(</span><span class="n">state_seq</span><span class="p">,</span> <span class="n">nstates</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;PRNGKey&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1034,7 +842,7 @@ except now there is temporal correlation between the data points.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;distrax._src.utils.hmm.HMM object at 0x7f79282a8100&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;distrax._src.utils.hmm.HMM object at 0x7fd658f7b7f0&gt;
 </pre></div>
 </div>
 </div>
@@ -1091,7 +899,7 @@ except now there is temporal correlation between the data points.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/hmm_17_0.png" src="../../_images/hmm_17_0.png" />
+<img alt="../../_images/hmm_15_0.png" src="../../_images/hmm_15_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1105,10 +913,10 @@ except now there is temporal correlation between the data points.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f7928f56ac0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fd5e174b460&gt;
 </pre></div>
 </div>
-<img alt="../../_images/hmm_18_1.png" src="../../_images/hmm_18_1.png" />
+<img alt="../../_images/hmm_16_1.png" src="../../_images/hmm_16_1.png" />
 </div>
 </div>
 </div>

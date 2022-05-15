@@ -51,11 +51,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"covMat": "\\boldsymbol{\\Sigma}", "data": "\\mathcal{D}", "defeq": "\\triangleq", "diag": "\\mathrm{diag}", "discreteState": "s", "dotstar": "\\odot", "dynamicsFn": "\\mathbf{f}", "floor": ["\\lfloor#1\\rfloor", 1], "gainMatrix": "\\mathbf{K}", "gainMatrixReverse": "\\mathbf{G}", "gauss": "\\mathcal{N}", "gaussInfo": "\\mathcal{N}_{\\text{info}}", "hidden": "\\mathbf{x}", "hiddenScalar": "x", "hmmInit": "\\boldsymbol{\\pi}", "hmmInitScalar": "\\pi", "hmmObs": "\\mathbf{B}", "hmmObsScalar": "B", "hmmTrans": "\\mathbf{A}", "hmmTransScalar": "A", "infoMat": "\\precMat", "input": "\\mathbf{u}", "inputs": "\\input", "inv": ["{#1}^{-1}", 1], "keyword": ["\\textbf{#1}", 1], "ldsDyn": "\\mathbf{F}", "ldsDynIn": "\\mathbf{B}", "initMean": "\\boldsymbol{\\mean}_0", "initCov": "\\boldsymbol{\\covMat}_0", "ldsObs": "\\mathbf{H}", "ldsObsIn": "\\mathbf{D}", "ldsTrans": "\\ldsDyn", "ldsTransIn": "\\ldsDynIn", "obsCov": "\\mathbf{R}", "obsNoise": "\\boldsymbol{r}", "map": "\\mathrm{map}", "measurementFn": "\\mathbf{h}", "mean": "\\boldsymbol{\\mu}", "mle": "\\mathrm{mle}", "nlatents": "n_x", "nhidden": "\\nlatents", "ninputs": "n_u", "nobs": "n_y", "nsymbols": "n_y", "nstates": "n_s", "obs": "\\mathbf{y}", "obsScalar": "y", "observed": "\\obs", "obsFn": "\\measurementFn", "params": "\\boldsymbol{\\theta}", "precMean": "\\boldsymbol{\\eta}", "precMat": "\\boldsymbol{\\Lambda}", "real": "\\mathbb{R}", "sigmoid": "\\sigma", "softmax": "\\boldsymbol{\\sigma}", "trans": "\\mathsf{T}", "transpose": ["{#1}^{\\trans}", 1], "transCov": "\\mathbf{Q}", "transNoise": "\\mathbf{q}", "valpha": "\\boldsymbol{\\alpha}", "vbeta": "\\boldsymbol{\\beta}", "vdelta": "\\boldsymbol{\\delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vlambda": "\\boldsymbol{\\lambda}", "vLambda": "\\boldsymbol{\\Lambda}", "vmu": "\\boldsymbol{\\mu}", "vpi": "\\boldsymbol{\\pi}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vone": "\\boldsymbol{1}", "vzero": "\\boldsymbol{0}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Inferential goals" href="inference.html" />
+    <link rel="next" title="States estimation (inference)" href="inference.html" />
     <link rel="prev" title="Linear Gaussian SSMs" href="lds.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -96,11 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="ssm_index.html">
    State Space Models
@@ -133,7 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="inference.html">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -177,7 +177,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,37 +286,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../tracking/tracking_index.html">
@@ -595,158 +568,24 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
-\newcommand{\vzero}{\boldsymbol{0}}
-\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-\newcommand{\valpha}{\boldsymbol{\alpha}}
-\newcommand{\vbeta}{\boldsymbol{\beta}}
-\newcommand{\vchi}{\boldsymbol{\chi}}
-\newcommand{\vdelta}{\boldsymbol{\delta}}
-\newcommand{\vDelta}{\boldsymbol{\Delta}}
-\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-\newcommand{\vzeta}{\boldsymbol{\zeta}}
-\newcommand{\vXi}{\boldsymbol{\Xi}}
-\newcommand{\vell}{\boldsymbol{\ell}}
-\newcommand{\veta}{\boldsymbol{\eta}}
-%\newcommand{\vEta}{\boldsymbol{\Eta}}
-\newcommand{\vgamma}{\boldsymbol{\gamma}}
-\newcommand{\vGamma}{\boldsymbol{\Gamma}}
-\newcommand{\vmu}{\boldsymbol{\mu}}
-\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vkappa}{\boldsymbol{\kappa}}
-\newcommand{\vlambda}{\boldsymbol{\lambda}}
-\newcommand{\vLambda}{\boldsymbol{\Lambda}}
-\newcommand{\vLambdaBar}{\overline{\vLambda}}
-%\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vomega}{\boldsymbol{\omega}}
-\newcommand{\vOmega}{\boldsymbol{\Omega}}
-\newcommand{\vphi}{\boldsymbol{\phi}}
-\newcommand{\vvarphi}{\boldsymbol{\varphi}}
-\newcommand{\vPhi}{\boldsymbol{\Phi}}
-\newcommand{\vpi}{\boldsymbol{\pi}}
-\newcommand{\vPi}{\boldsymbol{\Pi}}
-\newcommand{\vpsi}{\boldsymbol{\psi}}
-\newcommand{\vPsi}{\boldsymbol{\Psi}}
-\newcommand{\vrho}{\boldsymbol{\rho}}
-\newcommand{\vtheta}{\boldsymbol{\theta}}
-\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-\newcommand{\vTheta}{\boldsymbol{\Theta}}
-\newcommand{\vsigma}{\boldsymbol{\sigma}}
-\newcommand{\vSigma}{\boldsymbol{\Sigma}}
-\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-\newcommand{\vsigmoid}{\vsigma}
-\newcommand{\vtau}{\boldsymbol{\tau}}
-\newcommand{\vxi}{\boldsymbol{\xi}}\\
-% Lower Roman (Vectors)
-\newcommand{\va}{\mathbf{a}}
-\newcommand{\vb}{\mathbf{b}}
-\newcommand{\vBt}{\mathbf{\tilde{B}}}
-\newcommand{\vc}{\mathbf{c}}
-\newcommand{\vct}{\mathbf{\tilde{c}}}
-\newcommand{\vd}{\mathbf{d}}
-\newcommand{\ve}{\mathbf{e}}
-\newcommand{\vf}{\mathbf{f}}
-\newcommand{\vg}{\mathbf{g}}
-\newcommand{\vh}{\mathbf{h}}
-%\newcommand{\myvh}{\mathbf{h}}
-\newcommand{\vi}{\mathbf{i}}
-\newcommand{\vj}{\mathbf{j}}
-\newcommand{\vk}{\mathbf{k}}
-\newcommand{\vl}{\mathbf{l}}
-\newcommand{\vm}{\mathbf{m}}
-\newcommand{\vn}{\mathbf{n}}
-\newcommand{\vo}{\mathbf{o}}
-\newcommand{\vp}{\mathbf{p}}
-\newcommand{\vq}{\mathbf{q}}
-\newcommand{\vr}{\mathbf{r}}
-\newcommand{\vs}{\mathbf{s}}
-\newcommand{\vt}{\mathbf{t}}
-\newcommand{\vu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
-\newcommand{\vw}{\mathbf{w}}
-\newcommand{\vws}{\vw_s}
-\newcommand{\vwt}{\mathbf{\tilde{w}}}
-\newcommand{\vWt}{\mathbf{\tilde{W}}}
-\newcommand{\vwh}{\hat{\vw}}
-\newcommand{\vx}{\mathbf{x}}
-%\newcommand{\vx}{\mathbf{x}}
-\newcommand{\vxt}{\mathbf{\tilde{x}}}
-\newcommand{\vy}{\mathbf{y}}
-\newcommand{\vyt}{\mathbf{\tilde{y}}}
-\newcommand{\vz}{\mathbf{z}}
-%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-% Upper Roman (Matrices)
-\newcommand{\vA}{\mathbf{A}}
-\newcommand{\vB}{\mathbf{B}}
-\newcommand{\vC}{\mathbf{C}}
-\newcommand{\vD}{\mathbf{D}}
-\newcommand{\vE}{\mathbf{E}}
-\newcommand{\vF}{\mathbf{F}}
-\newcommand{\vG}{\mathbf{G}}
-\newcommand{\vH}{\mathbf{H}}
-\newcommand{\vI}{\mathbf{I}}
-\newcommand{\vJ}{\mathbf{J}}
-\newcommand{\vK}{\mathbf{K}}
-\newcommand{\vL}{\mathbf{L}}
-\newcommand{\vM}{\mathbf{M}}
-\newcommand{\vMt}{\mathbf{\tilde{M}}}
-\newcommand{\vN}{\mathbf{N}}
-\newcommand{\vO}{\mathbf{O}}
-\newcommand{\vP}{\mathbf{P}}
-\newcommand{\vQ}{\mathbf{Q}}
-\newcommand{\vR}{\mathbf{R}}
-\newcommand{\vS}{\mathbf{S}}
-\newcommand{\vT}{\mathbf{T}}
-\newcommand{\vU}{\mathbf{U}}
-\newcommand{\vV}{\mathbf{V}}
-\newcommand{\vW}{\mathbf{W}}
-\newcommand{\vX}{\mathbf{X}}
-%\newcommand{\vXs}{\vX_{\vs}}
-\newcommand{\vXs}{\vX_{s}}
-\newcommand{\vXt}{\mathbf{\tilde{X}}}
-\newcommand{\vY}{\mathbf{Y}}
-\newcommand{\vZ}{\mathbf{Z}}
-\newcommand{\vZt}{\mathbf{\tilde{Z}}}
-\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-%%%%
-\newcommand{\hidden}{\vz}
-\newcommand{\hid}{\hidden}
-\newcommand{\observed}{\vy}
-\newcommand{\obs}{\observed}
-\newcommand{\inputs}{\vu}
-\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
-\newcommand{\hmmObs}{\vB}
-\newcommand{\hmmInit}{\vpi}
-\newcommand{\hmmhid}{\hidden}
-\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
-\newcommand{\ldsObs}{\vC}
-\newcommand{\ldsDynIn}{\vB}
-\newcommand{\ldsObsIn}{\vD}
-\newcommand{\ldsDynNoise}{\vQ}
-\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
-\newcommand{\ssmObsFn}{h}\\
-%%%
-\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
 <div class="tex2jax_ignore mathjax_ignore section" id="nonlinear-gaussian-ssms">
 <span id="sec-nlds-intro"></span><h1>Nonlinear Gaussian SSMs<a class="headerlink" href="#nonlinear-gaussian-ssms" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we consider SSMs in which the dynamics and/or observation models are nonlinear,
 but the process noise and observation noise are Gaussian.
 That is,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-48c705c3-8479-4828-87b8-fd179fc23bc4">
-<span class="eqno">(11)<a class="headerlink" href="#equation-48c705c3-8479-4828-87b8-fd179fc23bc4" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\hmmhid_t &amp;= \ssmDynFn(\hmmhid_{t-1}, \inputs_t) +  \vepsilon_t  \\
-\hmmobs_t &amp;= \ssmObsFn(\hmmhid_{t}, \inputs_t) + \veta_t
+<div class="amsmath math notranslate nohighlight" id="equation-c863ff79-4ff3-4d89-8f2f-8e3236e21d41">
+<span class="eqno">(10)<a class="headerlink" href="#equation-c863ff79-4ff3-4d89-8f2f-8e3236e21d41" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\hidden_t &amp;= \dynamicsFn(\hidden_{t-1}, \inputs_t) +  \transNoise_t  \\
+\obs_t &amp;= \obsFn(\hidden_{t}, \inputs_t) + \obsNoise_t
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\vepsilon_t \sim \gauss(\vzero,\vQ_t)\)</span>
-and <span class="math notranslate nohighlight">\(\veta_t \sim \gauss(\vzero,\vR_t)\)</span>.
+<p>where <span class="math notranslate nohighlight">\(\transNoise_t \sim \gauss(\vzero,\transCov)\)</span>
+and <span class="math notranslate nohighlight">\(\obsNoise_t \sim \gauss(\vzero,\obsCov)\)</span>.
 This is a very widely used model class. We give some examples below.</p>
 <div class="section" id="example-tracking-a-1d-pendulum">
 <span id="sec-pendulum"></span><h2>Example: tracking a 1d pendulum<a class="headerlink" href="#example-tracking-a-1d-pendulum" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-default" id="fig-pendulum">
 <a class="reference internal image-reference" href="../../_images/pendulum.png"><img alt="../../_images/pendulum.png" src="../../_images/pendulum.png" style="width: 132.5px; height: 147.5px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Illustration of a pendulum swinging.
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of a pendulum swinging.
 <span class="math notranslate nohighlight">\(g\)</span> is the force of gravity,
 <span class="math notranslate nohighlight">\(w(t)\)</span> is a random external force,
 and <span class="math notranslate nohighlight">\(\alpha\)</span> is the angle wrt the vertical.
@@ -754,45 +593,45 @@ Based on <span id="id1">[<a class="reference internal" href="../../bib.html#id18
 </div>
 <p>Consider a simple pendulum of unit mass and length swinging from
 a fixed attachment, as in
-<code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">%s</span></code>.
+<a class="reference internal" href="#fig-pendulum"><span class="std std-numref">Fig. 4</span></a>.
 Such an object is in principle entirely deterministic in its behavior.
 However, in the real world, there are often unknown forces at work
 (e.g., air turbulence, friction).
 We will model these by a continuous time random Gaussian noise process <span class="math notranslate nohighlight">\(w(t)\)</span>.
 This gives rise to the following differential equation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ce7cd5b9-026f-47f8-b6eb-aeb189d67e25">
-<span class="eqno">(12)<a class="headerlink" href="#equation-ce7cd5b9-026f-47f8-b6eb-aeb189d67e25" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-78ce6a00-cbb6-4416-abd3-66bf4f7ba2f2">
+<span class="eqno">(11)<a class="headerlink" href="#equation-78ce6a00-cbb6-4416-abd3-66bf4f7ba2f2" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \frac{d^2 \alpha}{d t^2}
 = -g \sin(\alpha) + w(t)
 \end{align}\]</div>
 <p>We can write this as a nonlinear SSM by defining the state to be
-<span class="math notranslate nohighlight">\(z_1(t) = \alpha(t)\)</span> and <span class="math notranslate nohighlight">\(z_2(t) = d\alpha(t)/dt\)</span>.
+<span class="math notranslate nohighlight">\(\hidden_1(t) = \alpha(t)\)</span> and <span class="math notranslate nohighlight">\(\hidden_2(t) = d\alpha(t)/dt\)</span>.
 Thus</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fdafb753-eac8-4deb-9ab4-5408727f28f7">
-<span class="eqno">(13)<a class="headerlink" href="#equation-fdafb753-eac8-4deb-9ab4-5408727f28f7" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\frac{d \vz}{dt}
-= \begin{pmatrix} z_2 \\ -g \sin(z_1) \end{pmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-433778d9-4d3b-454f-a329-13f4b08bf8ad">
+<span class="eqno">(12)<a class="headerlink" href="#equation-433778d9-4d3b-454f-a329-13f4b08bf8ad" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\frac{d \hidden}{dt}
+= \begin{pmatrix} \hiddenScalar_2 \\ -g \sin(\hiddenScalar_1) \end{pmatrix}
 + \begin{pmatrix} 0 \\ 1 \end{pmatrix} w(t)
 \end{align}\]</div>
 <p>If we discretize this step size <span class="math notranslate nohighlight">\(\Delta\)</span>,
 we get the following
 formulation <span id="id2">[<a class="reference internal" href="../../bib.html#id18" title="Simo Sarkka. Bayesian Filtering and Smoothing. Cambridge University Press, 2013. URL: https://users.aalto.fi/~ssarkka/pub/cup_book_online_20131111.pdf.">Sar13</a>]</span> p74:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b07b597e-169c-4cc9-a403-ff0a210604e8">
-<span class="eqno">(14)<a class="headerlink" href="#equation-b07b597e-169c-4cc9-a403-ff0a210604e8" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-71eae374-1157-4249-bba9-8fc8be4cf8e4">
+<span class="eqno">(13)<a class="headerlink" href="#equation-71eae374-1157-4249-bba9-8fc8be4cf8e4" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \underbrace{
-  \begin{pmatrix} z_{1,t} \\ z_{2,t} \end{pmatrix}
-  }_{\hmmhid_t}
+  \begin{pmatrix} \hiddenScalar_{1,t} \\ \hiddenScalar_{2,t} \end{pmatrix}
+  }_{\hidden_t}
 =
 \underbrace{
-  \begin{pmatrix} z_{1,t-1} + z_{2,t-1} \Delta  \\
-    z_{2,t-1} -g \sin(z_{1,t-1}) \Delta  \end{pmatrix}
-  }_{\vf(\hmmhid_{t-1})}
-+\vq_{t-1}
+  \begin{pmatrix} \hiddenScalar_{1,t-1} + \hiddenScalar_{2,t-1} \Delta  \\
+    \hiddenScalar_{2,t-1} -g \sin(\hiddenScalar_{1,t-1}) \Delta  \end{pmatrix}
+  }_{\dynamicsFn(\hidden_{t-1})}
++\transNoise_{t-1}
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\vq_{t-1} \sim \gauss(\vzero,\vQ)\)</span> with</p>
-<div class="amsmath math notranslate nohighlight" id="equation-45e5300e-4cc7-4e93-900a-875db0283ab1">
-<span class="eqno">(15)<a class="headerlink" href="#equation-45e5300e-4cc7-4e93-900a-875db0283ab1" title="Permalink to this equation">¶</a></span>\[\begin{align}
-\vQ = q^c \begin{pmatrix}
+<p>where <span class="math notranslate nohighlight">\(\transNoise_{t-1} \sim \gauss(\vzero,\transCov)\)</span> with</p>
+<div class="amsmath math notranslate nohighlight" id="equation-88f7e233-8b42-444d-b419-cd5928adbc29">
+<span class="eqno">(14)<a class="headerlink" href="#equation-88f7e233-8b42-444d-b419-cd5928adbc29" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\transCov = q^c \begin{pmatrix}
   \frac{\Delta^3}{3} &amp;   \frac{\Delta^2}{2} \\
   \frac{\Delta^2}{2} &amp; \Delta
   \end{pmatrix}
@@ -800,20 +639,11 @@ formulation <span id="id2">[<a class="reference internal" href="../../bib.html#i
 <p>where <span class="math notranslate nohighlight">\(q^c\)</span> is the spectral density (continuous time variance)
 of the continuous-time noise process.</p>
 <p>If we observe the angular position, we
-get the linear observation model</p>
-<div class="amsmath math notranslate nohighlight" id="equation-adb0a338-37f5-41ae-93d3-b2f9a1a35350">
-<span class="eqno">(16)<a class="headerlink" href="#equation-adb0a338-37f5-41ae-93d3-b2f9a1a35350" title="Permalink to this equation">¶</a></span>\[\begin{align}
-y_t = \alpha_t + r_t =  h(\hmmhid_t) + r_t
-\end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(h(\hmmhid_t) = z_{1,t}\)</span>
-and <span class="math notranslate nohighlight">\(r_t\)</span> is the observation noise.
+get the linear observation model
+<span class="math notranslate nohighlight">\(\obsFn(\hidden_t)  = \alpha_t = \hiddenScalar_{1,t}\)</span>.
 If we only observe  the horizontal position,
-we get the nonlinear observation model</p>
-<div class="amsmath math notranslate nohighlight" id="equation-94cc9e21-b503-4b95-b6cd-7a6bffccae45">
-<span class="eqno">(17)<a class="headerlink" href="#equation-94cc9e21-b503-4b95-b6cd-7a6bffccae45" title="Permalink to this equation">¶</a></span>\[\begin{align}
-y_t = \sin(\alpha_t) + r_t =  h(\hmmhid_t) + r_t
-\end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(h(\hmmhid_t) = \sin(z_{1,t})\)</span>.</p>
+we get the nonlinear observation model
+<span class="math notranslate nohighlight">\(\obsFn(\hidden_t) = \sin(\alpha_t) = \sin(\hiddenScalar_{1,t})\)</span>.</p>
 </div>
 </div>
 
@@ -852,7 +682,7 @@ y_t = \sin(\alpha_t) + r_t =  h(\hmmhid_t) + r_t
     <a class='right-next' id="next-link" href="inference.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Inferential goals</p>
+        <p class="prev-next-title">States estimation (inference)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
