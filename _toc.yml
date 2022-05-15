@@ -4,7 +4,6 @@
 format: jb-book
 root: root
 chapters:
-- file: chapters/scratch
 
 - file: chapters/ssm/ssm_index
   sections:
@@ -13,6 +12,7 @@ chapters:
   - file: chapters/ssm/lds
   - file: chapters/ssm/nlds
   - file: chapters/ssm/inference
+  - file: chapters/ssm/learning
 
 - file: chapters/hmm/hmm_index
   sections:
