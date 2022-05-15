@@ -1,229 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ```{math}
-# 
-# \newcommand{\defeq}{\triangleq}
-# \newcommand{\trans}{{\mkern-1.5mu\mathsf{T}}}
-# \newcommand{\transpose}[1]{{#1}^{\trans}}
-# 
-# \newcommand{\inv}[1]{{#1}^{-1}}
-# \DeclareMathOperator{\dotstar}{\odot}
-# 
-# 
-# \newcommand\floor[1]{\lfloor#1\rfloor}
-# 
-# \newcommand{\real}{\mathbb{R}}
-# 
-# % Numbers
-# \newcommand{\vzero}{\boldsymbol{0}}
-# \newcommand{\vone}{\boldsymbol{1}}
-# 
-# % Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-# \newcommand{\valpha}{\boldsymbol{\alpha}}
-# \newcommand{\vbeta}{\boldsymbol{\beta}}
-# \newcommand{\vchi}{\boldsymbol{\chi}}
-# \newcommand{\vdelta}{\boldsymbol{\delta}}
-# \newcommand{\vDelta}{\boldsymbol{\Delta}}
-# \newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-# \newcommand{\vzeta}{\boldsymbol{\zeta}}
-# \newcommand{\vXi}{\boldsymbol{\Xi}}
-# \newcommand{\vell}{\boldsymbol{\ell}}
-# \newcommand{\veta}{\boldsymbol{\eta}}
-# %\newcommand{\vEta}{\boldsymbol{\Eta}}
-# \newcommand{\vgamma}{\boldsymbol{\gamma}}
-# \newcommand{\vGamma}{\boldsymbol{\Gamma}}
-# \newcommand{\vmu}{\boldsymbol{\mu}}
-# \newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-# \newcommand{\vnu}{\boldsymbol{\nu}}
-# \newcommand{\vkappa}{\boldsymbol{\kappa}}
-# \newcommand{\vlambda}{\boldsymbol{\lambda}}
-# \newcommand{\vLambda}{\boldsymbol{\Lambda}}
-# \newcommand{\vLambdaBar}{\overline{\vLambda}}
-# %\newcommand{\vnu}{\boldsymbol{\nu}}
-# \newcommand{\vomega}{\boldsymbol{\omega}}
-# \newcommand{\vOmega}{\boldsymbol{\Omega}}
-# \newcommand{\vphi}{\boldsymbol{\phi}}
-# \newcommand{\vvarphi}{\boldsymbol{\varphi}}
-# \newcommand{\vPhi}{\boldsymbol{\Phi}}
-# \newcommand{\vpi}{\boldsymbol{\pi}}
-# \newcommand{\vPi}{\boldsymbol{\Pi}}
-# \newcommand{\vpsi}{\boldsymbol{\psi}}
-# \newcommand{\vPsi}{\boldsymbol{\Psi}}
-# \newcommand{\vrho}{\boldsymbol{\rho}}
-# \newcommand{\vtheta}{\boldsymbol{\theta}}
-# \newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-# \newcommand{\vTheta}{\boldsymbol{\Theta}}
-# \newcommand{\vsigma}{\boldsymbol{\sigma}}
-# \newcommand{\vSigma}{\boldsymbol{\Sigma}}
-# \newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-# \newcommand{\vsigmoid}{\vsigma}
-# \newcommand{\vtau}{\boldsymbol{\tau}}
-# \newcommand{\vxi}{\boldsymbol{\xi}}
-# 
-# 
-# % Lower Roman (Vectors)
-# \newcommand{\va}{\mathbf{a}}
-# \newcommand{\vb}{\mathbf{b}}
-# \newcommand{\vBt}{\mathbf{\tilde{B}}}
-# \newcommand{\vc}{\mathbf{c}}
-# \newcommand{\vct}{\mathbf{\tilde{c}}}
-# \newcommand{\vd}{\mathbf{d}}
-# \newcommand{\ve}{\mathbf{e}}
-# \newcommand{\vf}{\mathbf{f}}
-# \newcommand{\vg}{\mathbf{g}}
-# \newcommand{\vh}{\mathbf{h}}
-# %\newcommand{\myvh}{\mathbf{h}}
-# \newcommand{\vi}{\mathbf{i}}
-# \newcommand{\vj}{\mathbf{j}}
-# \newcommand{\vk}{\mathbf{k}}
-# \newcommand{\vl}{\mathbf{l}}
-# \newcommand{\vm}{\mathbf{m}}
-# \newcommand{\vn}{\mathbf{n}}
-# \newcommand{\vo}{\mathbf{o}}
-# \newcommand{\vp}{\mathbf{p}}
-# \newcommand{\vq}{\mathbf{q}}
-# \newcommand{\vr}{\mathbf{r}}
-# \newcommand{\vs}{\mathbf{s}}
-# \newcommand{\vt}{\mathbf{t}}
-# \newcommand{\vu}{\mathbf{u}}
-# \newcommand{\vv}{\mathbf{v}}
-# \newcommand{\vw}{\mathbf{w}}
-# \newcommand{\vws}{\vw_s}
-# \newcommand{\vwt}{\mathbf{\tilde{w}}}
-# \newcommand{\vWt}{\mathbf{\tilde{W}}}
-# \newcommand{\vwh}{\hat{\vw}}
-# \newcommand{\vx}{\mathbf{x}}
-# %\newcommand{\vx}{\mathbf{x}}
-# \newcommand{\vxt}{\mathbf{\tilde{x}}}
-# \newcommand{\vy}{\mathbf{y}}
-# \newcommand{\vyt}{\mathbf{\tilde{y}}}
-# \newcommand{\vz}{\mathbf{z}}
-# %\newcommand{\vzt}{\mathbf{\tilde{z}}}
-# 
-# 
-# % Upper Roman (Matrices)
-# \newcommand{\vA}{\mathbf{A}}
-# \newcommand{\vB}{\mathbf{B}}
-# \newcommand{\vC}{\mathbf{C}}
-# \newcommand{\vD}{\mathbf{D}}
-# \newcommand{\vE}{\mathbf{E}}
-# \newcommand{\vF}{\mathbf{F}}
-# \newcommand{\vG}{\mathbf{G}}
-# \newcommand{\vH}{\mathbf{H}}
-# \newcommand{\vI}{\mathbf{I}}
-# \newcommand{\vJ}{\mathbf{J}}
-# \newcommand{\vK}{\mathbf{K}}
-# \newcommand{\vL}{\mathbf{L}}
-# \newcommand{\vM}{\mathbf{M}}
-# \newcommand{\vMt}{\mathbf{\tilde{M}}}
-# \newcommand{\vN}{\mathbf{N}}
-# \newcommand{\vO}{\mathbf{O}}
-# \newcommand{\vP}{\mathbf{P}}
-# \newcommand{\vQ}{\mathbf{Q}}
-# \newcommand{\vR}{\mathbf{R}}
-# \newcommand{\vS}{\mathbf{S}}
-# \newcommand{\vT}{\mathbf{T}}
-# \newcommand{\vU}{\mathbf{U}}
-# \newcommand{\vV}{\mathbf{V}}
-# \newcommand{\vW}{\mathbf{W}}
-# \newcommand{\vX}{\mathbf{X}}
-# %\newcommand{\vXs}{\vX_{\vs}}
-# \newcommand{\vXs}{\vX_{s}}
-# \newcommand{\vXt}{\mathbf{\tilde{X}}}
-# \newcommand{\vY}{\mathbf{Y}}
-# \newcommand{\vZ}{\mathbf{Z}}
-# \newcommand{\vZt}{\mathbf{\tilde{Z}}}
-# \newcommand{\vzt}{\mathbf{\tilde{z}}}
-# 
-# 
-# %%%%
-# \newcommand{\hidden}{\vz}
-# \newcommand{\hid}{\hidden}
-# \newcommand{\observed}{\vy}
-# \newcommand{\obs}{\observed}
-# \newcommand{\inputs}{\vu}
-# \newcommand{\input}{\inputs}
-# 
-# \newcommand{\hmmTrans}{\vA}
-# \newcommand{\hmmObs}{\vB}
-# \newcommand{\hmmInit}{\vpi}
-# 
-# 
-# \newcommand{\ldsDyn}{\vA}
-# \newcommand{\ldsObs}{\vC}
-# \newcommand{\ldsDynIn}{\vB}
-# \newcommand{\ldsObsIn}{\vD}
-# \newcommand{\ldsDynNoise}{\vQ}
-# \newcommand{\ldsObsNoise}{\vR}
-# 
-# \newcommand{\ssmDynFn}{f}
-# \newcommand{\ssmObsFn}{h}
-# 
-# 
-# %%%
-# \newcommand{\gauss}{\mathcal{N}}
-# 
-# \newcommand{\diag}{\mathrm{diag}}
-# ```
-# 
+# (sec:forwards)=
+# # HMM filtering (forwards algorithm)
 
 # In[1]:
-
-
-# meta-data does not work yet in VScode
-# https://github.com/microsoft/vscode-jupyter/issues/1121
-
-{
-    "tags": [
-        "hide-cell"
-    ]
-}
-
-
-### Install necessary libraries
-
-try:
-    import jax
-except:
-    # For cuda version, see https://github.com/google/jax#installation
-    get_ipython().run_line_magic('pip', 'install --upgrade "jax[cpu]"')
-    import jax
-
-try:
-    import distrax
-except:
-    get_ipython().run_line_magic('pip', 'install --upgrade  distrax')
-    import distrax
-
-try:
-    import jsl
-except:
-    get_ipython().run_line_magic('pip', 'install git+https://github.com/probml/jsl')
-    import jsl
-
-#try:
-#    import ssm_jax
-##except:
-#    %pip install git+https://github.com/probml/ssm-jax
-#    import ssm_jax
-
-try:
-    import rich
-except:
-    get_ipython().run_line_magic('pip', 'install rich')
-    import rich
-
-
-
-# In[2]:
-
-
-{
-    "tags": [
-        "hide-cell"
-    ]
-}
 
 
 ### Import standard libraries
@@ -231,73 +12,76 @@ except:
 import abc
 from dataclasses import dataclass
 import functools
+from functools import partial
 import itertools
-
-from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
-
 import matplotlib.pyplot as plt
 import numpy as np
-
+from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
 
 import jax
 import jax.numpy as jnp
 from jax import lax, vmap, jit, grad
-from jax.scipy.special import logit
-from jax.nn import softmax
-from functools import partial
-from jax.random import PRNGKey, split
-
-import inspect
-import inspect as py_inspect
-import rich
-from rich import inspect as r_inspect
-from rich import print as r_print
-
-def print_source(fname):
-    r_print(py_inspect.getsource(fname))
+#from jax.scipy.special import logit
+#from jax.nn import softmax
+import jax.random as jr
 
 
-# (sec:forwards)=
-# # HMM filtering (forwards algorithm)
+
+import distrax
+import optax
+
+import jsl
+import ssm_jax
+
+
+# 
+# ## Introduction
 # 
 # 
-# The  **Bayes filter** is an algorithm for recursively computing
+# The  $\keyword{Bayes filter}$ is an algorithm for recursively computing
 # the belief state
 # $p(\hidden_t|\obs_{1:t})$ given
 # the prior belief from the previous step,
 # $p(\hidden_{t-1}|\obs_{1:t-1})$,
 # the new observation $\obs_t$,
 # and the model.
-# This can be done using **sequential Bayesian updating**.
+# This can be done using $\keyword{sequential Bayesian updating}$.
 # For a dynamical model, this reduces to the
-# **predict-update** cycle described below.
+# $\keyword{predict-update}$ cycle described below.
 # 
-# 
-# The **prediction step** is just the **Chapman-Kolmogorov equation**:
-# ```{math}
+# The $\keyword{prediction step}$ is just the $\keyword{Chapman-Kolmogorov equation}$:
+# \begin{align}
 # p(\hidden_t|\obs_{1:t-1})
 # = \int p(\hidden_t|\hidden_{t-1}) p(\hidden_{t-1}|\obs_{1:t-1}) d\hidden_{t-1}
-# ```
+# \end{align}
 # The prediction step computes
-# the one-step-ahead predictive distribution
-# for the latent state, which updates
-# the posterior from the previous time step into the prior
+# the $\keyword{one-step-ahead predictive distribution}$
+# for the latent state, which converts
+# the posterior from the previous time step to become the prior
 # for the current step.
 # 
 # 
-# The **update step**
+# The $\keyword{update step}$
 # is just Bayes rule:
-# ```{math}
+# \begin{align}
 # p(\hidden_t|\obs_{1:t}) = \frac{1}{Z_t}
 # p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1})
-# ```
+# \end{align}
 # where the normalization constant is
-# ```{math}
+# \begin{align}
 # Z_t = \int p(\obs_t|\hidden_t) p(\hidden_t|\obs_{1:t-1}) d\hidden_{t}
 # = p(\obs_t|\obs_{1:t-1})
+# \end{align}
+# 
+# Note that we can derive the log marginal likelihood from these normalization constants
+# as follows:
+# ```{math}
+# :label: eqn:logZ
+# 
+# \log p(\obs_{1:T})
+# = \sum_{t=1}^{T} \log p(\obs_t|\obs_{1:t-1})
+# = \sum_{t=1}^{T} \log Z_t
 # ```
-# 
-# 
 # 
 # 
 
@@ -305,10 +89,11 @@ def print_source(fname):
 # When the latent states $\hidden_t$ are discrete, as in HMM,
 # the above integrals become sums.
 # In particular, suppose we define
-# the belief state as $\alpha_t(j) \defeq p(\hidden_t=j|\obs_{1:t})$,
-# the local evidence as $\lambda_t(j) \defeq p(\obs_t|\hidden_t=j)$,
-# and the transition matrix
-# $A(i,j)  = p(\hidden_t=j|\hidden_{t-1}=i)$.
+# the $\keyword{belief state}$ as $\alpha_t(j) \defeq p(\hidden_t=j|\obs_{1:t})$,
+# the  $\keyword{local evidence}$ (or $\keyword{local likelihood}$)
+# as $\lambda_t(j) \defeq p(\obs_t|\hidden_t=j)$,
+# and the transition matrix as
+# $\hmmTrans(i,j)  = p(\hidden_t=j|\hidden_{t-1}=i)$.
 # Then the predict step becomes
 # ```{math}
 # :label: eqn:predictiveHMM
@@ -320,7 +105,7 @@ def print_source(fname):
 # :label: eqn:fwdsEqn
 # \alpha_t(j)
 # = \frac{1}{Z_t} \lambda_t(j) \alpha_{t|t-1}(j)
-# = \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) A(i,j)  \right]
+# = \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) \hmmTrans(i,j)  \right]
 # ```
 # where
 # the  normalization constant for each time step is given by
@@ -333,19 +118,24 @@ def print_source(fname):
 # \end{align}
 # ```
 # 
+# 
+
+# 
 # Since all the quantities are finite length vectors and matrices,
-# we can write the update equation
-# in matrix-vector notation as follows:
+# we can implement the whole procedure using matrix vector multoplication:
 # ```{math}
+# :label: eqn:fwdsAlgoMatrixForm
 # \valpha_t =\text{normalize}\left(
-# \vlambda_t \dotstar  (\vA^{\trans} \valpha_{t-1}) \right)
-# \label{eqn:fwdsAlgoMatrixForm}
+# \vlambda_t \dotstar  (\hmmTrans^{\trans} \valpha_{t-1}) \right)
 # ```
 # where $\dotstar$ represents
 # elementwise vector multiplication,
 # and the $\text{normalize}$ function just ensures its argument sums to one.
 # 
-# In {ref}(sec:casino-inference)
+
+# ## Example
+# 
+# In {ref}`sec:casino-inference`
 # we illustrate
 # filtering for the casino HMM,
 # applied to a random sequence $\obs_{1:T}$ of length $T=300$.
@@ -354,14 +144,174 @@ def print_source(fname):
 # The gray bars indicate time intervals during which the generative
 # process actually switched to the loaded dice.
 # We see that the probability generally increases in the right places.
+
+# ## Normalization constants
+# 
+# In most publications on HMMs,
+# such as {cite}`Rabiner89`,
+# the forwards message is defined
+# as the following unnormalized joint probability:
+# ```{math}
+# \alpha'_t(j) = p(\hidden_t=j,\obs_{1:t}) 
+# = \lambda_t(j) \left[\sum_i \alpha'_{t-1}(i) A(i,j)  \right]
+# ```
+# In this book we define the forwards message   as the normalized
+# conditional probability
+# ```{math}
+# \alpha_t(j) = p(\hidden_t=j|\obs_{1:t}) 
+# = \frac{1}{Z_t} \lambda_t(j) \left[\sum_i \alpha_{t-1}(i) A(i,j)  \right]
+# ```
+# where $Z_t = p(\obs_t|\obs_{1:t-1})$.
+# 
+# The "traditional" unnormalized form has several problems.
+# First, it rapidly suffers from numerical underflow,
+# since the probability of
+# the joint event that $(\hidden_t=j,\obs_{1:t})$
+# is vanishingly small. 
+# To see why, suppose the observations are independent of the states.
+# In this case, the unnormalized joint has the form
+# \begin{align}
+# p(\hidden_t=j,\obs_{1:t}) = p(\hidden_t=j)\prod_{i=1}^t p(\obs_i)
+# \end{align}
+# which becomes exponentially small with $t$, because we multiply
+# many probabilities which are less than one.
+# Second, the unnormalized probability is less interpretable,
+# since it is a joint distribution over states and observations,
+# rather than a conditional probability of states given observations.
+# Third, the unnormalized joint form is harder to approximate
+# than the normalized form.
+# Of course,
+# the two definitions only differ by a
+# multiplicative constant
+# {cite}`Devijver85`,
+# so the algorithmic difference is just
+# one line of code (namely the presence or absence of a call to the `normalize` function).
+# 
+# 
+# 
+# 
 # 
 
-# Here is a JAX implementation of the forwards algorithm.
+# ## Naive implementation
+# 
+# Below we give a simple numpy implementation of the forwards algorithm.
+# We assume the HMM uses categorical observations, for simplicity.
+# 
+# 
+
+# In[2]:
+
+
+
+
+def normalize_np(u, axis=0, eps=1e-15):
+    u = np.where(u == 0, 0, np.where(u < eps, eps, u))
+    c = u.sum(axis=axis)
+    c = np.where(c == 0, 1, c)
+    return u / c, c
+
+def hmm_forwards_np(trans_mat, obs_mat, init_dist, obs_seq):
+    n_states, n_obs = obs_mat.shape
+    seq_len = len(obs_seq)
+
+    alpha_hist = np.zeros((seq_len, n_states))
+    ll_hist = np.zeros(seq_len)  # loglikelihood history
+
+    alpha_n = init_dist * obs_mat[:, obs_seq[0]]
+    alpha_n, cn = normalize_np(alpha_n)
+
+    alpha_hist[0] = alpha_n
+    log_normalizer = np.log(cn)
+
+    for t in range(1, seq_len):
+        alpha_n = obs_mat[:, obs_seq[t]] * (alpha_n[:, None] * trans_mat).sum(axis=0)
+        alpha_n, zn = normalize_np(alpha_n)
+
+        alpha_hist[t] = alpha_n
+        log_normalizer = np.log(zn) + log_normalizer
+
+    return  log_normalizer, alpha_hist
+
+
+# ## Numerically stable implementation 
+# 
+# 
+# 
+# In practice it is more numerically stable to compute
+# the log likelihoods $\ell_t(j) = \log p(\obs_t|\hidden_t=j)$,
+# rather than the likelioods $\lambda_t(j) = p(\obs_t|\hidden_t=j)$.
+# In this case, we can perform the posterior updating in a numerically stable way as follows.
+# Define $L_t = \max_j \ell_t(j)$ and
+# \begin{align}
+# \tilde{p}(\hidden_t=j,\obs_t|\obs_{1:t-1})
+# &\defeq p(\hidden_t=j|\obs_{1:t-1}) p(\obs_t|\hidden_t=j) e^{-L_t} \\
+#  &= p(\hidden_t=j|\obs_{1:t-1}) e^{\ell_t(j) - L_t}
+# \end{align}
+# Then we have
+# \begin{align}
+# p(\hidden_t=j|\obs_t,\obs_{1:t-1})
+#   &= \frac{1}{\tilde{Z}_t} \tilde{p}(\hidden_t=j,\obs_t|\obs_{1:t-1}) \\
+# \tilde{Z}_t &= \sum_j \tilde{p}(\hidden_t=j,\obs_t|\obs_{1:t-1})
+# = p(\obs_t|\obs_{1:t-1}) e^{-L_t} \\
+# \log Z_t &= \log p(\obs_t|\obs_{1:t-1}) = \log \tilde{Z}_t + L_t
+# \end{align}
+# 
+# Below we show some JAX code that implements this core operation.
+# 
 
 # In[3]:
 
 
-import jsl.hmm.hmm_lib as hmm_lib
-print_source(hmm_lib.hmm_forwards_jax)
-#https://github.com/probml/JSL/blob/main/jsl/hmm/hmm_lib.py#L189
 
+def _condition_on(probs, ll):
+    ll_max = ll.max()
+    new_probs = probs * jnp.exp(ll - ll_max)
+    norm = new_probs.sum()
+    new_probs /= norm
+    log_norm = jnp.log(norm) + ll_max
+    return new_probs, log_norm
+
+
+# With the above function, we can implement a more numerically stable version of the forwards filter,
+# that works for any likelihood function, as shown below. It takes in the prior predictive distribution,
+# $\alpha_{t|t-1}$,
+# stored in `predicted_probs`, and conditions them on the log-likelihood for each time step $\ell_t$ to get the
+# posterior, $\alpha_t$, stored in `filtered_probs`,
+# which is then converted to the prediction for the next state, $\alpha_{t+1|t}$.
+
+# In[4]:
+
+
+def _predict(probs, A):
+    return A.T @ probs
+
+
+def hmm_filter(initial_distribution,
+               transition_matrix,
+               log_likelihoods):
+    def _step(carry, t):
+        log_normalizer, predicted_probs = carry
+
+        # Get parameters for time t
+        get = lambda x: x[t] if x.ndim == 3 else x
+        A = get(transition_matrix)
+        ll = log_likelihoods[t]
+
+        # Condition on emissions at time t, being careful not to overflow
+        filtered_probs, log_norm = _condition_on(predicted_probs, ll)
+        # Update the log normalizer
+        log_normalizer += log_norm
+        # Predict the next state
+        predicted_probs = _predict(filtered_probs, A)
+
+        return (log_normalizer, predicted_probs), (filtered_probs, predicted_probs)
+
+    num_timesteps = len(log_likelihoods)
+    carry = (0.0, initial_distribution)
+    (log_normalizer, _), (filtered_probs, predicted_probs) = lax.scan(
+        _step, carry, jnp.arange(num_timesteps))
+    return log_normalizer, filtered_probs, predicted_probs
+
+
+# 
+# TODO: check equivalence of these two implementations!

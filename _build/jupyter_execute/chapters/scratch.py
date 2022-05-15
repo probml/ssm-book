@@ -98,7 +98,7 @@ print(jax.devices())
 # 
 # ## Math
 # 
-# Here is $\N=10$ and blah. $\floor{42.3}= 42$.
+# Here is $\N=10$ and blah. $\floor{42.3}= 42$. Let's try again.
 # 
 # We have $E= mc^2$, and also
 # 

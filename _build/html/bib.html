@@ -93,11 +93,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="chapters/scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="chapters/ssm/ssm_index.html">
    State Space Models
@@ -130,7 +125,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="chapters/ssm/inference.html">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="chapters/ssm/learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="chapters/lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -283,37 +283,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="chapters/learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="chapters/learning/mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapters/tracking/tracking_index.html">
@@ -484,6 +457,9 @@ const thebe_selector_output = ".output, .cell_output"
 <dt class="label" id="id13"><span class="brackets">CWSchon21</span></dt>
 <dd><p>Jarrad Courts, Adrian G Wills, and Thomas B Schön. Gaussian variational state estimation for nonlinear State-Space models. <em>IEEE Trans. Signal Process.</em>, 69:5979–5993, 2021. URL: <a class="reference external" href="https://arxiv.org/abs/2002.02620">https://arxiv.org/abs/2002.02620</a>.</p>
 </dd>
+<dt class="label" id="id35"><span class="brackets">Dev85</span></dt>
+<dd><p>Pierre A Devijver. Baum's forward-backward algorithm revisited. <em>Pattern Recognition Letters</em>, 3(6):369–373, 1985.</p>
+</dd>
 <dt class="label" id="id3"><span class="brackets">DEKM98</span></dt>
 <dd><p>R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. <em>Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids</em>. Cambridge University Press, 1998.</p>
 </dd>
@@ -510,9 +486,6 @@ const thebe_selector_output = ".output, .cell_output"
 </dd>
 <dt class="label" id="id11"><span class="brackets">GarciaFernandezTSarkka19</span></dt>
 <dd><p>Ángel F García-Fernández, Filip Tronarp, and Simo Särkkä. Gaussian process classification using posterior linearization. <em>IEEE Signal Process. Lett.</em>, 26(5):735–739, May 2019. URL: <a class="reference external" href="http://dx.doi.org/10.1109/LSP.2019.2906929">http://dx.doi.org/10.1109/LSP.2019.2906929</a>.</p>
-</dd>
-<dt class="label" id="id8"><span class="brackets">GH96</span></dt>
-<dd><p>Z. Ghahramani and G. Hinton. Parameter estimation for linear dynamical systems. Technical Report CRG-TR-96-2, Dept. Comp. Sci., Univ. Toronto, 1996. URL: <a class="reference external" href="http://www.gatsby.ucl.ac.uk/~zoubin/papers/tr-96-2.ps.gz">http://www.gatsby.ucl.ac.uk/~zoubin/papers/tr-96-2.ps.gz</a>.</p>
 </dd>
 <dt class="label" id="id7"><span class="brackets">HSarkkaGarciaFernandez21</span></dt>
 <dd><p>Sakira Hassan, Simo Särkkä, and Ángel F García-Fernández. Temporal parallelization of inference in hidden markov models. <em>IEEE Trans. Signal Processing</em>, 69:4875–4887, February 2021. URL: <a class="reference external" href="http://arxiv.org/abs/2102.05743">http://arxiv.org/abs/2102.05743</a>.</p>

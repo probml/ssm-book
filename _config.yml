@@ -42,16 +42,6 @@ html:
 #    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 
-sphinx:
-  config:
-    mathjax3_config:
-      TeX:
-        Macros:
-          "N": "\\mathbb{N}"
-          "floor": ["\\lfloor#1\\rfloor", 1]
-          "bmat" : ["\\left[\\begin{array}"]
-          "emat" : ["\\end{array}\\right]"]
-
 parse:
   myst_enable_extensions:
     - amsmath
@@ -59,3 +49,83 @@ parse:
     - dollarmath
     - linkify 
     - substitution
+
+  
+#https://jupyterbook.org/en/latest/advanced/sphinx.html
+sphinx:
+  config:
+    mathjax_config:
+      tex:
+        macros:
+          "covMat": "\\boldsymbol{\\Sigma}"
+          "data": "\\mathcal{D}"
+          "defeq": "\\triangleq"
+          "diag": "\\mathrm{diag}"
+          "discreteState": "s"
+          "dotstar": "\\odot"
+          "dynamicsFn": "\\mathbf{f}"
+          "floor": ["\\lfloor#1\\rfloor", 1]
+          "gainMatrix": "\\mathbf{K}"
+          "gainMatrixReverse": "\\mathbf{G}"
+          "gauss": "\\mathcal{N}"
+          "gaussInfo": "\\mathcal{N}_{\\text{info}}"
+          "hidden": "\\mathbf{x}"
+          "hiddenScalar": "x"
+          "hmmInit": "\\boldsymbol{\\pi}"
+          "hmmInitScalar": "\\pi"
+          "hmmObs": "\\mathbf{B}"
+          "hmmObsScalar": "B"
+          "hmmTrans": "\\mathbf{A}"
+          "hmmTransScalar": "A"
+          "infoMat": "\\precMat"
+          "input": "\\mathbf{u}"
+          "inputs": "\\input"
+          "inv": ["{#1}^{-1}", 1]
+          "keyword": ["\\textbf{#1}", 1]
+          "ldsDyn": "\\mathbf{F}"
+          "ldsDynIn": "\\mathbf{B}"
+          "initMean": "\\boldsymbol{\\mean}_0"
+          "initCov": "\\boldsymbol{\\covMat}_0"
+          "ldsObs": "\\mathbf{H}"
+          "ldsObsIn": "\\mathbf{D}"
+          "ldsTrans": "\\ldsDyn"
+          "ldsTransIn": "\\ldsDynIn"
+          "obsCov": "\\mathbf{R}"
+          "obsNoise": "\\boldsymbol{r}"
+          "map": "\\mathrm{map}"
+          "measurementFn": "\\mathbf{h}"
+          "mean": "\\boldsymbol{\\mu}"
+          "mle": "\\mathrm{mle}"
+          "nlatents": "n_x"
+          "nhidden": "\\nlatents"
+          "ninputs": "n_u"
+          "nobs": "n_y"
+          "nsymbols": "n_y"
+          "nstates": "n_s"
+          "obs": "\\mathbf{y}"
+          "obsScalar": "y"
+          "observed": "\\obs"
+          "obsFn": "\\measurementFn"
+          "params": "\\boldsymbol{\\theta}"
+          "precMean": "\\boldsymbol{\\eta}"
+          "precMat": "\\boldsymbol{\\Lambda}"
+          "real": "\\mathbb{R}"
+          "sigmoid": "\\sigma"
+          "softmax": "\\boldsymbol{\\sigma}"
+          "trans": "\\mathsf{T}"
+          "transpose": ["{#1}^{\\trans}", 1]
+          "transCov": "\\mathbf{Q}"
+          "transNoise": "\\mathbf{q}"
+          "valpha": "\\boldsymbol{\\alpha}"
+          "vbeta": "\\boldsymbol{\\beta}"
+          "vdelta": "\\boldsymbol{\\delta}"
+          "vepsilon": "\\boldsymbol{\\epsilon}"
+          "vlambda": "\\boldsymbol{\\lambda}"
+          "vLambda": "\\boldsymbol{\\Lambda}"
+          "vmu": "\\boldsymbol{\\mu}"
+          "vpi": "\\boldsymbol{\\pi}"
+          "vsigma": "\\boldsymbol{\\sigma}"
+          "vSigma": "\\boldsymbol{\\Sigma}"
+          "vone": "\\boldsymbol{1}"
+          "vzero": "\\boldsymbol{0}"
+    

@@ -51,7 +51,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"TeX": {"Macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"covMat": "\\boldsymbol{\\Sigma}", "data": "\\mathcal{D}", "defeq": "\\triangleq", "diag": "\\mathrm{diag}", "discreteState": "s", "dotstar": "\\odot", "dynamicsFn": "\\mathbf{f}", "floor": ["\\lfloor#1\\rfloor", 1], "gainMatrix": "\\mathbf{K}", "gainMatrixReverse": "\\mathbf{G}", "gauss": "\\mathcal{N}", "gaussInfo": "\\mathcal{N}_{\\text{info}}", "hidden": "\\mathbf{x}", "hiddenScalar": "x", "hmmInit": "\\boldsymbol{\\pi}", "hmmInitScalar": "\\pi", "hmmObs": "\\mathbf{B}", "hmmObsScalar": "B", "hmmTrans": "\\mathbf{A}", "hmmTransScalar": "A", "infoMat": "\\precMat", "input": "\\mathbf{u}", "inputs": "\\input", "inv": ["{#1}^{-1}", 1], "keyword": ["\\textbf{#1}", 1], "ldsDyn": "\\mathbf{F}", "ldsDynIn": "\\mathbf{B}", "initMean": "\\boldsymbol{\\mean}_0", "initCov": "\\boldsymbol{\\covMat}_0", "ldsObs": "\\mathbf{H}", "ldsObsIn": "\\mathbf{D}", "ldsTrans": "\\ldsDyn", "ldsTransIn": "\\ldsDynIn", "obsCov": "\\mathbf{R}", "obsNoise": "\\boldsymbol{r}", "map": "\\mathrm{map}", "measurementFn": "\\mathbf{h}", "mean": "\\boldsymbol{\\mu}", "mle": "\\mathrm{mle}", "nlatents": "n_x", "nhidden": "\\nlatents", "ninputs": "n_u", "nobs": "n_y", "nsymbols": "n_y", "nstates": "n_s", "obs": "\\mathbf{y}", "obsScalar": "y", "observed": "\\obs", "obsFn": "\\measurementFn", "params": "\\boldsymbol{\\theta}", "precMean": "\\boldsymbol{\\eta}", "precMat": "\\boldsymbol{\\Lambda}", "real": "\\mathbb{R}", "sigmoid": "\\sigma", "softmax": "\\boldsymbol{\\sigma}", "trans": "\\mathsf{T}", "transpose": ["{#1}^{\\trans}", 1], "transCov": "\\mathbf{Q}", "transNoise": "\\mathbf{q}", "valpha": "\\boldsymbol{\\alpha}", "vbeta": "\\boldsymbol{\\beta}", "vdelta": "\\boldsymbol{\\delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vlambda": "\\boldsymbol{\\lambda}", "vLambda": "\\boldsymbol{\\Lambda}", "vmu": "\\boldsymbol{\\mu}", "vpi": "\\boldsymbol{\\pi}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vone": "\\boldsymbol{1}", "vzero": "\\boldsymbol{0}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -96,11 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../scratch.html">
-   Scratchpad
-  </a>
- </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="ssm_index.html">
    State Space Models
@@ -133,7 +128,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="inference.html">
-     Inferential goals
+     States estimation (inference)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="learning.html">
+     Parameter estimation (learning)
     </a>
    </li>
   </ul>
@@ -177,7 +177,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../lgssm/lgssm_index.html">
-   Inference in linear-Gaussian SSMs
+   Linear-Gaussian SSMs
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,37 +286,10 @@ const thebe_selector_output = ".output, .cell_output"
    Sequential Monte Carlo
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../learning/learning_index.html">
    Offline parameter estimation (learning)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/em.html">
-     Expectation Maximization (EM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/sgd.html">
-     Stochastic Gradient Descent (SGD)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/vb.html">
-     Variational Bayes (VB)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../learning/mcmc.html">
-     Markov Chain Monte Carlo (MCMC)
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../tracking/tracking_index.html">
@@ -485,141 +458,7 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\newcommand\floor[1]{\lfloor#1\rfloor}\\\newcommand{\real}{\mathbb{R}}\\% Numbers
-\newcommand{\vzero}{\boldsymbol{0}}
-\newcommand{\vone}{\boldsymbol{1}}\\% Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-\newcommand{\valpha}{\boldsymbol{\alpha}}
-\newcommand{\vbeta}{\boldsymbol{\beta}}
-\newcommand{\vchi}{\boldsymbol{\chi}}
-\newcommand{\vdelta}{\boldsymbol{\delta}}
-\newcommand{\vDelta}{\boldsymbol{\Delta}}
-\newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-\newcommand{\vzeta}{\boldsymbol{\zeta}}
-\newcommand{\vXi}{\boldsymbol{\Xi}}
-\newcommand{\vell}{\boldsymbol{\ell}}
-\newcommand{\veta}{\boldsymbol{\eta}}
-%\newcommand{\vEta}{\boldsymbol{\Eta}}
-\newcommand{\vgamma}{\boldsymbol{\gamma}}
-\newcommand{\vGamma}{\boldsymbol{\Gamma}}
-\newcommand{\vmu}{\boldsymbol{\mu}}
-\newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vkappa}{\boldsymbol{\kappa}}
-\newcommand{\vlambda}{\boldsymbol{\lambda}}
-\newcommand{\vLambda}{\boldsymbol{\Lambda}}
-\newcommand{\vLambdaBar}{\overline{\vLambda}}
-%\newcommand{\vnu}{\boldsymbol{\nu}}
-\newcommand{\vomega}{\boldsymbol{\omega}}
-\newcommand{\vOmega}{\boldsymbol{\Omega}}
-\newcommand{\vphi}{\boldsymbol{\phi}}
-\newcommand{\vvarphi}{\boldsymbol{\varphi}}
-\newcommand{\vPhi}{\boldsymbol{\Phi}}
-\newcommand{\vpi}{\boldsymbol{\pi}}
-\newcommand{\vPi}{\boldsymbol{\Pi}}
-\newcommand{\vpsi}{\boldsymbol{\psi}}
-\newcommand{\vPsi}{\boldsymbol{\Psi}}
-\newcommand{\vrho}{\boldsymbol{\rho}}
-\newcommand{\vtheta}{\boldsymbol{\theta}}
-\newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-\newcommand{\vTheta}{\boldsymbol{\Theta}}
-\newcommand{\vsigma}{\boldsymbol{\sigma}}
-\newcommand{\vSigma}{\boldsymbol{\Sigma}}
-\newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-\newcommand{\vsigmoid}{\vsigma}
-\newcommand{\vtau}{\boldsymbol{\tau}}
-\newcommand{\vxi}{\boldsymbol{\xi}}\\
-% Lower Roman (Vectors)
-\newcommand{\va}{\mathbf{a}}
-\newcommand{\vb}{\mathbf{b}}
-\newcommand{\vBt}{\mathbf{\tilde{B}}}
-\newcommand{\vc}{\mathbf{c}}
-\newcommand{\vct}{\mathbf{\tilde{c}}}
-\newcommand{\vd}{\mathbf{d}}
-\newcommand{\ve}{\mathbf{e}}
-\newcommand{\vf}{\mathbf{f}}
-\newcommand{\vg}{\mathbf{g}}
-\newcommand{\vh}{\mathbf{h}}
-%\newcommand{\myvh}{\mathbf{h}}
-\newcommand{\vi}{\mathbf{i}}
-\newcommand{\vj}{\mathbf{j}}
-\newcommand{\vk}{\mathbf{k}}
-\newcommand{\vl}{\mathbf{l}}
-\newcommand{\vm}{\mathbf{m}}
-\newcommand{\vn}{\mathbf{n}}
-\newcommand{\vo}{\mathbf{o}}
-\newcommand{\vp}{\mathbf{p}}
-\newcommand{\vq}{\mathbf{q}}
-\newcommand{\vr}{\mathbf{r}}
-\newcommand{\vs}{\mathbf{s}}
-\newcommand{\vt}{\mathbf{t}}
-\newcommand{\vu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
-\newcommand{\vw}{\mathbf{w}}
-\newcommand{\vws}{\vw_s}
-\newcommand{\vwt}{\mathbf{\tilde{w}}}
-\newcommand{\vWt}{\mathbf{\tilde{W}}}
-\newcommand{\vwh}{\hat{\vw}}
-\newcommand{\vx}{\mathbf{x}}
-%\newcommand{\vx}{\mathbf{x}}
-\newcommand{\vxt}{\mathbf{\tilde{x}}}
-\newcommand{\vy}{\mathbf{y}}
-\newcommand{\vyt}{\mathbf{\tilde{y}}}
-\newcommand{\vz}{\mathbf{z}}
-%\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-% Upper Roman (Matrices)
-\newcommand{\vA}{\mathbf{A}}
-\newcommand{\vB}{\mathbf{B}}
-\newcommand{\vC}{\mathbf{C}}
-\newcommand{\vD}{\mathbf{D}}
-\newcommand{\vE}{\mathbf{E}}
-\newcommand{\vF}{\mathbf{F}}
-\newcommand{\vG}{\mathbf{G}}
-\newcommand{\vH}{\mathbf{H}}
-\newcommand{\vI}{\mathbf{I}}
-\newcommand{\vJ}{\mathbf{J}}
-\newcommand{\vK}{\mathbf{K}}
-\newcommand{\vL}{\mathbf{L}}
-\newcommand{\vM}{\mathbf{M}}
-\newcommand{\vMt}{\mathbf{\tilde{M}}}
-\newcommand{\vN}{\mathbf{N}}
-\newcommand{\vO}{\mathbf{O}}
-\newcommand{\vP}{\mathbf{P}}
-\newcommand{\vQ}{\mathbf{Q}}
-\newcommand{\vR}{\mathbf{R}}
-\newcommand{\vS}{\mathbf{S}}
-\newcommand{\vT}{\mathbf{T}}
-\newcommand{\vU}{\mathbf{U}}
-\newcommand{\vV}{\mathbf{V}}
-\newcommand{\vW}{\mathbf{W}}
-\newcommand{\vX}{\mathbf{X}}
-%\newcommand{\vXs}{\vX_{\vs}}
-\newcommand{\vXs}{\vX_{s}}
-\newcommand{\vXt}{\mathbf{\tilde{X}}}
-\newcommand{\vY}{\mathbf{Y}}
-\newcommand{\vZ}{\mathbf{Z}}
-\newcommand{\vZt}{\mathbf{\tilde{Z}}}
-\newcommand{\vzt}{\mathbf{\tilde{z}}}\\
-%%%%
-\newcommand{\hidden}{\vz}
-\newcommand{\hid}{\hidden}
-\newcommand{\observed}{\vy}
-\newcommand{\obs}{\observed}
-\newcommand{\inputs}{\vu}
-\newcommand{\input}{\inputs}\\\newcommand{\hmmTrans}{\vA}
-\newcommand{\hmmObs}{\vB}
-\newcommand{\hmmInit}{\vpi}
-\newcommand{\hmmhid}{\hidden}
-\newcommand{\hmmobs}{\obs}\\\newcommand{\ldsDyn}{\vA}
-\newcommand{\ldsObs}{\vC}
-\newcommand{\ldsDynIn}{\vB}
-\newcommand{\ldsObsIn}{\vD}
-\newcommand{\ldsDynNoise}{\vQ}
-\newcommand{\ldsObsNoise}{\vR}\\\newcommand{\ssmDynFn}{f}
-\newcommand{\ssmObsFn}{h}\\
-%%%
-\newcommand{\gauss}{\mathcal{N}}\\\newcommand{\diag}{\mathrm{diag}}\end{aligned}\end{align} \]</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="what-are-state-space-models">
+  <div class="tex2jax_ignore mathjax_ignore section" id="what-are-state-space-models">
 <span id="sec-ssm-intro"></span><h1>What are State Space Models?<a class="headerlink" href="#what-are-state-space-models" title="Permalink to this headline">¶</a></h1>
 <p>A state space model or SSM
 is a partially observed Markov model,
@@ -640,45 +479,49 @@ to represent the past observations, <span class="math notranslate nohighlight">\
 the  model can have ``infinite’’ memory,
 unlike a standard Markov model.</p>
 <div class="figure align-default" id="fig-ssm-ar">
-<a class="reference internal image-reference" href="../../_images/SSM-AR-inputs.png"><img alt="../../_images/SSM-AR-inputs.png" src="../../_images/SSM-AR-inputs.png" style="height: 300px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of an SSM as a graphical model.</span><a class="headerlink" href="#fig-ssm-ar" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/SSM-AR-inputs.png"><img alt="../../_images/SSM-AR-inputs.png" src="../../_images/SSM-AR-inputs.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of an SSM as a graphical model.</span><a class="headerlink" href="#fig-ssm-ar" title="Permalink to this image">¶</a></p>
 </div>
 <p>Formally we can define an SSM
 as the following joint distribution:</p>
 <div class="math notranslate nohighlight" id="equation-eq-ssm-ar">
-<span class="eqno">(2)<a class="headerlink" href="#equation-eq-ssm-ar" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T}|\inputs_{1:T})
- = \left[ p(\hmmhid_1|\inputs_1) \prod_{t=2}^{T}
- p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) \right]
- \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t, \inputs_t, \hmmobs_{t-1}) \right]\]</div>
-<p>where <span class="math notranslate nohighlight">\(p(\hmmhid_t|\hmmhid_{t-1},\inputs_t)\)</span> is the
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-ssm-ar" title="Permalink to this equation">¶</a></span>\[p(\obs_{1:T},\hidden_{1:T}|\inputs_{1:T})
+ = \left[ p(\hidden_1|\inputs_1) \prod_{t=2}^{T}
+ p(\hidden_t|\hidden_{t-1},\inputs_t) \right]
+ \left[ \prod_{t=1}^T p(\obs_t|\hidden_t, \inputs_t, \obs_{t-1}) \right]\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(\hidden_t|\hidden_{t-1},\inputs_t)\)</span> is the
 transition model,
-<span class="math notranslate nohighlight">\(p(\hmmobs_t|\hmmhid_t, \inputs_t, \hmmobs_{t-1})\)</span> is the
+<span class="math notranslate nohighlight">\(p(\obs_t|\hidden_t, \inputs_t, \obs_{t-1})\)</span> is the
 observation model,
 and <span class="math notranslate nohighlight">\(\inputs_{t}\)</span> is an optional input or action.
-See <a class="reference internal" href="#fig-ssm-ar"><span class="std std-numref">Fig. 3</span></a>
+See <a class="reference internal" href="#fig-ssm-ar"><span class="std std-numref">Fig. 1</span></a>
 for an illustration of the corresponding graphical model.</p>
 <p>We often consider a simpler setting in which the
 observations are conditionally independent of each other
 (rather than having Markovian dependencies) given the hidden state.
 In this case the joint simplifies to</p>
 <div class="math notranslate nohighlight" id="equation-eq-ssm-input">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eq-ssm-input" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T}|\inputs_{1:T})
- = \left[ p(\hmmhid_1|\inputs_1) \prod_{t=2}^{T}
- p(\hmmhid_t|\hmmhid_{t-1},\inputs_t) \right]
- \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t, \inputs_t) \right]\]</div>
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-ssm-input" title="Permalink to this equation">¶</a></span>\[p(\obs_{1:T},\hidden_{1:T}|\inputs_{1:T})
+ = \left[ p(\hidden_1|\inputs_1) \prod_{t=2}^{T}
+ p(\hidden_t|\hidden_{t-1},\inputs_t) \right]
+ \left[ \prod_{t=1}^T p(\obs_t|\hidden_t, \inputs_t) \right]\]</div>
 <p>Sometimes there are no external inputs, so the model further
 simplifies to the following unconditional generative model:</p>
 <div class="math notranslate nohighlight" id="equation-eq-ssm-no-input">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eq-ssm-no-input" title="Permalink to this equation">¶</a></span>\[p(\hmmobs_{1:T},\hmmhid_{1:T})
- = \left[ p(\hmmhid_1) \prod_{t=2}^{T}
- p(\hmmhid_t|\hmmhid_{t-1}) \right]
- \left[ \prod_{t=1}^T p(\hmmobs_t|\hmmhid_t) \right]\]</div>
-<p>See <a class="reference internal" href="#ssm-simplified"><span class="std std-numref">Fig. 4</span></a>
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-ssm-no-input" title="Permalink to this equation">¶</a></span>\[p(\obs_{1:T},\hidden_{1:T})
+ = \left[ p(\hidden_1) \prod_{t=2}^{T}
+ p(\hidden_t|\hidden_{t-1}) \right]
+ \left[ \prod_{t=1}^T p(\obs_t|\hidden_t) \right]\]</div>
+<p>See <a class="reference internal" href="#ssm-simplified"><span class="std std-numref">Fig. 2</span></a>
 for an illustration of the corresponding graphical model.</p>
 <div class="figure align-default" id="ssm-simplified">
-<a class="reference internal image-reference" href="../../_images/SSM-simplified.png"><img alt="../../_images/SSM-simplified.png" src="../../_images/SSM-simplified.png" style="width: 136.0px; height: 98.0px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of a simplified SSM.</span><a class="headerlink" href="#ssm-simplified" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/SSM-simplified.png"><img alt="../../_images/SSM-simplified.png" src="../../_images/SSM-simplified.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of a simplified SSM.</span><a class="headerlink" href="#ssm-simplified" title="Permalink to this image">¶</a></p>
 </div>
+<p>SSMs are widely used in many areas of science, engineering, finance, economics, etc.
+The main applications are state estimation (i.e., inferring the underlying hidden state of the system given the observation),
+forecasting (i.e., predicting future states and observations), and control (i.e., inferring the sequence of inputs that will
+give rise to a desired target state). We will discuss these applications in later chapters.</p>
 </div>
 
     <script type="text/x-thebe-config">

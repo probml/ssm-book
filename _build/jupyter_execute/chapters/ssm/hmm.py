@@ -1,49 +1,25 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# (sec:hmm-intro)=
+# # Hidden Markov Models
+# 
+# In this section, we discuss the
+# hidden Markov model or HMM,
+# which is a state space model in which the hidden states
+# are discrete, so $\hidden_t \in \{1,\ldots, \nstates\}$.
+# The observations may be discrete,
+# $\obs_t \in \{1,\ldots, \nsymbols\}$,
+# or continuous,
+# $\obs_t \in \real^\nstates$,
+# or some combination,
+# as we illustrate below.
+# More details can be found in e.g., 
+# {cite}`Rabiner89,Fraser08,Cappe05`.
+# For an interactive introduction,
+# see https://nipunbatra.github.io/hmm/.
+
 # In[1]:
-
-
-# meta-data does not work yet in VScode
-# https://github.com/microsoft/vscode-jupyter/issues/1121
-
-{
-    "tags": [
-        "hide-cell"
-    ]
-}
-
-
-### Install necessary libraries
-
-try:
-    import jax
-except:
-    # For cuda version, see https://github.com/google/jax#installation
-    get_ipython().run_line_magic('pip', 'install --upgrade "jax[cpu]"')
-    import jax
-
-try:
-    import distrax
-except:
-    get_ipython().run_line_magic('pip', 'install --upgrade  distrax')
-    import distrax
-
-try:
-    import jsl
-except:
-    get_ipython().run_line_magic('pip', 'install git+https://github.com/probml/jsl')
-    import jsl
-
-try:
-    import rich
-except:
-    get_ipython().run_line_magic('pip', 'install rich')
-    import rich
-
-
-
-# In[2]:
 
 
 {
@@ -58,21 +34,26 @@ except:
 import abc
 from dataclasses import dataclass
 import functools
+from functools import partial
 import itertools
-
-from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
-
 import matplotlib.pyplot as plt
 import numpy as np
-
+from typing import Any, Callable, NamedTuple, Optional, Union, Tuple
 
 import jax
 import jax.numpy as jnp
 from jax import lax, vmap, jit, grad
-from jax.scipy.special import logit
-from jax.nn import softmax
-from functools import partial
-from jax.random import PRNGKey, split
+#from jax.scipy.special import logit
+#from jax.nn import softmax
+import jax.random as jr
+
+
+
+import distrax
+import optax
+
+import jsl
+import ssm_jax
 
 import inspect
 import inspect as py_inspect
@@ -84,184 +65,6 @@ def print_source(fname):
     r_print(py_inspect.getsource(fname))
 
 
-# ```{math}
-# 
-# \newcommand\floor[1]{\lfloor#1\rfloor}
-# 
-# \newcommand{\real}{\mathbb{R}}
-# 
-# % Numbers
-# \newcommand{\vzero}{\boldsymbol{0}}
-# \newcommand{\vone}{\boldsymbol{1}}
-# 
-# % Greek https://www.latex-tutorial.com/symbols/greek-alphabet/
-# \newcommand{\valpha}{\boldsymbol{\alpha}}
-# \newcommand{\vbeta}{\boldsymbol{\beta}}
-# \newcommand{\vchi}{\boldsymbol{\chi}}
-# \newcommand{\vdelta}{\boldsymbol{\delta}}
-# \newcommand{\vDelta}{\boldsymbol{\Delta}}
-# \newcommand{\vepsilon}{\boldsymbol{\epsilon}}
-# \newcommand{\vzeta}{\boldsymbol{\zeta}}
-# \newcommand{\vXi}{\boldsymbol{\Xi}}
-# \newcommand{\vell}{\boldsymbol{\ell}}
-# \newcommand{\veta}{\boldsymbol{\eta}}
-# %\newcommand{\vEta}{\boldsymbol{\Eta}}
-# \newcommand{\vgamma}{\boldsymbol{\gamma}}
-# \newcommand{\vGamma}{\boldsymbol{\Gamma}}
-# \newcommand{\vmu}{\boldsymbol{\mu}}
-# \newcommand{\vmut}{\boldsymbol{\tilde{\mu}}}
-# \newcommand{\vnu}{\boldsymbol{\nu}}
-# \newcommand{\vkappa}{\boldsymbol{\kappa}}
-# \newcommand{\vlambda}{\boldsymbol{\lambda}}
-# \newcommand{\vLambda}{\boldsymbol{\Lambda}}
-# \newcommand{\vLambdaBar}{\overline{\vLambda}}
-# %\newcommand{\vnu}{\boldsymbol{\nu}}
-# \newcommand{\vomega}{\boldsymbol{\omega}}
-# \newcommand{\vOmega}{\boldsymbol{\Omega}}
-# \newcommand{\vphi}{\boldsymbol{\phi}}
-# \newcommand{\vvarphi}{\boldsymbol{\varphi}}
-# \newcommand{\vPhi}{\boldsymbol{\Phi}}
-# \newcommand{\vpi}{\boldsymbol{\pi}}
-# \newcommand{\vPi}{\boldsymbol{\Pi}}
-# \newcommand{\vpsi}{\boldsymbol{\psi}}
-# \newcommand{\vPsi}{\boldsymbol{\Psi}}
-# \newcommand{\vrho}{\boldsymbol{\rho}}
-# \newcommand{\vtheta}{\boldsymbol{\theta}}
-# \newcommand{\vthetat}{\boldsymbol{\tilde{\theta}}}
-# \newcommand{\vTheta}{\boldsymbol{\Theta}}
-# \newcommand{\vsigma}{\boldsymbol{\sigma}}
-# \newcommand{\vSigma}{\boldsymbol{\Sigma}}
-# \newcommand{\vSigmat}{\boldsymbol{\tilde{\Sigma}}}
-# \newcommand{\vsigmoid}{\vsigma}
-# \newcommand{\vtau}{\boldsymbol{\tau}}
-# \newcommand{\vxi}{\boldsymbol{\xi}}
-# 
-# 
-# % Lower Roman (Vectors)
-# \newcommand{\va}{\mathbf{a}}
-# \newcommand{\vb}{\mathbf{b}}
-# \newcommand{\vBt}{\mathbf{\tilde{B}}}
-# \newcommand{\vc}{\mathbf{c}}
-# \newcommand{\vct}{\mathbf{\tilde{c}}}
-# \newcommand{\vd}{\mathbf{d}}
-# \newcommand{\ve}{\mathbf{e}}
-# \newcommand{\vf}{\mathbf{f}}
-# \newcommand{\vg}{\mathbf{g}}
-# \newcommand{\vh}{\mathbf{h}}
-# %\newcommand{\myvh}{\mathbf{h}}
-# \newcommand{\vi}{\mathbf{i}}
-# \newcommand{\vj}{\mathbf{j}}
-# \newcommand{\vk}{\mathbf{k}}
-# \newcommand{\vl}{\mathbf{l}}
-# \newcommand{\vm}{\mathbf{m}}
-# \newcommand{\vn}{\mathbf{n}}
-# \newcommand{\vo}{\mathbf{o}}
-# \newcommand{\vp}{\mathbf{p}}
-# \newcommand{\vq}{\mathbf{q}}
-# \newcommand{\vr}{\mathbf{r}}
-# \newcommand{\vs}{\mathbf{s}}
-# \newcommand{\vt}{\mathbf{t}}
-# \newcommand{\vu}{\mathbf{u}}
-# \newcommand{\vv}{\mathbf{v}}
-# \newcommand{\vw}{\mathbf{w}}
-# \newcommand{\vws}{\vw_s}
-# \newcommand{\vwt}{\mathbf{\tilde{w}}}
-# \newcommand{\vWt}{\mathbf{\tilde{W}}}
-# \newcommand{\vwh}{\hat{\vw}}
-# \newcommand{\vx}{\mathbf{x}}
-# %\newcommand{\vx}{\mathbf{x}}
-# \newcommand{\vxt}{\mathbf{\tilde{x}}}
-# \newcommand{\vy}{\mathbf{y}}
-# \newcommand{\vyt}{\mathbf{\tilde{y}}}
-# \newcommand{\vz}{\mathbf{z}}
-# %\newcommand{\vzt}{\mathbf{\tilde{z}}}
-# 
-# 
-# % Upper Roman (Matrices)
-# \newcommand{\vA}{\mathbf{A}}
-# \newcommand{\vB}{\mathbf{B}}
-# \newcommand{\vC}{\mathbf{C}}
-# \newcommand{\vD}{\mathbf{D}}
-# \newcommand{\vE}{\mathbf{E}}
-# \newcommand{\vF}{\mathbf{F}}
-# \newcommand{\vG}{\mathbf{G}}
-# \newcommand{\vH}{\mathbf{H}}
-# \newcommand{\vI}{\mathbf{I}}
-# \newcommand{\vJ}{\mathbf{J}}
-# \newcommand{\vK}{\mathbf{K}}
-# \newcommand{\vL}{\mathbf{L}}
-# \newcommand{\vM}{\mathbf{M}}
-# \newcommand{\vMt}{\mathbf{\tilde{M}}}
-# \newcommand{\vN}{\mathbf{N}}
-# \newcommand{\vO}{\mathbf{O}}
-# \newcommand{\vP}{\mathbf{P}}
-# \newcommand{\vQ}{\mathbf{Q}}
-# \newcommand{\vR}{\mathbf{R}}
-# \newcommand{\vS}{\mathbf{S}}
-# \newcommand{\vT}{\mathbf{T}}
-# \newcommand{\vU}{\mathbf{U}}
-# \newcommand{\vV}{\mathbf{V}}
-# \newcommand{\vW}{\mathbf{W}}
-# \newcommand{\vX}{\mathbf{X}}
-# %\newcommand{\vXs}{\vX_{\vs}}
-# \newcommand{\vXs}{\vX_{s}}
-# \newcommand{\vXt}{\mathbf{\tilde{X}}}
-# \newcommand{\vY}{\mathbf{Y}}
-# \newcommand{\vZ}{\mathbf{Z}}
-# \newcommand{\vZt}{\mathbf{\tilde{Z}}}
-# \newcommand{\vzt}{\mathbf{\tilde{z}}}
-# 
-# 
-# %%%%
-# \newcommand{\hidden}{\vz}
-# \newcommand{\hid}{\hidden}
-# \newcommand{\observed}{\vy}
-# \newcommand{\obs}{\observed}
-# \newcommand{\inputs}{\vu}
-# \newcommand{\input}{\inputs}
-# 
-# \newcommand{\hmmTrans}{\vA}
-# \newcommand{\hmmObs}{\vB}
-# \newcommand{\hmmInit}{\vpi}
-# \newcommand{\hmmhid}{\hidden}
-# \newcommand{\hmmobs}{\obs}
-# 
-# \newcommand{\ldsDyn}{\vA}
-# \newcommand{\ldsObs}{\vC}
-# \newcommand{\ldsDynIn}{\vB}
-# \newcommand{\ldsObsIn}{\vD}
-# \newcommand{\ldsDynNoise}{\vQ}
-# \newcommand{\ldsObsNoise}{\vR}
-# 
-# \newcommand{\ssmDynFn}{f}
-# \newcommand{\ssmObsFn}{h}
-# 
-# 
-# %%%
-# \newcommand{\gauss}{\mathcal{N}}
-# 
-# \newcommand{\diag}{\mathrm{diag}}
-# ```
-# 
-
-# (sec:hmm-intro)=
-# # Hidden Markov Models
-# 
-# In this section, we discuss the
-# hidden Markov model or HMM,
-# which is a state space model in which the hidden states
-# are discrete, so $\hmmhid_t \in \{1,\ldots, K\}$.
-# The observations may be discrete,
-# $\hmmobs_t \in \{1,\ldots, C\}$,
-# or continuous,
-# $\hmmobs_t \in \real^D$,
-# or some combination,
-# as we illustrate below.
-# More details can be found in e.g., 
-# {cite}`Rabiner89,Fraser08,Cappe05`.
-# For an interactive introduction,
-# see https://nipunbatra.github.io/hmm/.
-
 # (sec:casino)=
 # ### Example: Casino HMM
 # 
@@ -272,9 +75,9 @@ def print_source(fname):
 # 
 # The transition model is denoted by
 # ```{math}
-# p(z_t=j|z_{t-1}=i) = \hmmTrans_{ij}
+# p(\hidden_t=j|\hidden_{t-1}=i) = \hmmTransScalar_{ij}
 # ```
-# Here the $i$'th row of $\vA$ corresponds to the outgoing distribution from state $i$.
+# Here the $i$'th row of $\hmmTrans$ corresponds to the outgoing distribution from state $i$.
 # This is  a row stochastic matrix,
 # meaning each row sums to one.
 # We can visualize
@@ -292,22 +95,22 @@ def print_source(fname):
 # The  observation model
 # $p(\obs_t|\hidden_t=j)$ has the form
 # ```{math}
-# p(\obs_t=k|\hidden_t=j) = \hmmObs_{jk} 
+# p(\obs_t=k|\hidden_t=j) = \hmmObsScalar_{jk} 
 # ```
 # This is represented by the histograms associated with each
-# state in  {numref}`casino-fig`.
+# state in  {numref}`fig:casino`.
 # 
 # Finally,
 # the initial state distribution is denoted by
 # ```{math}
-# p(z_1=j) = \hmmInit_j
+# p(\hidden_1=j) = \hmmInitScalar_j
 # ```
 # 
-# Collectively we denote all the parameters by $\vtheta=(\hmmTrans, \hmmObs, \hmmInit)$.
+# Collectively we denote all the parameters by $\params=(\hmmTrans, \hmmObs, \hmmInit)$.
 # 
 # Now let us implement this model in code.
 
-# In[3]:
+# In[2]:
 
 
 # state transition matrix
@@ -327,7 +130,7 @@ pi = np.array([0.5, 0.5])
 (nstates, nobs) = np.shape(B)
 
 
-# In[4]:
+# In[3]:
 
 
 import distrax
@@ -342,10 +145,10 @@ print(hmm)
 
 
 # 
-# Let's sample from the model. We will generate a sequence of latent states, $\hid_{1:T}$,
+# Let's sample from the model. We will generate a sequence of latent states, $\hidden_{1:T}$,
 # which we then convert to a sequence of observations, $\obs_{1:T}$.
 
-# In[5]:
+# In[4]:
 
 
 
@@ -353,7 +156,7 @@ print(hmm)
 
 seed = 314
 n_samples = 300
-z_hist, x_hist = hmm.sample(seed=PRNGKey(seed), seq_len=n_samples)
+z_hist, x_hist = hmm.sample(seed=jr.PRNGKey(seed), seq_len=n_samples)
 
 z_hist_str = "".join((np.array(z_hist) + 1).astype(str))[:60]
 x_hist_str = "".join((np.array(x_hist) + 1).astype(str))[:60]
@@ -367,7 +170,7 @@ print(f"z: {z_hist_str}")
 # 
 # 
 
-# In[6]:
+# In[5]:
 
 
 print_source(hmm.sample)
@@ -378,7 +181,7 @@ print_source(hmm.sample)
 # We will compute the number of i->j latent state transitions, and check that it is close to the true 
 # A[i,j] transition probabilites.
 
-# In[7]:
+# In[6]:
 
 
 
@@ -461,7 +264,7 @@ assert jnp.allclose(trans_mat, trans_mat_empirical, atol=1e-1)
 # 
 # 
 
-# In[8]:
+# In[19]:
 
 
 # Let us create the model
@@ -505,7 +308,7 @@ else:
 print(hmm)
 
 
-# In[9]:
+# In[22]:
 
 
 
@@ -516,7 +319,7 @@ print(samples_state.shape)
 print(samples_obs.shape)
 
 
-# In[10]:
+# In[25]:
 
 
 
@@ -551,7 +354,7 @@ fig, ax = plt.subplots()
 _, color_sample = plot_2dhmm(hmm, samples_obs, samples_state, colors, ax, xmin, xmax, ymin, ymax)
 
 
-# In[11]:
+# In[26]:
 
 
 # Let's plot the hidden state sequence
