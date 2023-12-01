@@ -36,10 +36,11 @@ html:
   use_issues_button: true
   use_repository_button: true
 
+# https://github.com/QuantEcon/lecture-python-advanced.myst/blob/3a0b5b40dc627f9dfabdd7e84c0c67a171bca690/lectures/_config.yml#L71
 # https://jupyterbook.org/en/stable/content/math.html
-#sphinx:
-#  config:
-#    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 
 parse:
@@ -57,13 +58,14 @@ sphinx:
     mathjax_config:
       tex:
         macros:
+          "argmax": "arg\\,max"
+          "argmin": "arg\\,min"
           "covMat": "\\boldsymbol{\\Sigma}"
           "data": "\\mathcal{D}"
           "defeq": "\\triangleq"
           "diag": "\\mathrm{diag}"
           "discreteState": "s"
           "dotstar": "\\odot"
-          "dynamicsFn": "\\mathbf{f}"
           "floor": ["\\lfloor#1\\rfloor", 1]
           "gainMatrix": "\\mathbf{K}"
           "gainMatrixReverse": "\\mathbf{G}"
@@ -82,14 +84,12 @@ sphinx:
           "inputs": "\\input"
           "inv": ["{#1}^{-1}", 1]
           "keyword": ["\\textbf{#1}", 1]
-          "ldsDyn": "\\mathbf{F}"
-          "ldsDynIn": "\\mathbf{B}"
           "initMean": "\\boldsymbol{\\mean}_0"
           "initCov": "\\boldsymbol{\\covMat}_0"
           "ldsObs": "\\mathbf{H}"
           "ldsObsIn": "\\mathbf{D}"
-          "ldsTrans": "\\ldsDyn"
-          "ldsTransIn": "\\ldsDynIn"
+          "ldsTrans": "\\mathbf{F}"
+          "ldsTransIn": "\\mathbf{B}"
           "obsCov": "\\mathbf{R}"
           "obsNoise": "\\boldsymbol{r}"
           "map": "\\mathrm{map}"
@@ -115,6 +115,7 @@ sphinx:
           "trans": "\\mathsf{T}"
           "transpose": ["{#1}^{\\trans}", 1]
           "transCov": "\\mathbf{Q}"
+          "transFn": "\\mathbf{f}"
           "transNoise": "\\mathbf{q}"
           "valpha": "\\boldsymbol{\\alpha}"
           "vbeta": "\\boldsymbol{\\beta}"
